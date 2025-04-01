@@ -4,9 +4,8 @@ import "./globals.css";
 
 const roboto = Roboto({
   subsets: ["latin"],
-  weight: ["400", "700"]
+  weight: ["400", "700"],
 });
-
 
 export const metadata: Metadata = {
   title: "TaskPro",
@@ -20,9 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${roboto.className} ${roboto.className} antialiased`}
-      >
+      <body className={`${roboto.className} ${roboto.className} antialiased`}>
         {children}
       </body>
     </html>
