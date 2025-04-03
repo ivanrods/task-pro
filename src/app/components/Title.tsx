@@ -1,6 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
-import { House, Star, CalendarDays } from "lucide-react";
+import { House, Star, CalendarDays, CircleCheckBig } from "lucide-react";
 
 const Title = () => {
   const pathname = usePathname();
@@ -11,8 +11,8 @@ const Title = () => {
   };
 
   const { title, icon } = titles[pathname] || {
-    title: "Tarefas",
-    icon: <House />,
+    title: "Tarefa",
+    icon: <CircleCheckBig />,
   };
   return (
     <div className="flex gap-2 justify-center items-center text-blue-500 text-xl font-bold py-8 md:justify-start">

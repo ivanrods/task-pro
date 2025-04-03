@@ -13,7 +13,7 @@ const Drawer = () => {
     <div className="bg-white ">
       <Menu className="fixed md:hidden top-8 left-8 " onClick={toggleDrawer} />
       <div
-        className={`w-72 md:w-80 h-full bg-white fixed top-0 left-0 transition-transform duration-300 ease-in-out transform shadow-lg ${
+        className={`w-72 xl:w-80 h-full bg-white fixed top-0 left-0 transition-transform duration-300 ease-in-out transform shadow-lg ${
           handleDrawer ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 md:static`}
       >

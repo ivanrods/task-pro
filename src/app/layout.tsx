@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import Drawer from "./components/Drawer";
-import AddTaskInput from "./components/AddTaskInput";
 import Title from "./components/Title";
 
 const roboto = Roboto({
@@ -27,10 +26,11 @@ export default function RootLayout({
           <Drawer />
           <div className="w-full flex flex-col  bg-gray-100 px-4">
             <Title />
-            <AddTaskInput />
+            
             <section>{children}</section>
           </div>
         </div>
+       
       </body>
     </html>
   );
