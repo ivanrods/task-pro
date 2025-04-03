@@ -15,7 +15,7 @@ const Title = () => {
     icon: <House />,
   };
   return (
-    <div className="flex gap-2 items-center text-blue-500 text-xl font-bold py-8">
+    <div className="flex gap-2 justify-center items-center text-blue-500 text-xl font-bold py-8 md:justify-start">
       {icon} <h1>{title}</h1>
     </div>
   );
