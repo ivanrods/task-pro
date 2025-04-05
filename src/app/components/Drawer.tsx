@@ -11,13 +11,18 @@ const Drawer = () => {
   }
   return (
     <div className="bg-white ">
-      <Menu className="fixed md:hidden top-8 left-8 " onClick={toggleDrawer} />
-      <div
+      <button className="fixed md:hidden top-8 left-8 " onClick={toggleDrawer} >
+          <Menu />
+      </button>
+    
+      <section
         className={`w-72 xl:w-80 h-full bg-white fixed top-0 left-0 transition-transform duration-300 ease-in-out transform shadow-lg ${
           handleDrawer ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 md:static`}
       >
-        <Menu className="md:hidden ml-8 mt-8" onClick={toggleDrawer} />
+        <button>
+           <Menu className="md:hidden ml-8 mt-8" onClick={toggleDrawer} />
+        </button>
         <nav>
           <ul className="list-none py-4">
             <Link href="/tasks">
@@ -58,7 +63,7 @@ const Drawer = () => {
             </Link>
           </ul>
         </nav>
-      </div>
+      </section>
     </div>
   );
 };

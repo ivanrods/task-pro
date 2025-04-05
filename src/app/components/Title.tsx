@@ -8,11 +8,12 @@ const Title = () => {
     "/tasks": { title: "Tarefas", icon: <House /> },
     "/favorites": { title: "Favoritas", icon: <Star /> },
     "/planned": { title: "Planejado", icon: <CalendarDays /> },
+    "/task": { title: "Tarefa", icon: <CircleCheckBig /> },
   };
 
   const { title, icon } = titles[pathname] || {
-    title: "Tarefa",
-    icon: <CircleCheckBig />,
+    title: "Tarefas",
+    icon: <House />,
   };
   return (
     <div className="flex gap-2 justify-center items-center text-blue-500 text-xl font-bold py-8 md:justify-start">

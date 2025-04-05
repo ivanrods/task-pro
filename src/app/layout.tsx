@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
+import { TaskProvider } from "./context/TaskContext";
 import "./globals.css";
 import Drawer from "./components/Drawer";
 import Title from "./components/Title";
@@ -26,8 +27,10 @@ export default function RootLayout({
           <Drawer />
           <div className="w-full flex flex-col  bg-gray-100 px-4">
             <Title />
+            <TaskProvider>
+              <section>{children}</section>
+            </TaskProvider>
             
-            <section>{children}</section>
           </div>
         </div>
        

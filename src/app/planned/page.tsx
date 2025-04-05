@@ -1,12 +1,19 @@
+"use client";
 import AddTaskInput from "../components/AddTaskInput";
 import TaskItem from "../components/TaskItem";
 
+import { useTask } from "../context/TaskContext";
+
 const Planned = () => {
+  const { addTask, tasks } = useTask();
   return (
     <div>
-      <div><AddTaskInput />
+      <div>
+        <AddTaskInput addTask={addTask} />
       </div>
-      <TaskItem /> <TaskItem />
+      {tasks.map((task, index) => (
+        <TaskItem key={index} title={task} />
+      ))}
     </div>
   );
 };
