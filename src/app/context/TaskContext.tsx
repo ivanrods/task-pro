@@ -1,31 +1,54 @@
-// app/context/TaskContext.tsx
 "use client";
 
 import { createContext, useContext, useState, ReactNode } from "react";
 
-// Tipagem do contexto
 type TaskContextType = {
   tasks: string[];
   addTask: (title: string) => void;
+  fillColorItem: string;
+  fillColorFavorite: string;
+  toggleCheckedItem: () => void;
+  toggleCheckedFavorite: () => void;
+  checkedItem: boolean;
 };
 
-// Criando o contexto
 const TaskContext = createContext({} as TaskContextType);
 
-// Componente Provider
 export const TaskProvider = ({ children }: { children: ReactNode }) => {
   const [tasks, setTasks] = useState<string[]>([]);
+
+  const [checkedItem, setCheckedItem] = useState(false);
+  const [checkedFavorite, setCheckedFavorite] = useState(false);
+
+  const fillColorItem = checkedItem ? "currentColor" : "none";
+  const fillColorFavorite = checkedFavorite ? "currentColor" : "none";
+
+  function toggleCheckedItem() {
+    setCheckedItem(!checkedItem);
+  }
+  function toggleCheckedFavorite() {
+    setCheckedFavorite(!checkedFavorite);
+  }
 
   function addTask(title: string) {
     setTasks((prevTasks) => [...prevTasks, title]);
   }
 
   return (
-    <TaskContext.Provider value={{ tasks, addTask }}>
+    <TaskContext.Provider
+      value={{
+        tasks,
+        addTask,
+        fillColorItem,
+        fillColorFavorite,
+        toggleCheckedItem,
+        toggleCheckedFavorite,
+        checkedItem,
+      }}
+    >
       {children}
     </TaskContext.Provider>
   );
 };
 
-// Hook para usar o contexto
 export const useTask = () => useContext(TaskContext);
