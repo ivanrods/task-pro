@@ -9,8 +9,10 @@ const Favorites = () => {
       <div>
         <AddTaskInput addTask={addTask} />
       </div>
-      {tasks.map((task, index) => (
-        <TaskItem key={index} title={task} />
+      {tasks
+       .filter((task) => task.favorite)
+      .map((task) => (
+        <TaskItem key={task.id} id={task.id} completed={task.completed} title={task.title} favorite={task.favorite}/>
       ))}
     </div>
   );

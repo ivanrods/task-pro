@@ -2,48 +2,64 @@
 
 import { createContext, useContext, useState, ReactNode } from "react";
 
+type Task = {
+  id: string;
+  title: string;
+  completed: boolean;
+  favorite: boolean;
+};
 type TaskContextType = {
-  tasks: string[];
+  tasks: Task[];
   addTask: (title: string) => void;
-  fillColorItem: string;
-  fillColorFavorite: string;
-  toggleCheckedItem: () => void;
-  toggleCheckedFavorite: () => void;
-  checkedItem: boolean;
+  toggleCompleted: (id: string) => void;
+  toggleFavorite: (id: string) => void;
+  deleteTask: (id: string) => void;
 };
 
 const TaskContext = createContext({} as TaskContextType);
 
 export const TaskProvider = ({ children }: { children: ReactNode }) => {
-  const [tasks, setTasks] = useState<string[]>([]);
-
-  const [checkedItem, setCheckedItem] = useState(false);
-  const [checkedFavorite, setCheckedFavorite] = useState(false);
-
-  const fillColorItem = checkedItem ? "currentColor" : "none";
-  const fillColorFavorite = checkedFavorite ? "currentColor" : "none";
-
-  function toggleCheckedItem() {
-    setCheckedItem(!checkedItem);
-  }
-  function toggleCheckedFavorite() {
-    setCheckedFavorite(!checkedFavorite);
-  }
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   function addTask(title: string) {
-    setTasks((prevTasks) => [...prevTasks, title]);
+    const newTask: Task = {
+      id: String(Date.now()),
+      title,
+      completed: false,
+      favorite: false,
+    };
+
+    setTasks((prev) => [...prev, newTask]);
   }
 
+  function toggleCompleted(id: string) {
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  }
+
+  function toggleFavorite(id: string) {
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id ? { ...task, favorite: !task.favorite } : task
+      )
+    );
+  }
+
+  function deleteTask(id: string) {
+    setTasks((prev) => prev.filter((task) => task.id !== id));
+  }
+  
   return (
     <TaskContext.Provider
       value={{
         tasks,
         addTask,
-        fillColorItem,
-        fillColorFavorite,
-        toggleCheckedItem,
-        toggleCheckedFavorite,
-        checkedItem,
+        toggleCompleted,
+        toggleFavorite,
+        deleteTask,
       }}
     >
       {children}
