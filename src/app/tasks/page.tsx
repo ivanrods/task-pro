@@ -13,7 +13,13 @@ const Tarefas = () => {
         <AddTaskInput addTask={addTask} />
       </div>
       {tasks.map((task) => (
-        <TaskItem key={task.id} id={task.id} completed={task.completed} title={task.title} favorite={task.favorite}/>
+        <TaskItem
+          key={task.id}
+          id={task.id}
+          completed={task.completed}
+          title={task.title}
+          favorite={task.favorite}
+        />
       ))}
     </div>
   );

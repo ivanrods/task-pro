@@ -22,6 +22,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   function addTask(title: string) {
+   
     const newTask: Task = {
       id: String(Date.now()),
       title,
@@ -29,6 +30,10 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
       favorite: false,
     };
 
+    if (title.trim() === "") {
+      alert("Por favor, insira um título para a tarefa.");
+      return;
+    }
     setTasks((prev) => [...prev, newTask]);
   }
 
@@ -51,7 +56,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
   function deleteTask(id: string) {
     setTasks((prev) => prev.filter((task) => task.id !== id));
   }
-  
+
   return (
     <TaskContext.Provider
       value={{
