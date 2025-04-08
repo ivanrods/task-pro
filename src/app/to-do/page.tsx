@@ -1,8 +1,11 @@
 "use client";
+
 import AddTaskInput from "../components/AddTaskInput";
 import TaskItem from "../components/TaskItem";
+
 import { useTask } from "../context/TaskContext";
-const Favorites = () => {
+
+const ToDo = () => {
   const { addTask, tasks } = useTask();
   return (
     <div>
@@ -10,7 +13,7 @@ const Favorites = () => {
         <AddTaskInput addTask={addTask} />
       </div>
       {tasks
-        .filter((task) => task.favorite)
+        .filter((task) => !task.completed)
         .map((task) => (
           <TaskItem
             key={task.id}
@@ -24,4 +27,4 @@ const Favorites = () => {
   );
 };
 
-export default Favorites;
+export default ToDo;
