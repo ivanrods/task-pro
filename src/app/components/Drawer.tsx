@@ -30,7 +30,7 @@ const Drawer = () => {
                 className={`flex gap-4 items-center pl-8 py-3 w-full ${
                   pathname === "/tasks"
                     ? "bg-blue-500 text-white"
-                    : "text-neutral-800 hover:bg-blue-300"
+                    : "text-neutral-800 hover:bg-blue-500 hover:text-white"
                 }`}
               >
                 <House />
@@ -42,7 +42,7 @@ const Drawer = () => {
                 className={`flex gap-4 items-center pl-8 py-3 w-full ${
                   pathname === "/to-do"
                     ? "bg-blue-500 text-white"
-                    : "text-neutral-800 hover:bg-blue-300"
+                    : "text-neutral-800 hover:bg-blue-500 hover:text-white"
                 }`}
               >
                 <SquareCheck />
@@ -54,7 +54,7 @@ const Drawer = () => {
                 className={`flex gap-4 items-center pl-8 py-3 w-full ${
                   pathname === "/favorites"
                     ? "bg-blue-500 text-white"
-                    : "text-neutral-800 hover:bg-blue-300"
+                    : "text-neutral-800 hover:bg-blue-500 hover:text-white"
                 }`}
               >
                 <Star />
@@ -66,7 +66,7 @@ const Drawer = () => {
                 className={`flex gap-4 items-center pl-8 py-3 w-full ${
                   pathname === "/planned"
                     ? "bg-blue-500 text-white"
-                    : "text-neutral-800 hover:bg-blue-300"
+                    : "text-neutral-800 hover:bg-blue-500 hover:text-white"
                 }`}
               >
                 <CalendarDays />

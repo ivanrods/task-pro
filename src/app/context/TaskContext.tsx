@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
 type Task = {
   id: string;
@@ -21,10 +27,27 @@ const TaskContext = createContext({} as TaskContextType);
 export const TaskProvider = ({ children }: { children: ReactNode }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
+  useEffect(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    if (storedTasks) {
+      try {
+        setTasks(JSON.parse(storedTasks));
+      } catch (error) {
+        console.error("Erro ao fazer parse das tarefas:", error);
+        localStorage.removeItem("tasks");
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (tasks.length >= 0) {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+  }, [tasks]);
+
   function addTask(title: string) {
-   
     const newTask: Task = {
-      id: String(Date.now()),
+      id: crypto.randomUUID(),
       title,
       completed: false,
       favorite: false,
@@ -35,6 +58,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
     setTasks((prev) => [...prev, newTask]);
+    console.log(tasks);
   }
 
   function toggleCompleted(id: string) {
