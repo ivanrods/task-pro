@@ -1,10 +1,17 @@
 "use client";
-import { CalendarDays, House, Menu, SquareCheck, Star } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import {
+  CalendarDays,
+  CircleUserRound,
+  House,
+  Menu,
+  SquareCheck,
+  Star,
+} from "lucide-react";
+
 import { useState } from "react";
+import SidebarItem from "./SidebarItem";
 const Drawer = () => {
-  const pathname = usePathname();
+
   const [handleDrawer, setHandleDrawer] = useState(false);
   function toggleDrawer() {
     setHandleDrawer(!handleDrawer);
@@ -23,56 +30,28 @@ const Drawer = () => {
         <button>
           <Menu className="md:hidden ml-8 mt-8" onClick={toggleDrawer} />
         </button>
+        <div className="w-full px-6 py-4 flex gap-2 flex-col border-b-1 border-b-neutral-400">
+          <CircleUserRound size={50} color="#3b82f6" />
+          <div>
+            <p className="text-lg font-semibold text-neutral-700">Ivan</p>
+            <p className="text-sm text-neutral-700">ivan@email.com</p>
+          </div>
+        </div>
+
         <nav>
-          <ul className="list-none py-4">
-            <Link href="/tasks">
-              <li
-                className={`flex gap-4 items-center pl-8 py-3 w-full ${
-                  pathname === "/tasks"
-                    ? "bg-blue-500 text-white"
-                    : "text-neutral-800 hover:bg-blue-500 hover:text-white"
-                }`}
-              >
-                <House />
-                <p> Tarefas</p>
-              </li>
-            </Link>
-            <Link href="/to-do">
-              <li
-                className={`flex gap-4 items-center pl-8 py-3 w-full ${
-                  pathname === "/to-do"
-                    ? "bg-blue-500 text-white"
-                    : "text-neutral-800 hover:bg-blue-500 hover:text-white"
-                }`}
-              >
-                <SquareCheck />
-                <p>To Do</p>
-              </li>
-            </Link>
-            <Link href="/favorites">
-              <li
-                className={`flex gap-4 items-center pl-8 py-3 w-full ${
-                  pathname === "/favorites"
-                    ? "bg-blue-500 text-white"
-                    : "text-neutral-800 hover:bg-blue-500 hover:text-white"
-                }`}
-              >
-                <Star />
-                <p> Favoritas</p>
-              </li>
-            </Link>
-            <Link href="/planned">
-              <li
-                className={`flex gap-4 items-center pl-8 py-3 w-full ${
-                  pathname === "/planned"
-                    ? "bg-blue-500 text-white"
-                    : "text-neutral-800 hover:bg-blue-500 hover:text-white"
-                }`}
-              >
-                <CalendarDays />
-                <p> Planejado</p>
-              </li>
-            </Link>
+          <ul className="flex flex-col gap-1 list-none py-4 px-2">
+            <SidebarItem href="/tasks" icon={<House />} label="Tarefas" />
+            <SidebarItem
+              href="/to-do"
+              icon={<SquareCheck />}
+              label="Pendentes"
+            />
+            <SidebarItem href="/favorites" icon={<Star />} label="Favoritas" />
+            <SidebarItem
+              href="/planned"
+              icon={<CalendarDays />}
+              label="Planejado"
+            />
           </ul>
         </nav>
       </section>

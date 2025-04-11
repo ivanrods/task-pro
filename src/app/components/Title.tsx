@@ -1,6 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
-import { House, Star, CalendarDays, CircleCheckBig } from "lucide-react";
+import { House, Star, CalendarDays, CircleCheckBig, SquareCheck } from "lucide-react";
 
 const Title = () => {
   const pathname = usePathname();
@@ -9,6 +9,7 @@ const Title = () => {
     "/favorites": { title: "Favoritas", icon: <Star /> },
     "/planned": { title: "Planejado", icon: <CalendarDays /> },
     "/task": { title: "Tarefa", icon: <CircleCheckBig /> },
+    "/to-do": { title: "Pendentes", icon:  <SquareCheck /> },
   };
 
   const { title, icon } = titles[pathname] || {
