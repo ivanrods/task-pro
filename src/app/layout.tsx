@@ -28,7 +28,7 @@ export default function RootLayout({
           <div className="w-full flex flex-col  bg-gray-100 px-4">
             <Title />
             <TaskProvider>
-              <section>{children}</section>
+              <section >{children}</section>
             </TaskProvider>
             
           </div>

@@ -1,7 +1,6 @@
 "use client";
 import {
   CalendarDays,
-  CircleUserRound,
   House,
   Menu,
   SquareCheck,
@@ -10,8 +9,8 @@ import {
 
 import { useState } from "react";
 import SidebarItem from "./SidebarItem";
+import Image from "next/image";
 const Drawer = () => {
-
   const [handleDrawer, setHandleDrawer] = useState(false);
   function toggleDrawer() {
     setHandleDrawer(!handleDrawer);
@@ -30,30 +29,31 @@ const Drawer = () => {
         <button>
           <Menu className="md:hidden ml-8 mt-8" onClick={toggleDrawer} />
         </button>
+
         <div className="w-full px-6 py-4 flex gap-2 flex-col border-b-1 border-b-neutral-400">
-          <CircleUserRound size={50} color="#3b82f6" />
+          <Image
+            width={60}
+            height={60}
+            className="rounded-full"
+            src="https://avatars.githubusercontent.com/u/67488687?v=4"
+            alt="imagem do usuario"
+          />
           <div>
-            <p className="text-lg font-semibold text-neutral-700">Ivan</p>
-            <p className="text-sm text-neutral-700">ivan@email.com</p>
+            <p className="text-lg font-semibold text-neutral-700">Ivan Rodrigues</p>
+            <p className="text-sm text-neutral-700">contaivanrodrigues@gmail.com</p>
           </div>
         </div>
 
-        <nav>
-          <ul className="flex flex-col gap-1 list-none py-4 px-2">
-            <SidebarItem href="/tasks" icon={<House />} label="Tarefas" />
-            <SidebarItem
-              href="/to-do"
-              icon={<SquareCheck />}
-              label="Pendentes"
-            />
-            <SidebarItem href="/favorites" icon={<Star />} label="Favoritas" />
-            <SidebarItem
-              href="/planned"
-              icon={<CalendarDays />}
-              label="Planejado"
-            />
-          </ul>
-        </nav>
+        <div className="flex flex-col gap-1 list-none py-4 px-2 ">
+          <SidebarItem href="/tasks" icon={<House />} label="Tarefas" />
+          <SidebarItem href="/to-do" icon={<SquareCheck />} label="Pendentes" />
+          <SidebarItem href="/favorites" icon={<Star />} label="Favoritas" />
+          <SidebarItem
+            href="/planned"
+            icon={<CalendarDays />}
+            label="Planejado"
+          />
+        </div>
       </section>
     </div>
   );

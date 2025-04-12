@@ -57,7 +57,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
       alert("Por favor, insira um título para a tarefa.");
       return;
     }
-    setTasks((prev) => [...prev, newTask]);
+    setTasks((prev) => [newTask, ...prev]);
     console.log(tasks);
   }
 

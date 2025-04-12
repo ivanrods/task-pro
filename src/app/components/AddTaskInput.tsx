@@ -13,7 +13,7 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
     setTitle(event.target.value);
   };
   return (
-    <div className="w-full bg-white rounded-xl shadow-lg mb-4 overflow-hidden">
+    <div className=" bg-white rounded-xl shadow-lg  overflow-hidden mx-2 mb-2">
       <section className="flex gap-4 w-full bg-white px-4 py-4 text-blue-500 ">
         <Circle />
         <input
