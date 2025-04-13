@@ -17,7 +17,7 @@ const TaskItem = ({ id, title, favorite, completed }: TaskItemProps) => {
       <button onClick={() => toggleCompleted(id)}>
         <Circle fill={completed ? "#3b82f6" : "none"} />
       </button>
-      <Link href="/task" className="w-full">
+      <Link href={`/task/${id}`} className="w-full">
         <p className={`text-neutral-800 ${completed ? "line-through" : ""}`}>
           {title}
         </p>
