@@ -11,12 +11,13 @@ import {
 type Task = {
   id: string;
   title: string;
+  description: string;
   completed: boolean;
   favorite: boolean;
 };
 type TaskContextType = {
   tasks: Task[];
-  addTask: (title: string) => void;
+  addTask: (title: string, description: string) => void;
   toggleCompleted: (id: string) => void;
   toggleFavorite: (id: string) => void;
   deleteTask: (id: string) => void;
@@ -45,10 +46,11 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [tasks]);
 
-  function addTask(title: string) {
+  function addTask(title: string, description: string) {
     const newTask: Task = {
       id: crypto.randomUUID(),
       title,
+      description,
       completed: false,
       favorite: false,
     };

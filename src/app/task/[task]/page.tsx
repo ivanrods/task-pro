@@ -21,6 +21,7 @@ export default function TaskDetail() {
           id=""
           placeholder="Adicione uma descrição"
           className="bg-white px-4 py-4 rounded-lg text-blue-500 border-none outline-none h-52"
+          value={taskDetail?.description}
         />
         <input
           type="date"
