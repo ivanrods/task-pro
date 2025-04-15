@@ -23,17 +23,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.className} ${roboto.className} antialiased`}>
-        <div className="h-screen w-screen flex ">
+        <div className="flex ">
           <Drawer />
-          <div className="w-full flex flex-col  bg-gray-100 px-4">
+          <div className="w-full h-screen flex flex-col bg-gray-100 px-4">
             <Title />
             <TaskProvider>
-              <section >{children}</section>
+              <section className="flex-1 overflow-auto">{children}</section>
             </TaskProvider>
-            
           </div>
         </div>
-       
       </body>
     </html>
   );

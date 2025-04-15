@@ -16,28 +16,40 @@ export default function TaskDetail() {
   console.log(taskDetail);
   return (
     <form>
-      <fieldset className="w-full flex justify-center flex-col gap-6 md:px-6">
+      <fieldset className="w-full py-4 flex justify-center flex-col gap-6 md:px-6">
         <legend className="text-2xl font-bold mb-4">{title}</legend>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="bg-white px-4 py-4 rounded-lg text-blue-500 border-none outline-none"
-        />
-        <textarea
-          name=""
-          id=""
-          placeholder="Adicione uma descrição"
-          className="bg-white px-4 py-4 rounded-lg text-blue-500 border-none outline-none h-52"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <input
-          type="date"
-          name=""
-          id=""
-          className="bg-white px-4 py-4 rounded-lg text-blue-500 border-none outline-none"
-        />
+        <label htmlFor="title" className="flex flex-col gap-2">
+          Titulo da tarefa:
+          <input
+            type="text"
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="bg-white px-4 py-4 rounded-lg text-neutral-700 border-none outline-none"
+          />
+        </label>
+        <label htmlFor="description" className="flex flex-col gap-2">
+          Descrição da tarefa:
+          <textarea
+            name=""
+            id="description"
+            placeholder="Adicione uma descrição"
+            className="bg-white px-4 py-4 rounded-lg text-neutral-700 border-none outline-none h-52"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </label>
+
+        <label htmlFor="date" className="flex flex-col gap-2">
+          Data da tarefa:
+          <input
+            type="date"
+            name=""
+            id="date"
+            className="bg-white px-4 py-4 rounded-lg text-neutral-700 border-none outline-none"
+          />
+        </label>
+
         <div className="w-full flex flex-col gap-4 text-blue-500">
           <button
             type="button"
@@ -45,7 +57,7 @@ export default function TaskDetail() {
             className="flex gap-2 "
           >
             <Circle fill={taskDetail?.completed ? "#3b82f6" : "none"} />{" "}
-            concluído
+            Concluído
           </button>
           <button
             type="button"
@@ -58,13 +70,14 @@ export default function TaskDetail() {
 
         <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
           <button
-          type="submit"
-          onClick={(e) => {
-            e.preventDefault();
-            
-            console.log('Salvar clicado');
-          }}
-          className="w-full bg-blue-500 text-white py-2 rounded-md cursor-pointer">
+            type="submit"
+            onClick={(e) => {
+              e.preventDefault();
+
+              console.log("Salvar clicado");
+            }}
+            className="w-full bg-blue-500 text-white py-2 rounded-md cursor-pointer"
+          >
             Salvar
           </button>
           <button

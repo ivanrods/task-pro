@@ -9,7 +9,7 @@ import { useTask } from "../context/TaskContext";
 const ToDo = () => {
   const { addTask, tasks } = useTask();
   return (
-    <div>
+    <div >
       <AddTaskInput addTask={addTask} />
       <Container>
         {tasks
