@@ -18,6 +18,13 @@ type Task = {
 type TaskContextType = {
   tasks: Task[];
   addTask: (title: string, description: string) => void;
+  updateTask: (
+    id: string,
+    title: string,
+    description: string,
+    completed: boolean,
+    favorite: boolean
+  ) => void;
   toggleCompleted: (id: string) => void;
   toggleFavorite: (id: string) => void;
   deleteTask: (id: string) => void;
@@ -63,6 +70,28 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     console.log(tasks);
   }
 
+  function updateTask(
+    id: string,
+    title: string,
+    description: string,
+    completed: boolean,
+    favorite: boolean
+  ) {
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id
+          ? {
+              ...task,
+              title,
+              description,
+              completed,
+              favorite,
+            }
+          : task
+      )
+    );
+  }
+
   function toggleCompleted(id: string) {
     setTasks((prev) =>
       prev.map((task) =>
@@ -88,6 +117,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
       value={{
         tasks,
         addTask,
+        updateTask,
         toggleCompleted,
         toggleFavorite,
         deleteTask,

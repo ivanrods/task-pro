@@ -3,25 +3,56 @@ import { useParams } from "next/navigation";
 import { useTask } from "../../context/TaskContext";
 import { ArrowLeft, Circle, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 export default function TaskDetail() {
   const router = useRouter();
   const { task } = useParams<{ task: string }>();
-  const { tasks, toggleCompleted, toggleFavorite, deleteTask } = useTask();
+  const { tasks, deleteTask, updateTask } = useTask();
   const taskDetail = tasks.find((t) => t.id === task);
 
   const [title, setTitle] = useState(taskDetail?.title || "");
   const [description, setDescription] = useState(taskDetail?.description || "");
 
-  console.log(taskDetail);
+  const [completed, setCompleted] = useState(taskDetail?.completed ?? false);
+  const [favorite, setFavorite] = useState(taskDetail?.favorite ?? false);
+
+  useEffect(() => {
+    if (taskDetail) {
+      setTitle(taskDetail.title);
+      setDescription(taskDetail.description);
+      setCompleted(taskDetail.completed);
+      setFavorite(taskDetail.favorite);
+    }
+  }, [taskDetail]);
+
+  const handleSave = () => {
+    if (taskDetail) {
+      updateTask(taskDetail.id, title, description, completed, favorite);
+    }
+  };
+
+  function toggleCompletedBtn() {
+    setCompleted(!completed);
+  }
+
+  function toggleFavoriteBtn() {
+    setFavorite(!favorite);
+  }
+
   return (
     <form className="py-4 md:px-6">
-      <button type="button" onClick={() => router.back()} className="flex items-center gap-2 mb-8 cursor-pointer hover:text-blue-500">
-          <ArrowLeft /> Voltar
-        </button>
-      <fieldset className="w-full flex justify-center flex-col 
-      gap-4 ">
-        
+      <button
+        type="button"
+        onClick={() => router.back()}
+        className="flex items-center gap-2 mb-8 cursor-pointer hover:text-blue-500"
+      >
+        <ArrowLeft /> Voltar
+      </button>
+      <fieldset
+        className="w-full flex justify-center flex-col 
+      gap-4 "
+      >
         <legend className="text-2xl font-bold mb-4">{title}</legend>
         <label htmlFor="title" className="flex flex-col gap-2">
           Titulo da tarefa:
@@ -58,18 +89,18 @@ export default function TaskDetail() {
         <div className="w-full flex flex-col gap-4 text-blue-500">
           <button
             type="button"
-            onClick={() => taskDetail && toggleCompleted(taskDetail.id)}
+            onClick={toggleCompletedBtn}
             className="flex gap-2 cursor-pointer"
           >
-            <Circle fill={taskDetail?.completed ? "#3b82f6" : "none"} />{" "}
+            <Circle fill={completed ? "#3b82f6" : "none"} />
             Concluído
           </button>
           <button
             type="button"
-            onClick={() => taskDetail && toggleFavorite(taskDetail.id)}
+            onClick={toggleFavoriteBtn}
             className="flex gap-2 cursor-pointer"
           >
-            <Star fill={taskDetail?.favorite ? "#3b82f6" : "none"} /> Favoritar
+            <Star fill={favorite ? "#3b82f6" : "none"} /> Favoritar
           </button>
         </div>
 
@@ -78,8 +109,7 @@ export default function TaskDetail() {
             type="submit"
             onClick={(e) => {
               e.preventDefault();
-
-              console.log("Salvar clicado");
+              handleSave();
             }}
             className="w-full bg-blue-500 text-white py-2 rounded-md cursor-pointer"
           >
