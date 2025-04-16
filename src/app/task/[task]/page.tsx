@@ -1,7 +1,7 @@
 "use client";
 import { useParams } from "next/navigation";
 import { useTask } from "../../context/TaskContext";
-import { Circle, Star } from "lucide-react";
+import { ArrowLeft, Circle, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 export default function TaskDetail() {
@@ -15,8 +15,13 @@ export default function TaskDetail() {
 
   console.log(taskDetail);
   return (
-    <form>
-      <fieldset className="w-full py-4 flex justify-center flex-col gap-6 md:px-6">
+    <form className="py-4 md:px-6">
+      <button type="button" onClick={() => router.back()} className="flex items-center gap-2 mb-8 cursor-pointer hover:text-blue-500">
+          <ArrowLeft /> Voltar
+        </button>
+      <fieldset className="w-full flex justify-center flex-col 
+      gap-4 ">
+        
         <legend className="text-2xl font-bold mb-4">{title}</legend>
         <label htmlFor="title" className="flex flex-col gap-2">
           Titulo da tarefa:
@@ -34,7 +39,7 @@ export default function TaskDetail() {
             name=""
             id="description"
             placeholder="Adicione uma descrição"
-            className="bg-white px-4 py-4 rounded-lg text-neutral-700 border-none outline-none h-52"
+            className=" bg-white px-4 py-4 rounded-lg text-neutral-700 border-none outline-none h-40 resize-none"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -54,7 +59,7 @@ export default function TaskDetail() {
           <button
             type="button"
             onClick={() => taskDetail && toggleCompleted(taskDetail.id)}
-            className="flex gap-2 "
+            className="flex gap-2 cursor-pointer"
           >
             <Circle fill={taskDetail?.completed ? "#3b82f6" : "none"} />{" "}
             Concluído
@@ -62,7 +67,7 @@ export default function TaskDetail() {
           <button
             type="button"
             onClick={() => taskDetail && toggleFavorite(taskDetail.id)}
-            className="flex gap-2 "
+            className="flex gap-2 cursor-pointer"
           >
             <Star fill={taskDetail?.favorite ? "#3b82f6" : "none"} /> Favoritar
           </button>
