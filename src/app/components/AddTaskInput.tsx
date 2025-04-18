@@ -71,7 +71,25 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
 
         <button
           className="border-1 border-b-neutral-600 px-2 py-1 cursor-pointer hover:border-blue-500 hover:text-blue-500"
-          onClick={() => addTask(title, description)}
+          onClick={() => {
+            if (title.trim() === "") {
+              alert("Por favor, insira um título para a tarefa.");
+              return;
+            }
+            if (title.length > 30) {
+              alert("O título deve ter no máximo 30 caracteres.");
+              return;
+            }
+
+            if (description.length > 200) {
+              alert("A descrição deve ter no máximo 200 caracteres.");
+              return;
+            }
+            addTask(title, description);
+            setTitle("");
+            setDescription("");
+            setToggleDescription(false);
+          }}
         >
           Adicionar
         </button>

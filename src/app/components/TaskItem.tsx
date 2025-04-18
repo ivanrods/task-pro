@@ -18,7 +18,7 @@ const TaskItem = ({ id, title, favorite, completed }: TaskItemProps) => {
         <Circle fill={completed ? "#3b82f6" : "none"} />
       </button>
       <Link href={`/task/${id}`} className="w-full">
-        <p className={`text-neutral-800 ${completed ? "line-through" : ""}`}>
+        <p className={`text-neutral-800 ${completed ? "line-through" : ""} break-words`}>
           {title}
         </p>
       </Link>

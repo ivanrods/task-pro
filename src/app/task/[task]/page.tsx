@@ -53,7 +53,7 @@ export default function TaskDetail() {
         className="w-full flex justify-center flex-col 
       gap-4 "
       >
-        <legend className="text-2xl font-bold mb-4">{title}</legend>
+        <legend className="text-2xl font-bold mb-4  ">{title}</legend>
         <label htmlFor="title" className="flex flex-col gap-2">
           Titulo da tarefa:
           <input
@@ -109,6 +109,19 @@ export default function TaskDetail() {
             type="submit"
             onClick={(e) => {
               e.preventDefault();
+              if (title.trim() === "") {
+                alert("Por favor, insira um título para a tarefa.");
+                return;
+              }
+              if (title.length > 30) {
+                alert("O título deve ter no máximo 30 caracteres.");
+                return;
+              }
+
+              if (description.length > 200) {
+                alert("A descrição deve ter no máximo 200 caracteres.");
+                return;
+              }
               handleSave();
             }}
             className="w-full bg-blue-500 text-white py-2 rounded-md cursor-pointer"
