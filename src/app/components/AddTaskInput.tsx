@@ -76,7 +76,7 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
               alert("Por favor, insira um título para a tarefa.");
               return;
             }
-            if (title.length > 30) {
+            if (title.length > 50) {
               alert("O título deve ter no máximo 30 caracteres.");
               return;
             }

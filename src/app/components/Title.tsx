@@ -6,10 +6,9 @@ const Title = () => {
   const pathname = usePathname();
   const titles: { [key: string]: { title: string; icon: React.ReactNode } } = {
     "/tasks": { title: "Tarefas", icon: <House /> },
-    "/favorites": { title: "Favoritas", icon: <Star /> },
-    "/planned": { title: "Planejado", icon: <CalendarDays /> },
-    "/task": { title: "Tarefa", icon: <CircleCheckBig /> },
-    "/to-do": { title: "Pendentes", icon:  <SquareCheck /> },
+    "/tasks/favorites": { title: "Favoritas", icon: <Star /> },
+    "/tasks/planned": { title: "Planejado", icon: <CalendarDays /> },
+    "/tasks/to-do": { title: "Pendentes", icon:  <SquareCheck /> },
   };
 
   const { title, icon } = titles[pathname] || {

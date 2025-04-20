@@ -1,8 +1,8 @@
 "use client";
-import AddTaskInput from "../components/AddTaskInput";
-import Container from "../components/Container";
-import TaskItem from "../components/TaskItem";
-import { useTask } from "../context/TaskContext";
+import AddTaskInput from "../../components/AddTaskInput";
+import Container from "../../components/Container";
+import TaskItem from "../../components/TaskItem";
+import { useTask } from "../../context/TaskContext";
 const Favorites = () => {
   const { addTask, tasks } = useTask();
   return (

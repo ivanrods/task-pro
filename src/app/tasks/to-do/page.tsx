@@ -1,10 +1,10 @@
 "use client";
 
-import AddTaskInput from "../components/AddTaskInput";
-import Container from "../components/Container";
-import TaskItem from "../components/TaskItem";
+import AddTaskInput from "../../components/AddTaskInput";
+import Container from "../../components/Container";
+import TaskItem from "../../components/TaskItem";
 
-import { useTask } from "../context/TaskContext";
+import { useTask } from "../../context/TaskContext";
 
 const ToDo = () => {
   const { addTask, tasks } = useTask();

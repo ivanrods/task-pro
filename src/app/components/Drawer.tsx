@@ -46,10 +46,10 @@ const Drawer = () => {
 
         <div className="flex flex-col gap-1 list-none py-4 px-2 ">
           <SidebarItem href="/tasks" icon={<House />} label="Tarefas" />
-          <SidebarItem href="/to-do" icon={<SquareCheck />} label="Pendentes" />
-          <SidebarItem href="/favorites" icon={<Star />} label="Favoritas" />
+          <SidebarItem href="/tasks/to-do" icon={<SquareCheck />} label="Pendentes" />
+          <SidebarItem href="/tasks/favorites" icon={<Star />} label="Favoritas" />
           <SidebarItem
-            href="/planned"
+            href="/tasks/planned"
             icon={<CalendarDays />}
             label="Planejado"
           />
