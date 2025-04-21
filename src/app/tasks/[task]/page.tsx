@@ -41,7 +41,7 @@ export default function TaskDetail() {
   }
 
   return (
-    <form className="py-4 md:px-6">
+    <form className="py-4">
       <button
         type="button"
         onClick={() => router.back()}
@@ -54,14 +54,15 @@ export default function TaskDetail() {
       gap-4 "
       >
         <legend className="text-2xl font-bold mb-4  ">{title}</legend>
-        <label htmlFor="title" className="flex flex-col gap-2">
+        <label htmlFor="title" className="flex flex-col gap-2 overflow-hidden w-full">
           Titulo da tarefa:
           <input
             type="text"
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="bg-white px-4 py-4 rounded-lg text-neutral-700 border-none outline-none"
+            maxLength={50}
+            className="bg-white px-4 py-4 rounded-lg text-neutral-700 border-none outline-none w-full "
           />
         </label>
         <label htmlFor="description" className="flex flex-col gap-2">
@@ -73,6 +74,7 @@ export default function TaskDetail() {
             className=" bg-white px-4 py-4 rounded-lg text-neutral-700 border-none outline-none h-40 resize-none"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            maxLength={300}
           />
         </label>
 
@@ -113,12 +115,12 @@ export default function TaskDetail() {
                 alert("Por favor, insira um título para a tarefa.");
                 return;
               }
-              if (title.length > 30) {
+              if (title.length > 50) {
                 alert("O título deve ter no máximo 30 caracteres.");
                 return;
               }
 
-              if (description.length > 200) {
+              if (description.length > 300) {
                 alert("A descrição deve ter no máximo 200 caracteres.");
                 return;
               }

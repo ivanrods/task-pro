@@ -25,7 +25,7 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
   };
 
   return (
-    <div className=" bg-white rounded-xl shadow-lg  overflow-hidden mx-2 mb-2">
+    <div className=" bg-white rounded-xl shadow-lg  overflow-hidden mb-2">
       <section className="flex gap-4 w-full bg-white px-4 py-4 text-blue-500 ">
         <Circle />
         <input
@@ -34,6 +34,7 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
           type="text"
           value={title}
           onChange={handleChange}
+          maxLength={50}
         />
       </section>
       {toggleDescription && (
@@ -46,6 +47,7 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
             placeholder="Adicione uma descrição"
             value={description}
             onChange={handleDescription}
+            maxLength={300}
           />
         </section>
       )}
@@ -81,7 +83,7 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
               return;
             }
 
-            if (description.length > 200) {
+            if (description.length > 300) {
               alert("A descrição deve ter no máximo 200 caracteres.");
               return;
             }
