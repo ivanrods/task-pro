@@ -13,7 +13,7 @@ export default function TaskDetail() {
 
   const [title, setTitle] = useState(taskDetail?.title || "");
   const [description, setDescription] = useState(taskDetail?.description || "");
-
+  const [data, setData] = useState(taskDetail?.data || "");
   const [completed, setCompleted] = useState(taskDetail?.completed ?? false);
   const [favorite, setFavorite] = useState(taskDetail?.favorite ?? false);
 
@@ -21,6 +21,7 @@ export default function TaskDetail() {
     if (taskDetail) {
       setTitle(taskDetail.title);
       setDescription(taskDetail.description);
+      setData(taskDetail.data);
       setCompleted(taskDetail.completed);
       setFavorite(taskDetail.favorite);
     }
@@ -28,7 +29,7 @@ export default function TaskDetail() {
 
   const handleSave = () => {
     if (taskDetail) {
-      updateTask(taskDetail.id, title, description, completed, favorite);
+      updateTask(taskDetail.id, title, description, data, completed, favorite);
     }
   };
 
@@ -54,7 +55,10 @@ export default function TaskDetail() {
       gap-4 "
       >
         <legend className="text-2xl font-bold mb-4  ">{title}</legend>
-        <label htmlFor="title" className="flex flex-col gap-2 overflow-hidden w-full">
+        <label
+          htmlFor="title"
+          className="flex flex-col gap-2 overflow-hidden w-full"
+        >
           Titulo da tarefa:
           <input
             type="text"
@@ -83,6 +87,10 @@ export default function TaskDetail() {
           <input
             type="date"
             name=""
+            value={data}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setData(e.target.value)
+            }
             id="date"
             className="bg-white px-4 py-4 rounded-lg text-neutral-700 border-none outline-none"
           />

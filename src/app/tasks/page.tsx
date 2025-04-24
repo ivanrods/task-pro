@@ -19,6 +19,7 @@ const Tarefas = () => {
             completed={task.completed}
             title={task.title}
             favorite={task.favorite}
+            data={task.data}
           />
         ))}
       </Container>

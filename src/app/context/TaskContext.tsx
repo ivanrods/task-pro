@@ -12,16 +12,18 @@ type Task = {
   id: string;
   title: string;
   description: string;
+  data: string
   completed: boolean;
   favorite: boolean;
 };
 type TaskContextType = {
   tasks: Task[];
-  addTask: (title: string, description: string) => void;
+  addTask: (title: string, description: string, data: string) => void;
   updateTask: (
     id: string,
     title: string,
     description: string,
+    data: string,
     completed: boolean,
     favorite: boolean
   ) => void;
@@ -53,11 +55,12 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [tasks]);
 
-  function addTask(title: string, description: string) {
+  function addTask(title: string, description: string, data: string) {
     const newTask: Task = {
       id: crypto.randomUUID(),
       title,
       description,
+      data,
       completed: false,
       favorite: false,
     };
@@ -70,6 +73,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     id: string,
     title: string,
     description: string,
+    data: string,
     completed: boolean,
     favorite: boolean
   ) {
@@ -80,6 +84,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
               ...task,
               title,
               description,
+              data,
               completed,
               favorite,
             }
@@ -124,4 +129,4 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useTask = () => useContext(TaskContext);
+export const useTask = () => useContext(TaskContext); 

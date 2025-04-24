@@ -11,13 +11,16 @@ const Planned = () => {
     <div>
       <AddTaskInput addTask={addTask} />
       <Container>
-        {tasks.map((task) => (
+        {tasks
+        .filter((task) => task.data !== "")
+        .map((task) => (
           <TaskItem
             key={task.id}
             id={task.id}
             completed={task.completed}
             title={task.title}
             favorite={task.favorite}
+            data={task.data}
           />
         ))}
       </Container>

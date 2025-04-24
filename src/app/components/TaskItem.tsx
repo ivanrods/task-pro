@@ -6,40 +6,46 @@ import Link from "next/link";
 type TaskItemProps = {
   id: string;
   title: string;
+  data: string;
   completed: boolean;
   favorite: boolean;
 };
 
-const TaskItem = ({ id, title, favorite, completed }: TaskItemProps) => {
+const TaskItem = ({ id, title, data, favorite, completed }: TaskItemProps) => {
   const { toggleCompleted, toggleFavorite, deleteTask } = useTask();
+
+  const dataFormatada =
+  data && !isNaN(new Date(`${data}T00:00:00`).getTime())
+    ? new Date(`${data}T00:00:00`).toLocaleDateString("pt-BR")
+    : "";
+
+
   return (
     <li className="w-full flex py-4 px-4 gap-4 mb-4 items-center bg-white rounded-xl text-blue-500">
+      <button onClick={() => toggleCompleted(id)}>
+        <Circle fill={completed ? "#3b82f6" : "none"} />
+      </button>
 
-  <button onClick={() => toggleCompleted(id)}>
-    <Circle fill={completed ? "#3b82f6" : "none"} />
-  </button>
+      <Link href={`/tasks/${id}`} className="flex-1 overflow-hidden">
+        <p
+          className={`text-neutral-800 ${
+            completed ? "line-through" : ""
+          } break-words whitespace-normal`}
+        >
+          {title}
+        </p>
+        <p className="text-sm text-neutral-500">{dataFormatada}</p>
+      </Link>
 
-
-  <Link href={`/tasks/${id}`} className="flex-1 overflow-hidden">
-    <p
-      className={`text-neutral-800 ${
-        completed ? "line-through" : ""
-      } break-words whitespace-normal`}
-    >
-      {title}
-    </p>
-  </Link>
-
-  <div className="flex gap-2 shrink-0">
-    <button onClick={() => toggleFavorite(id)}>
-      <Star fill={favorite ? "#3b82f6" : "none"} />
-    </button>
-    <button onClick={() => deleteTask(id)} className="hover:text-red-500">
-      <Trash />
-    </button>
-  </div>
-</li>
-
+      <div className="flex gap-2 shrink-0">
+        <button onClick={() => toggleFavorite(id)}>
+          <Star fill={favorite ? "#3b82f6" : "none"} />
+        </button>
+        <button onClick={() => deleteTask(id)} className="hover:text-red-500">
+          <Trash />
+        </button>
+      </div>
+    </li>
   );
 };
 

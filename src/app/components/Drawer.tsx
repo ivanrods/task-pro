@@ -76,12 +76,12 @@ const Drawer = () => {
 
         <div>
           <button className="flex gap-4 items-center px-3 py-3 w-full rounded-md text-neutral-800 hover:bg-blue-500 hover:text-white cursor-pointer mb-1">
-          <SunMoon /> Mudar tema
-        </button>
-          <button className="flex gap-4 items-center px-3 py-3 w-full rounded-md text-neutral-800 hover:bg-blue-500 hover:text-white cursor-pointer"
-        ><LogOut /> Sair</button>
+            <SunMoon /> Mudar tema
+          </button>
+          <button className="flex gap-4 items-center px-3 py-3 w-full rounded-md text-neutral-800 hover:bg-blue-500 hover:text-white cursor-pointer">
+            <LogOut /> Sair
+          </button>
         </div>
-        
       </section>
     </div>
   );
