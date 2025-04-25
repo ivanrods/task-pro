@@ -7,6 +7,7 @@ import { useTask } from "../../context/TaskContext";
 
 const Planned = () => {
   const { addTask, tasks } = useTask();
+
   return (
     <div>
       <AddTaskInput addTask={addTask} />

@@ -6,6 +6,7 @@ import {
   Menu,
   SquareCheck,
   Star,
+  Sun,
   SunMoon,
 } from "lucide-react";
 
@@ -56,6 +57,7 @@ const Drawer = () => {
 
           <div className="flex flex-col gap-1 list-none py-4 ">
             <SidebarItem href="/tasks" icon={<House />} label="Tarefas" />
+            <SidebarItem href="/tasks/today" icon={<Sun />} label="Meu dia" />
             <SidebarItem
               href="/tasks/to-do"
               icon={<SquareCheck />}
