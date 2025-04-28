@@ -4,6 +4,7 @@ import { useTask } from "../../context/TaskContext";
 import { ArrowLeft, Circle, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import InputForm from "@/app/components/InputForm";
 
 export default function TaskDetail() {
   const router = useRouter();
@@ -42,78 +43,73 @@ export default function TaskDetail() {
   }
 
   return (
-    <form className="py-4">
-      <button
+    <div className="h-full ">
+      
+
+      <form className="h-full flex flex-col gap-4 justify-between">
+        <fieldset
+          className="w-full flex flex-col  gap-4  
+      "
+        >
+          <button
         type="button"
-        onClick={() => router.back()}
-        className="flex items-center gap-2 mb-8 cursor-pointer hover:text-blue-500"
+        onClick={() => router.back()} 
+        className="flex items-center gap-2 mb-8  cursor-pointer hover:text-blue-500"
       >
         <ArrowLeft /> Voltar
       </button>
-      <fieldset
-        className="w-full flex justify-center flex-col 
-      gap-4 "
-      >
-        <legend className="text-2xl font-bold mb-4  ">{title}</legend>
-        <label
-          htmlFor="title"
-          className="flex flex-col gap-2 overflow-hidden w-full"
-        >
-          Titulo da tarefa:
-          <input
+          <h3 className="break-words max-w-full text-2xl font-bold mb-4 whitespace-pre-wrap break-all">
+            {title}
+          </h3>
+
+          <InputForm
             type="text"
             id="title"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Digite o título"
             maxLength={50}
-            className="bg-white px-4 py-4 rounded-lg text-neutral-700 border-none outline-none w-full "
+            onChange={(e) => setTitle(e.target.value)}
+            label="Titulo da tarefa"
           />
-        </label>
-        <label htmlFor="description" className="flex flex-col gap-2">
-          Descrição da tarefa:
-          <textarea
-            name=""
+
+          <InputForm
+            type="textarea"
             id="description"
-            placeholder="Adicione uma descrição"
-            className=" bg-white px-4 py-4 rounded-lg text-neutral-700 border-none outline-none h-40 resize-none"
             value={description}
+            placeholder="Adicione uma descrição"
             onChange={(e) => setDescription(e.target.value)}
             maxLength={300}
+            label="Descrição da tarefa:"
           />
-        </label>
 
-        <label htmlFor="date" className="flex flex-col gap-2">
-          Data da tarefa:
-          <input
+          <InputForm
             type="date"
-            name=""
-            value={data}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setData(e.target.value)
-            }
             id="date"
-            className="bg-white px-4 py-4 rounded-lg text-neutral-700 border-none outline-none"
+            value={data}
+            placeholder="Data da tarefa:"
+            maxLength={300}
+            onChange={(e) => setData(e.target.value)}
+            label="Data da tarefa"
           />
-        </label>
 
-        <div className="w-full flex flex-col gap-4 text-blue-500">
-          <button
-            type="button"
-            onClick={toggleCompletedBtn}
-            className="flex gap-2 cursor-pointer"
-          >
-            <Circle fill={completed ? "#3b82f6" : "none"} />
-            Concluído
-          </button>
-          <button
-            type="button"
-            onClick={toggleFavoriteBtn}
-            className="flex gap-2 cursor-pointer"
-          >
-            <Star fill={favorite ? "#3b82f6" : "none"} /> Favoritar
-          </button>
-        </div>
-
+          <div className="w-full flex flex-col gap-4 text-blue-500">
+            <button
+              type="button"
+              onClick={toggleCompletedBtn}
+              className="flex gap-2 cursor-pointer"
+            >
+              <Circle fill={completed ? "#3b82f6" : "none"} />
+              Concluído
+            </button>
+            <button
+              type="button"
+              onClick={toggleFavoriteBtn}
+              className="flex gap-2 cursor-pointer"
+            >
+              <Star fill={favorite ? "#3b82f6" : "none"} /> Favoritar
+            </button>
+          </div>
+        </fieldset>
         <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
           <button
             type="submit"
@@ -151,7 +147,7 @@ export default function TaskDetail() {
             Excluir
           </button>
         </div>
-      </fieldset>
-    </form>
+      </form>
+    </div>
   );
 }
