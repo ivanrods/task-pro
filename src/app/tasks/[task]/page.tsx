@@ -34,30 +34,21 @@ export default function TaskDetail() {
     }
   };
 
-  function toggleCompletedBtn() {
-    setCompleted(!completed);
-  }
-
-  function toggleFavoriteBtn() {
-    setFavorite(!favorite);
-  }
 
   return (
     <div className="h-full ">
-      
-
-      <form className="h-full flex flex-col gap-4 justify-between">
+      <form className="h-full flex flex-col gap-4 justify-around">
         <fieldset
           className="w-full flex flex-col  gap-4  
       "
         >
           <button
-        type="button"
-        onClick={() => router.back()} 
-        className="flex items-center gap-2 mb-8  cursor-pointer hover:text-blue-500"
-      >
-        <ArrowLeft /> Voltar
-      </button>
+            type="button"
+            onClick={() => router.back()}
+            className="flex items-center gap-2 mb-8  cursor-pointer hover:text-blue-500"
+          >
+            <ArrowLeft /> Voltar
+          </button>
           <h3 className="break-words max-w-full text-2xl font-bold mb-4 whitespace-pre-wrap break-all">
             {title}
           </h3>
@@ -95,7 +86,7 @@ export default function TaskDetail() {
           <div className="w-full flex flex-col gap-4 text-blue-500">
             <button
               type="button"
-              onClick={toggleCompletedBtn}
+              onClick={() => setCompleted(!completed)}
               className="flex gap-2 cursor-pointer"
             >
               <Circle fill={completed ? "#3b82f6" : "none"} />
@@ -103,7 +94,7 @@ export default function TaskDetail() {
             </button>
             <button
               type="button"
-              onClick={toggleFavoriteBtn}
+              onClick={() => setFavorite(!favorite)}
               className="flex gap-2 cursor-pointer"
             >
               <Star fill={favorite ? "#3b82f6" : "none"} /> Favoritar
@@ -142,7 +133,7 @@ export default function TaskDetail() {
                 router.back();
               }
             }}
-            className="w-full text-blue-500 border py-2 rounded-md cursor-pointer"
+            className="w-full text-blue-500 hover:text-red-500 border py-2 rounded-md cursor-pointer"
           >
             Excluir
           </button>

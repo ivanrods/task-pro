@@ -30,7 +30,7 @@ const InputForm = ({
           placeholder={placeholder}
           onChange={onChange}
           maxLength={maxLength}
-          className="bg-white px-4 py-4 rounded-lg text-neutral-700 border border-gray-200 outline-none focus:border-blue-500 w-full h-40 resize-none"
+          className="bg-white px-4 py-4 rounded-lg text-blue-500 border border-gray-200 outline-none focus:border-blue-500 w-full h-40 resize-none"
         />
       ) : (
         <input
@@ -40,7 +40,7 @@ const InputForm = ({
           placeholder={placeholder}
           onChange={onChange}
           maxLength={maxLength}
-          className="bg-white px-4 py-4 rounded-lg text-neutral-700 border border-gray-200 outline-none focus:border-blue-500 w-full "
+          className="bg-white px-4 py-4 rounded-lg text-blue-500 border border-gray-200 outline-none focus:border-blue-500 w-full "
         />
       )}
     </label>

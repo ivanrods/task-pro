@@ -27,7 +27,7 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
   };
 
   return (
-    <div className=" bg-white rounded-xl shadow-lg  overflow-hidden mb-2">
+    <div className=" bg-white rounded-xl shadow-lg  overflow-hidden my-4">
       <section className="flex gap-4 w-full bg-white px-4 py-4 text-blue-500 ">
         <Circle />
         <input
@@ -72,7 +72,7 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
               } `}
             />
             {toggleData && (
-              <input type="date" value={data} onChange={handleData} />
+              <input className="text-blue-500 " type="date" value={data} onChange={handleData} />
             )}
           </div>
         </div>
