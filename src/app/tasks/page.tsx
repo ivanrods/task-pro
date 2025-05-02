@@ -5,20 +5,37 @@ import AddTaskInput from "../components/AddTaskInput";
 import Container from "../components/Container";
 import TaskItem from "../components/TaskItem";
 
-import { useTask } from "../context/TaskContext";
-import { useState } from "react";
+import { useFilteredTasks } from "../hooks/useFilteredTasks";
 
 const Tarefas = () => {
-  const { addTask, tasks } = useTask();
-  const [toggleCompleted, setToggleCompleted] = useState(true);
+  const { addTask, completedTasks, incompleteTasks, toggle, toggleCompleted } =
+    useFilteredTasks();
+
   return (
     <div>
       <AddTaskInput addTask={addTask} />
       <Container>
-        {tasks
-  
-          .filter((task) => task.completed === false)
-          .map((task) => (
+        {incompleteTasks.map((task) => (
+          <TaskItem
+            key={task.id}
+            id={task.id}
+            completed={task.completed}
+            title={task.title}
+            favorite={task.favorite}
+            data={task.data}
+          />
+        ))}
+
+        {incompleteTasks.length + completedTasks.length > 0 && (
+          <button onClick={toggle} className="flex gap-1 text-neutral-800 mb-4">
+            <ChevronRight className={toggleCompleted ? "hidden" : "block"} />
+            <ChevronDown className={toggleCompleted ? "block" : "hidden"} />
+            Concluídos
+          </button>
+        )}
+
+        {toggleCompleted &&
+          completedTasks.map((task) => (
             <TaskItem
               key={task.id}
               id={task.id}
@@ -28,31 +45,6 @@ const Tarefas = () => {
               data={task.data}
             />
           ))}
-
-        {tasks.length != 0 && (
-          <button
-            onClick={() => setToggleCompleted(!toggleCompleted)}
-            className="flex gap-1 text-neutral-800 mb-4 "
-          >
-            <ChevronRight className={toggleCompleted ? "hidden" : "block"} />
-            <ChevronDown className={toggleCompleted ? " block" : "hidden"} />
-            Concluídos
-          </button>
-        )}
-
-        {toggleCompleted &&
-          tasks
-            .filter((task) => task.completed === true)
-            .map((task) => (
-              <TaskItem
-                key={task.id}
-                id={task.id}
-                completed={task.completed}
-                title={task.title}
-                favorite={task.favorite}
-                data={task.data}
-              />
-            ))}
       </Container>
     </div>
   );
