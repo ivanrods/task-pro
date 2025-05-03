@@ -1,10 +1,10 @@
 "use client";
 
+import ToggleCompletedButton from "@/app/components/ToggleCompletedButton";
 import AddTaskInput from "../../components/AddTaskInput";
 import Container from "../../components/Container";
 import TaskItem from "../../components/TaskItem";
 import { useFilteredTasks } from "../../hooks/useFilteredTasks";
-import { ChevronDown, ChevronRight } from "lucide-react";
 const Favorites = () => {
   const {
     addTask,
@@ -28,12 +28,8 @@ const Favorites = () => {
           />
         ))}
 
-        {incompleteTasksFavotites.length + completedTasksFavorites.length > 0 && (
-          <button onClick={toggle} className="flex gap-1 text-neutral-800 mb-4">
-            <ChevronRight className={toggleCompleted ? "hidden" : "block"} />
-            <ChevronDown className={toggleCompleted ? "block" : "hidden"} />
-            Concluídos
-          </button>
+        {completedTasksFavorites.length > 0 && (
+         <ToggleCompletedButton onClick={toggle} toggleCompleted/>
         )}
 
         {toggleCompleted &&

@@ -1,11 +1,12 @@
 "use client";
 
-import { ChevronDown, ChevronRight } from "lucide-react";
+
 import AddTaskInput from "../components/AddTaskInput";
 import Container from "../components/Container";
 import TaskItem from "../components/TaskItem";
 
 import { useFilteredTasks } from "../hooks/useFilteredTasks";
+import ButtonToggleCompletedTask from "../components/ToggleCompletedButton";
 
 const Tarefas = () => {
   const { addTask, completedTasks, incompleteTasks, toggle, toggleCompleted } =
@@ -26,12 +27,11 @@ const Tarefas = () => {
           />
         ))}
 
-        {incompleteTasks.length + completedTasks.length > 0 && (
-          <button onClick={toggle} className="flex gap-1 text-neutral-800 mb-4">
-            <ChevronRight className={toggleCompleted ? "hidden" : "block"} />
-            <ChevronDown className={toggleCompleted ? "block" : "hidden"} />
-            Concluídos
-          </button>
+        {completedTasks.length > 0 && (
+          <ButtonToggleCompletedTask
+            toggleCompleted={toggleCompleted}
+            onClick={toggle}
+          />
         )}
 
         {toggleCompleted &&
