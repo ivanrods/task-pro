@@ -27,7 +27,7 @@ const Drawer = () => {
       </button>
 
       <section
-        className={`flex flex-col justify-between gap-4 z-10 h-full w-72 xl:w-80 bg-white fixed top-0 left-0 px-2 pb-2 overflow-auto transition-transform duration-300 ease-in-out transform shadow-lg ${
+        className={`flex flex-col justify-between gap-4 z-10 h-full w-72 xl:w-80 bg-white fixed top-0 left-0 px-2 pb-2 max-h-screen overflow-auto transition-transform duration-300 ease-in-out transform shadow-lg ${
           handleDrawer ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 md:static`}
       >

@@ -1,15 +1,20 @@
-
 import { ChevronDown, ChevronRight } from "lucide-react";
 
 type ToggleCompletedButtonProps = {
-    toggleCompleted: boolean;
-    onClick: () => void;
-}
+  toggleCompleted: boolean;
+  onClick: () => void;
+};
 
-const ToggleCompletedButton = ({toggleCompleted, onClick}:ToggleCompletedButtonProps) => {
- 
+const ToggleCompletedButton = ({
+  toggleCompleted,
+  onClick,
+}: ToggleCompletedButtonProps) => {
   return (
-    <button onClick={onClick} className="flex gap-1 text-neutral-800 mb-4">
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex gap-1 text-neutral-800 cursor-pointer"
+    >
       <ChevronRight className={toggleCompleted ? "hidden" : "block"} />
       <ChevronDown className={toggleCompleted ? "block" : "hidden"} />
       Concluídos
