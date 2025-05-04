@@ -56,6 +56,16 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
   }, [tasks]);
 
   function addTask(title: string, description: string, data: string) {
+
+    const taskExists = tasks.some(
+      (task) => task.title.trim().toLowerCase() === title.trim().toLowerCase()
+    );
+  
+    if (taskExists) {
+      alert("Já existe uma tarefa com esse título.");
+      return;
+    }
+
     const newTask: Task = {
       id: crypto.randomUUID(),
       title,
@@ -66,7 +76,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     };
 
     setTasks((prev) => [newTask, ...prev]);
-    console.log(tasks);
+    
   }
 
   function updateTask(
@@ -77,6 +87,17 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     completed: boolean,
     favorite: boolean
   ) {
+
+    const taskExists = tasks.some(
+      (task) => task.title.trim().toLowerCase() === title.trim().toLowerCase()
+    );
+  
+    if (taskExists) {
+      alert("Já existe uma tarefa com esse título.");
+      return;
+    }
+
+
     setTasks((prev) =>
       prev.map((task) =>
         task.id === id

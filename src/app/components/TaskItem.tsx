@@ -3,6 +3,7 @@ import { Circle, Star, Trash } from "lucide-react";
 import { useTask } from "../context/TaskContext";
 import Link from "next/link";
 
+import { useFilteredTasks } from "../hooks/useFilteredTasks";
 type TaskItemProps = {
   id: string;
   title: string;
@@ -13,6 +14,8 @@ type TaskItemProps = {
 
 const TaskItem = ({ id, title, data, favorite, completed }: TaskItemProps) => {
   const { toggleCompleted, toggleFavorite, deleteTask } = useTask();
+
+  const { dataToday } = useFilteredTasks();
 
   const dataFormatada =
     data && !isNaN(new Date(`${data}T00:00:00`).getTime())
@@ -33,11 +36,13 @@ const TaskItem = ({ id, title, data, favorite, completed }: TaskItemProps) => {
         <p
           className={`text-neutral-800 ${
             completed ? "line-through" : ""
-          } break-words whitespace-normal`}
+          } break-words whitespace-pre-wrap break-all line-clamp-2`}
         >
           {title}
         </p>
-        <p className="text-sm text-neutral-500">{dataFormatada}</p>
+        <p className="text-sm text-neutral-500">
+          {data == dataToday ? "Hoje" : dataFormatada}
+        </p>
       </Link>
 
       <div className="flex gap-2 shrink-0">

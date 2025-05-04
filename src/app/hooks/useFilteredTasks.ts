@@ -12,7 +12,8 @@ export const useFilteredTasks = () => {
     return `${ano}-${mes}-${dia}`;
   }
 
-  const dataFormatada = formatarDataAtual();
+  const dataToday = formatarDataAtual();
+
 
   const incompleteTasks = tasks.filter((task) => !task.completed);
   const completedTasks = tasks.filter((task) => task.completed);
@@ -25,10 +26,10 @@ export const useFilteredTasks = () => {
   );
 
   const incompleteTasksToday = tasks.filter(
-    (task) => task.data == dataFormatada && task.completed === false
+    (task) => task.data == dataToday && task.completed === false
   );
   const completedTasksToday = tasks.filter(
-    (task) => task.data == dataFormatada && task.completed === true
+    (task) => task.data == dataToday && task.completed === true
   );
 
   const incompleteTasksPlanned = tasks.filter(
@@ -52,6 +53,6 @@ export const useFilteredTasks = () => {
     completedTasksToday,
     incompleteTasksPlanned,
     completedTasksPlanned,
-    dataFormatada,
+    dataToday,
   };
 };
