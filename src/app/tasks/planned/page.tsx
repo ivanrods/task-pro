@@ -15,6 +15,11 @@ const Planned = () => {
   } = useFilteredTasks();
   return (
     <Container>
+      {incompleteTasksPlanned.length == 0 && (
+        <p className="text-neutral-800 mx-auto">
+          Sem tarefa planejada pendente
+        </p>
+      )}
       {incompleteTasksPlanned.map((task) => (
         <TaskItem
           key={task.id}

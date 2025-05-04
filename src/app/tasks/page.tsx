@@ -12,6 +12,9 @@ const Tarefas = () => {
 
   return (
     <Container>
+      {incompleteTasks.length == 0 && (
+        <p className="text-neutral-800 mx-auto">Sem tarefa pendente</p>
+      )}
       {incompleteTasks.map((task) => (
         <TaskItem
           key={task.id}

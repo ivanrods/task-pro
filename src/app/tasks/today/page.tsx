@@ -11,6 +11,11 @@ const Today = () => {
 
   return (
     <Container>
+      {incompleteTasksToday.length == 0 && (
+        <p className="text-neutral-800 mx-auto">
+          Sem tarefa pendente para hoje
+        </p>
+      )}
       {incompleteTasksToday.map((task) => (
         <TaskItem
           key={task.id}

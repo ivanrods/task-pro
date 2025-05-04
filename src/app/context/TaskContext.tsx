@@ -88,9 +88,14 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     favorite: boolean
   ) {
 
+    
+
     const taskExists = tasks.some(
-      (task) => task.title.trim().toLowerCase() === title.trim().toLowerCase()
+      (task) =>
+        task.id !== id && // ignora a própria tarefa
+        task.title.trim().toLowerCase() === title.trim().toLowerCase()
     );
+    
   
     if (taskExists) {
       alert("Já existe uma tarefa com esse título.");

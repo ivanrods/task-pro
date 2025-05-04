@@ -13,6 +13,10 @@ const Favorites = () => {
   } = useFilteredTasks();
   return (
     <Container>
+      {incompleteTasksFavotites.length == 0 && (
+        <p className="text-neutral-800 mx-auto">Sem tarefa favorita pendente</p>
+      )}
+
       {incompleteTasksFavotites.map((task) => (
         <TaskItem
           key={task.id}
