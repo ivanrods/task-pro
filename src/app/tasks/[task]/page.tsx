@@ -37,6 +37,7 @@ export default function TaskDetail() {
 
   return (
     <div className="h-full ">
+
       <form className="h-full flex flex-col gap-4 justify-around">
         <fieldset
           className="w-full flex flex-col  gap-4  

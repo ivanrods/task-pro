@@ -26,6 +26,28 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
     setData(event.target.value);
   };
 
+  function btnAddTask(){
+    if (title.trim() === "") {
+      alert("Por favor, insira um título para a tarefa.");
+      return;
+    }
+    if (title.length > 50) {
+      alert("O título deve ter no máximo 30 caracteres.");
+      return;
+    }
+
+    if (description.length > 300) {
+      alert("A descrição deve ter no máximo 200 caracteres.");
+      return;
+    }
+    addTask(title, description, data);
+    setTitle("");
+    setDescription("");
+    setToggleDescription(false);
+    setData("");
+    setToggleData(false);
+  }
+
   return (
     <div className=" bg-white rounded-xl shadow-lg  overflow-hidden my-4">
       <section className="flex gap-4 w-full bg-white px-4 py-4 text-blue-500 ">
@@ -37,6 +59,11 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
           value={title}
           onChange={handleChange}
           maxLength={50}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              btnAddTask()
+            }
+          }}
         />
       </section>
       {toggleDescription && (
@@ -79,27 +106,9 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
 
         <button
           className="border-1 border-b-neutral-600 px-2 py-1 cursor-pointer hover:border-blue-500 hover:text-blue-500"
-          onClick={() => {
-            if (title.trim() === "") {
-              alert("Por favor, insira um título para a tarefa.");
-              return;
-            }
-            if (title.length > 50) {
-              alert("O título deve ter no máximo 30 caracteres.");
-              return;
-            }
+          onClick={btnAddTask}
+          
 
-            if (description.length > 300) {
-              alert("A descrição deve ter no máximo 200 caracteres.");
-              return;
-            }
-            addTask(title, description, data);
-            setTitle("");
-            setDescription("");
-            setToggleDescription(false);
-            setData("");
-            setToggleData(false);
-          }}
         >
           Adicionar
         </button>

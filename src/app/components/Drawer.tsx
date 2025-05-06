@@ -18,7 +18,7 @@ const Drawer = () => {
     setHandleDrawer(!handleDrawer);
   }
   return (
-    <div className="relative">
+    <div className="relative z-50">
       <button
         className="absolute md:hidden top-8 left-8 "
         onClick={toggleDrawer}

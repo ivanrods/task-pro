@@ -12,12 +12,20 @@ type Task = {
   id: string;
   title: string;
   description: string;
-  data: string
+  data: string;
   completed: boolean;
   favorite: boolean;
 };
+
+type StatusBarType = {
+  title: string;
+  color: string;
+};
+
 type TaskContextType = {
   tasks: Task[];
+  statusBar: StatusBarType | null;
+  setStatusBar: (status: StatusBarType | null) => void;
   addTask: (title: string, description: string, data: string) => void;
   updateTask: (
     id: string,
@@ -30,12 +38,25 @@ type TaskContextType = {
   toggleCompleted: (id: string) => void;
   toggleFavorite: (id: string) => void;
   deleteTask: (id: string) => void;
+  handleStatusBar: (title: string, color: string) => void
 };
 
 const TaskContext = createContext({} as TaskContextType);
 
 export const TaskProvider = ({ children }: { children: ReactNode }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
+
+  const [statusBar, setStatusBar] = useState<StatusBarType | null>(null);
+
+
+
+  function handleStatusBar(title: string, color: string) {
+    setStatusBar({ title, color });
+
+    setTimeout(() => {
+      setStatusBar(null);
+    }, 2000);
+  }
 
   useEffect(() => {
     const storedTasks = localStorage.getItem("tasks");
@@ -56,11 +77,10 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
   }, [tasks]);
 
   function addTask(title: string, description: string, data: string) {
-
     const taskExists = tasks.some(
       (task) => task.title.trim().toLowerCase() === title.trim().toLowerCase()
     );
-  
+
     if (taskExists) {
       alert("Já existe uma tarefa com esse título.");
       return;
@@ -76,7 +96,8 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     };
 
     setTasks((prev) => [newTask, ...prev]);
-    
+
+    handleStatusBar('Tarefa criada', 'blue')
   }
 
   function updateTask(
@@ -87,21 +108,16 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     completed: boolean,
     favorite: boolean
   ) {
-
-    
-
     const taskExists = tasks.some(
       (task) =>
         task.id !== id && // ignora a própria tarefa
         task.title.trim().toLowerCase() === title.trim().toLowerCase()
     );
-    
-  
+
     if (taskExists) {
       alert("Já existe uma tarefa com esse título.");
       return;
     }
-
 
     setTasks((prev) =>
       prev.map((task) =>
@@ -117,6 +133,8 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
           : task
       )
     );
+
+    handleStatusBar('Tarefa atualizada', 'blue')
   }
 
   function toggleCompleted(id: string) {
@@ -137,12 +155,16 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
 
   function deleteTask(id: string) {
     setTasks((prev) => prev.filter((task) => task.id !== id));
+    handleStatusBar('Tarefa excluída', 'red')
   }
 
   return (
     <TaskContext.Provider
       value={{
+        setStatusBar,
         tasks,
+        statusBar,
+        handleStatusBar,
         addTask,
         updateTask,
         toggleCompleted,
@@ -155,4 +177,4 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useTask = () => useContext(TaskContext); 
+export const useTask = () => useContext(TaskContext);
