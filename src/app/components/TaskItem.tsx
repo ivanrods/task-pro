@@ -4,6 +4,7 @@ import { useTask } from "../context/TaskContext";
 import Link from "next/link";
 
 import { useFilteredTasks } from "../hooks/useFilteredTasks";
+import { useStatusBar } from "../context/StatusBarContext";
 type TaskItemProps = {
   id: string;
   title: string;
@@ -14,6 +15,7 @@ type TaskItemProps = {
 
 const TaskItem = ({ id, title, data, favorite, completed }: TaskItemProps) => {
   const { toggleCompleted, toggleFavorite, deleteTask } = useTask();
+  const { showStatusBar } = useStatusBar();
 
   const { dataToday } = useFilteredTasks();
 
@@ -55,7 +57,10 @@ const TaskItem = ({ id, title, data, favorite, completed }: TaskItemProps) => {
         </button>
         <button
           type="button"
-          onClick={() => deleteTask(id)}
+          onClick={() => {
+            deleteTask(id);
+            showStatusBar("Tarefa excluída", "red");
+          }}
           className="hover:text-red-500 cursor-pointer"
         >
           <Trash />

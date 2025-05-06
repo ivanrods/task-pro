@@ -1,12 +1,17 @@
 "use client";
 import { CalendarDays, Circle, FileText } from "lucide-react";
 import { useState } from "react";
+import { useTask } from "../context/TaskContext";
+import { useStatusBar } from "../context/StatusBarContext";
 
 type AddTaskInputProps = {
   addTask: (title: string, description: string, data: string) => void;
 };
 
 const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
+  const { tasks } = useTask();
+  const { showStatusBar } = useStatusBar();
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [data, setData] = useState("");
@@ -14,7 +19,7 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
   const [toggleDescription, setToggleDescription] = useState(false);
   const [toggleData, setToggleData] = useState(false);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };
 
@@ -26,26 +31,38 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
     setData(event.target.value);
   };
 
-  function btnAddTask(){
+  function handleAddTask() {
+    const taskExists = tasks.some(
+      (task) => task.title.trim().toLowerCase() === title.trim().toLowerCase()
+    );
+
+    if (taskExists) {
+      showStatusBar("Já existe uma tarefa com esse título.", "red");
+      return;
+    }
+
     if (title.trim() === "") {
-      alert("Por favor, insira um título para a tarefa.");
+      showStatusBar("Por favor, insira um título para a tarefa.", "red");
       return;
     }
     if (title.length > 50) {
-      alert("O título deve ter no máximo 30 caracteres.");
+      showStatusBar("O título deve ter no máximo 30 caracteres.", "red");
       return;
     }
 
     if (description.length > 300) {
-      alert("A descrição deve ter no máximo 200 caracteres.");
+      showStatusBar("A descrição deve ter no máximo 200 caracteres.", "red");
+
       return;
     }
+
     addTask(title, description, data);
     setTitle("");
     setDescription("");
     setToggleDescription(false);
     setData("");
     setToggleData(false);
+    showStatusBar("Tarefa criada", "blue");
   }
 
   return (
@@ -57,11 +74,11 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
           className="w-full border-none outline-none"
           type="text"
           value={title}
-          onChange={handleChange}
+          onChange={handleTitle}
           maxLength={50}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              btnAddTask()
+              handleAddTask();
             }
           }}
         />
@@ -99,16 +116,19 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
               } `}
             />
             {toggleData && (
-              <input className="text-blue-500 " type="date" value={data} onChange={handleData} />
+              <input
+                className="text-blue-500 "
+                type="date"
+                value={data}
+                onChange={handleData}
+              />
             )}
           </div>
         </div>
 
         <button
           className="border-1 border-b-neutral-600 px-2 py-1 cursor-pointer hover:border-blue-500 hover:text-blue-500"
-          onClick={btnAddTask}
-          
-
+          onClick={handleAddTask}
         >
           Adicionar
         </button>

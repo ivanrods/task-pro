@@ -5,11 +5,14 @@ import { ArrowLeft, Circle, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import InputForm from "@/app/components/InputForm";
+import { useStatusBar } from "@/app/context/StatusBarContext";
 
 export default function TaskDetail() {
   const router = useRouter();
   const { task } = useParams<{ task: string }>();
   const { tasks, deleteTask, updateTask } = useTask();
+  const { showStatusBar } = useStatusBar();
+
   const taskDetail = tasks.find((t) => t.id === task);
 
   const [title, setTitle] = useState(taskDetail?.title || "");
@@ -28,16 +31,39 @@ export default function TaskDetail() {
     }
   }, [taskDetail]);
 
-  const handleSave = () => {
+  const handleSave = (id: string) => {
+    const taskExists = tasks.some(
+      (task) =>
+        task.id !== id &&
+        task.title.trim().toLowerCase() === title.trim().toLowerCase()
+    );
+
+    if (taskExists) {
+      showStatusBar("Já existe uma tarefa com esse título.", "red");
+      return;
+    }
+    if (title.trim() === "") {
+      showStatusBar("Por favor, insira um título para a tarefa.", "red");
+      return;
+    }
+    if (title.length > 50) {
+      showStatusBar("O título deve ter no máximo 30 caracteres.", "red");
+      return;
+    }
+
+    if (description.length > 300) {
+      showStatusBar("A descrição deve ter no máximo 200 caracteres.", "red");
+      return;
+    }
+
     if (taskDetail) {
       updateTask(taskDetail.id, title, description, data, completed, favorite);
+      showStatusBar("Tarefa atualizada", "blue");
     }
   };
 
-
   return (
     <div className="h-full ">
-
       <form className="h-full flex flex-col gap-4 justify-around">
         <fieldset
           className="w-full flex flex-col  gap-4  
@@ -104,23 +130,11 @@ export default function TaskDetail() {
         </fieldset>
         <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
           <button
-            type="submit"
-            onClick={(e) => {
-              e.preventDefault();
-              if (title.trim() === "") {
-                alert("Por favor, insira um título para a tarefa.");
-                return;
+            type="button"
+            onClick={() => {
+              if (taskDetail) {
+                handleSave(taskDetail.id);
               }
-              if (title.length > 50) {
-                alert("O título deve ter no máximo 30 caracteres.");
-                return;
-              }
-
-              if (description.length > 300) {
-                alert("A descrição deve ter no máximo 200 caracteres.");
-                return;
-              }
-              handleSave();
             }}
             className="w-full bg-blue-500 text-white py-2 rounded-md cursor-pointer"
           >
@@ -131,6 +145,7 @@ export default function TaskDetail() {
             onClick={() => {
               if (taskDetail) {
                 deleteTask(taskDetail.id);
+                showStatusBar("Tarefa excluida", "red");
                 router.back();
               }
             }}

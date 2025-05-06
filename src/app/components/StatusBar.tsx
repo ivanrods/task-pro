@@ -1,8 +1,9 @@
 "use client";
-import { useTask } from "../context/TaskContext";
+import { useStatusBar } from "../context/StatusBarContext";
+
 
 const StatusBar = () => {
-  const { statusBar } = useTask();
+  const { statusBar } = useStatusBar();
   if (!statusBar) return null;
 
   const bgColorClass =
