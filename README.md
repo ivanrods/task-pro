@@ -4,7 +4,8 @@
 
 ## 🎨 Demonstração
 
-![task-pro](https://github.com/user-attachments/assets/cf61b0dd-74fe-4c7a-bbd8-1de7d76e2326)
+![task-pro](https://github.com/user-attachments/assets/e7c01497-d514-43fc-bc4a-ab23e9d79927)
+
 
 <!-- Substitua pela imagem da sua aplicação -->
 
