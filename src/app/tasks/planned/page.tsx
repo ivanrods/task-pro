@@ -16,7 +16,7 @@ const Planned = () => {
   return (
     <Container>
       {incompleteTasksPlanned.length == 0 && (
-        <p className="text-neutral-800 mx-auto">
+        <p className="text-[var(--text-color)]  mx-auto">
           Sem tarefa planejada pendente
         </p>
       )}

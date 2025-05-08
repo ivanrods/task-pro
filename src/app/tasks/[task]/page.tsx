@@ -72,11 +72,11 @@ export default function TaskDetail() {
           <button
             type="button"
             onClick={() => router.back()}
-            className="flex items-center gap-2 mb-8  cursor-pointer hover:text-blue-500"
+            className="text-[var(--text-color)] flex items-center gap-2 mb-8  cursor-pointer hover:text-[var(--primary-color)]"
           >
             <ArrowLeft /> Voltar
           </button>
-          <h3 className="break-words max-w-full text-2xl font-bold mb-4 whitespace-pre-wrap break-all">
+          <h3 className="text-[var(--text-color)] break-words max-w-full text-2xl font-bold mb-4 whitespace-pre-wrap break-all">
             {title}
           </h3>
 
@@ -110,13 +110,13 @@ export default function TaskDetail() {
             label="Data da tarefa"
           />
 
-          <div className="w-full flex flex-col gap-4 text-blue-500">
+          <div className="w-full flex flex-col gap-4 text-[var(--primary-color)]">
             <button
               type="button"
               onClick={() => setCompleted(!completed)}
               className="flex gap-2 cursor-pointer"
             >
-              <Circle fill={completed ? "#3b82f6" : "none"} />
+              <Circle fill={completed ? "var(--primary-color)" : "none"} />
               Concluído
             </button>
             <button
@@ -124,7 +124,8 @@ export default function TaskDetail() {
               onClick={() => setFavorite(!favorite)}
               className="flex gap-2 cursor-pointer"
             >
-              <Star fill={favorite ? "#3b82f6" : "none"} /> Favoritar
+              <Star fill={favorite ? "var(--primary-color)" : "none"} />{" "}
+              Favoritar
             </button>
           </div>
         </fieldset>
@@ -136,7 +137,7 @@ export default function TaskDetail() {
                 handleSave(taskDetail.id);
               }
             }}
-            className="w-full bg-blue-500 text-white py-2 rounded-md cursor-pointer"
+            className="w-full bg-[var(--primary-color)] text-white py-2 rounded-md cursor-pointer"
           >
             Salvar
           </button>
@@ -149,7 +150,7 @@ export default function TaskDetail() {
                 router.back();
               }
             }}
-            className="w-full text-blue-500 hover:text-red-500 border py-2 rounded-md cursor-pointer"
+            className="w-full text-[var(--primary-color)] hover:text-[var(--alert-color)] border py-2 rounded-md cursor-pointer"
           >
             Excluir
           </button>

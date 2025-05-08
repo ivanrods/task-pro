@@ -66,9 +66,9 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
   }
 
   return (
-    <div className=" bg-white rounded-xl shadow-lg  overflow-hidden my-4">
-      <section className="flex gap-4 w-full bg-white px-4 py-4 text-blue-500 ">
-        <Circle />
+    <div className=" bg-[var(--background)] text-[var(--text-color)] rounded-xl shadow-lg  overflow-hidden my-4">
+      <section className="flex gap-4 w-full  px-4 py-4  ">
+        <Circle className="text-[var(--primary-color)]"/>
         <input
           placeholder="Adicioner uma tarefa"
           className="w-full border-none outline-none"
@@ -84,8 +84,8 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
         />
       </section>
       {toggleDescription && (
-        <section className="border-t border-neutral-300 flex gap-4 mx-4 py-2 text-blue-500">
-          <FileText />
+        <section className="border-t border-[var(--border-color)] flex gap-4 mx-4 py-2 ">
+          <FileText className="text-[var(--primary-color)]"/>
           <textarea
             className="w-full border-none outline-none h-20 resize-none"
             name=""
@@ -98,12 +98,12 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
         </section>
       )}
 
-      <section className="w-full py-2 px-4 bg-neutral-100 flex justify-between items-center  text-neutral-600">
+      <section className="dark:bg-neutral-950 bg-neutral-100 w-full py-2 px-4  flex justify-between items-center  text-[var(--text-color)]">
         <div className="flex items-center gap-4">
           <button onClick={() => setToggleDescription(!toggleDescription)}>
             <FileText
-              className={`hover:text-blue-500 cursor-pointer ${
-                toggleDescription ? "text-blue-500" : "text-neutral-700"
+              className={`hover:text-[var(--primary-color)] cursor-pointer ${
+                toggleDescription ? "text-[var(--primary-color)]" : "text-[var(--text-color)]"
               } `}
             />
           </button>
@@ -111,13 +111,13 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
           <div className="flex gap-2">
             <CalendarDays
               onClick={() => setToggleData(!toggleData)}
-              className={`hover:text-blue-500 cursor-pointer ${
-                toggleData ? "text-blue-500" : "text-neutral-700"
+              className={`hover:text-[var(--primary-color)] cursor-pointer ${
+                toggleData ? "text-[var(--primary-color)]" : "text-[var(--text-color)]"
               } `}
             />
             {toggleData && (
               <input
-                className="text-blue-500 "
+               
                 type="date"
                 value={data}
                 onChange={handleData}
@@ -127,7 +127,7 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
         </div>
 
         <button
-          className="border-1 border-b-neutral-600 px-2 py-1 cursor-pointer hover:border-blue-500 hover:text-blue-500"
+          className="border-1 border-b-neutral-600 px-2 py-1 cursor-pointer hover:border-[var(--primary-color)] hover:text-[var(--primary-color)]"
           onClick={handleAddTask}
         >
           Adicionar

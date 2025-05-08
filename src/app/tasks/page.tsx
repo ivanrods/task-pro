@@ -13,7 +13,7 @@ const Tarefas = () => {
   return (
     <Container>
       {incompleteTasks.length == 0 && (
-        <p className="text-neutral-800 mx-auto">Sem tarefa pendente</p>
+        <p className="text-[var(--text-color)]  mx-auto">Sem tarefa pendente</p>
       )}
       {incompleteTasks.map((task) => (
         <TaskItem

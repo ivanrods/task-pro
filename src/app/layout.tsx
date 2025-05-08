@@ -8,7 +8,7 @@ const roboto = Roboto({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-br">
+    <html lang="pt-br" >
       <body className={`${roboto.className} antialiased`}>
         {children}
       </body>

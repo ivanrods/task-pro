@@ -16,10 +16,10 @@ const SidebarItem = ({ href, icon, label }: SidebarItemProps) => {
   return (
     <Link href={href}>
       <li
-        className={`flex gap-4 items-center px-3 py-3 w-full rounded-md ${
+        className={`text-[var(--text-color)] flex gap-4 items-center px-3 py-3 w-full rounded-md ${
           isActive
-            ? "bg-blue-500 text-white"
-            : "text-neutral-800 hover:bg-blue-500 hover:text-white"
+            ? "bg-[var(--primary-color)] text-white"
+            : "text-[var(--text-color)] hover:bg-[var(--primary-color)] hover:text-white"
         }`}
       >
         {icon}

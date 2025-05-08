@@ -25,18 +25,18 @@ const TaskItem = ({ id, title, data, favorite, completed }: TaskItemProps) => {
       : "";
 
   return (
-    <li className="w-full flex py-4 px-4 gap-4 items-center bg-white rounded-xl text-blue-500">
+    <li className="bg-[var(--background)] text-[var(--primary-color)]  w-full flex py-4 px-4 gap-4 items-center   rounded-xl ">
       <button
         type="button"
         onClick={() => toggleCompleted(id)}
         className="cursor-pointer"
       >
-        <Circle fill={completed ? "#3b82f6" : "none"} />
+        <Circle fill={completed ? "var(--primary-color)" : "none"} />
       </button>
 
       <Link href={`/tasks/${id}`} className="flex-1 overflow-hidden">
         <p
-          className={`text-neutral-800 ${
+          className={`text-[var(--text-color)] ${
             completed ? "line-through" : ""
           } break-words whitespace-pre-wrap break-all line-clamp-2`}
         >
@@ -53,7 +53,7 @@ const TaskItem = ({ id, title, data, favorite, completed }: TaskItemProps) => {
           onClick={() => toggleFavorite(id)}
           className="cursor-pointer"
         >
-          <Star fill={favorite ? "#3b82f6" : "none"} />
+          <Star fill={favorite ? "var(--primary-color)" : "none"} />
         </button>
         <button
           type="button"
@@ -61,7 +61,7 @@ const TaskItem = ({ id, title, data, favorite, completed }: TaskItemProps) => {
             deleteTask(id);
             showStatusBar("Tarefa excluída", "red");
           }}
-          className="hover:text-red-500 cursor-pointer"
+          className="hover:text-[var(--alert-color)] cursor-pointer"
         >
           <Trash />
         </button>

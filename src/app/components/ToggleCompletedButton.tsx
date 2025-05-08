@@ -13,7 +13,7 @@ const ToggleCompletedButton = ({
     <button
       type="button"
       onClick={onClick}
-      className="flex gap-1 text-neutral-800 cursor-pointer"
+      className="flex gap-1 text-[var(--text-color)] cursor-pointer"
     >
       <ChevronRight className={toggleCompleted ? "hidden" : "block"} />
       <ChevronDown className={toggleCompleted ? "block" : "hidden"} />

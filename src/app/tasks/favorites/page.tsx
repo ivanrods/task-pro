@@ -14,7 +14,7 @@ const Favorites = () => {
   return (
     <Container>
       {incompleteTasksFavotites.length == 0 && (
-        <p className="text-neutral-800 mx-auto">Sem tarefa favorita pendente</p>
+        <p className="text-[var(--text-color)]  mx-auto">Sem tarefa favorita pendente</p>
       )}
 
       {incompleteTasksFavotites.map((task) => (

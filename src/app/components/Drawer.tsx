@@ -27,7 +27,7 @@ const Drawer = () => {
       </button>
 
       <section
-        className={`flex flex-col justify-between gap-4 z-10 h-full w-72 xl:w-80 bg-white fixed top-0 left-0 px-2 pb-2 max-h-screen overflow-auto transition-transform duration-300 ease-in-out transform shadow-lg ${
+        className={`bg-[var(--background)] text-[var(--text-color)] flex flex-col justify-between gap-4 z-10 h-full w-72 xl:w-80  fixed top-0 left-0 px-2 pb-2 max-h-screen overflow-auto transition-transform duration-300 ease-in-out transform shadow-lg ${
           handleDrawer ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 md:static`}
       >
@@ -45,19 +45,15 @@ const Drawer = () => {
               alt="imagem do usuario"
             />
             <div>
-              <p className="text-lg font-semibold text-neutral-700">
-                Ivan Rodrigues
-              </p>
-              <p className="text-sm text-neutral-700">
-                contaivanrodrigues@gmail.com
-              </p>
+              <p className="text-lg font-semibold ">Ivan Rodrigues</p>
+              <p className="text-sm">contaivanrodrigues@gmail.com</p>
             </div>
           </div>
 
           <div className="flex flex-col gap-1 list-none py-4 ">
             <SidebarItem href="/tasks" icon={<House />} label="Tarefas" />
             <SidebarItem href="/tasks/today" icon={<Sun />} label="Meu dia" />
-           
+
             <SidebarItem
               href="/tasks/favorites"
               icon={<Star />}
@@ -72,10 +68,15 @@ const Drawer = () => {
         </div>
 
         <div>
-          <button className="flex gap-4 items-center px-3 py-3 w-full rounded-md text-neutral-800 hover:bg-blue-500 hover:text-white cursor-pointer mb-1">
+          <button
+            onClick={function toggleDarkMode() {
+              document.documentElement.classList.toggle("dark");
+            }}
+            className="flex gap-4 items-center px-3 py-3 w-full rounded-md text-[var(--text-color)] hover:bg-[var(--primary-color)] hover:text-white cursor-pointer mb-1"
+          >
             <SunMoon /> Mudar tema
           </button>
-          <button className="flex gap-4 items-center px-3 py-3 w-full rounded-md text-neutral-800 hover:bg-blue-500 hover:text-white cursor-pointer">
+          <button className="flex gap-4 items-center px-3 py-3 w-full rounded-md text-[var(--text-color)] hover:bg-[var(--primary-color)] hover:text-white cursor-pointer">
             <LogOut /> Sair
           </button>
         </div>

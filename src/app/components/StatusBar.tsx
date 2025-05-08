@@ -8,9 +8,9 @@ const StatusBar = () => {
 
   const bgColorClass =
     {
-      blue: "bg-blue-500",
-      red: "bg-red-400",
-    }[statusBar.color] || "bg-blue-500";
+      blue: "bg-[var(--primary-color)]",
+      red: "bg-[var(--alert-color)]",
+    }[statusBar.color] || "bg-[var(--primary-color)]";
 
   return (
     <p
