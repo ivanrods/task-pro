@@ -10,10 +10,13 @@ import {
 } from "lucide-react";
 
 import { useState } from "react";
+import { useTheme } from '../context/ThemeContext';
 import SidebarItem from "./SidebarItem";
 import Image from "next/image";
 const Drawer = () => {
   const [handleDrawer, setHandleDrawer] = useState(false);
+  const { toggleTheme } = useTheme();
+
   function toggleDrawer() {
     setHandleDrawer(!handleDrawer);
   }
@@ -69,9 +72,7 @@ const Drawer = () => {
 
         <div>
           <button
-            onClick={function toggleDarkMode() {
-              document.documentElement.classList.toggle("dark");
-            }}
+            onClick={toggleTheme}
             className="flex gap-4 items-center px-3 py-3 w-full rounded-md text-[var(--text-color)] hover:bg-[var(--primary-color)] hover:text-white cursor-pointer mb-1"
           >
             <SunMoon /> Mudar tema

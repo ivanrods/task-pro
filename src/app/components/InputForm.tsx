@@ -30,7 +30,7 @@ const InputForm = ({
           placeholder={placeholder}
           onChange={onChange}
           maxLength={maxLength}
-          className="bg-[var(--background)] px-4 py-4 rounded-lg text-[var(--text-color)] border border-[var(--border-color)] outline-none focus:border-[var(--text-color)] w-full h-40 resize-none"
+          className="bg-[var(--background)] px-4 py-4 rounded-lg text-[var(--text-color)] border border-[var(--border-color)] outline-none focus:border-[var(--primary-color)] w-full h-40 resize-none"
         />
       ) : (
         <input
@@ -40,7 +40,7 @@ const InputForm = ({
           placeholder={placeholder}
           onChange={onChange}
           maxLength={maxLength}
-          className="bg-[var(--background)] px-4 py-4 rounded-lg text-[var(--text-color)] border border-[var(--border-color)] outline-none focus:border-[var(--text-color)] w-full "
+          className="bg-[var(--background)] px-4 py-4 rounded-lg text-[var(--text-color)] border border-[var(--border-color)] outline-none focus:border-[var(--primary-color)] w-full "
         />
       )}
     </label>
