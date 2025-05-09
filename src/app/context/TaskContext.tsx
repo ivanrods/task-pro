@@ -8,6 +8,8 @@ import {
   useEffect,
 } from "react";
 
+import { usePathname } from "next/navigation";
+
 type Task = {
   id: string;
   title: string;
@@ -39,6 +41,8 @@ const TaskContext = createContext({} as TaskContextType);
 export const TaskProvider = ({ children }: { children: ReactNode }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
+  const pathname = usePathname();
+
   useEffect(() => {
     const storedTasks = localStorage.getItem("tasks");
     if (storedTasks) {
@@ -57,14 +61,35 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [tasks]);
 
-  function addTask(title: string, description: string, data: string) {
+  
+
+  function addTask(title: string, description: string) {
+    
+    const isFavoritePage = pathname.includes("/tasks/favorites");
+    const isTodayPage = pathname.includes("/tasks/today");
+    const isPlannedPage = pathname.includes("/tasks/planned");
+
+    function formatarDataAtual(): string {
+      const [dia, mes, ano] = new Intl.DateTimeFormat("pt-BR")
+        .format(new Date())
+        .split("/");
+      return `${ano}-${mes}-${dia}`;
+    }
+
+    const dataToday = formatarDataAtual();
+    let data = "";
+
+    if (isTodayPage || isPlannedPage) {
+      data = dataToday;
+    }
+
     const newTask: Task = {
       id: crypto.randomUUID(),
       title,
       description,
-      data,
+      data: data,
       completed: false,
-      favorite: false,
+      favorite: isFavoritePage,
     };
 
     setTasks((prev) => [newTask, ...prev]);

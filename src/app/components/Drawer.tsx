@@ -26,7 +26,7 @@ const Drawer = () => {
         className="absolute md:hidden top-8 left-8 "
         onClick={toggleDrawer}
       >
-        <Menu />
+        <Menu className="text-[var(--text-color)]"/>
       </button>
 
       <section
