@@ -1,19 +1,12 @@
 import { useTask } from "../context/TaskContext";
 import { useState } from "react";
+import { useData } from "./useData";
 
 export const useFilteredTasks = () => {
   const { addTask, tasks } = useTask();
   const [toggleCompleted, setToggleCompleted] = useState(true);
 
-  function formatarDataAtual(): string {
-    const [dia, mes, ano] = new Intl.DateTimeFormat("pt-BR")
-      .format(new Date())
-      .split("/");
-    return `${ano}-${mes}-${dia}`;
-  }
-
-  const dataToday = formatarDataAtual();
-
+  const { dataToday } = useData();
 
   const incompleteTasks = tasks.filter((task) => !task.completed);
   const completedTasks = tasks.filter((task) => task.completed);

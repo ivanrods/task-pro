@@ -9,6 +9,7 @@ import {
 } from "react";
 
 import { usePathname } from "next/navigation";
+import { useData } from "../hooks/useData";
 
 type Task = {
   id: string;
@@ -43,6 +44,8 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
 
   const pathname = usePathname();
 
+  const { dataToday } = useData();
+
   useEffect(() => {
     const storedTasks = localStorage.getItem("tasks");
     if (storedTasks) {
@@ -61,26 +64,21 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [tasks]);
 
-  
+  function addTask(title: string, description: string, data: string) {
 
-  function addTask(title: string, description: string) {
-    
     const isFavoritePage = pathname.includes("/tasks/favorites");
     const isTodayPage = pathname.includes("/tasks/today");
     const isPlannedPage = pathname.includes("/tasks/planned");
 
-    function formatarDataAtual(): string {
-      const [dia, mes, ano] = new Intl.DateTimeFormat("pt-BR")
-        .format(new Date())
-        .split("/");
-      return `${ano}-${mes}-${dia}`;
-    }
-
-    const dataToday = formatarDataAtual();
-    let data = "";
-
-    if (isTodayPage || isPlannedPage) {
+    if (isTodayPage) {
       data = dataToday;
+    }
+    if (isPlannedPage) {
+      if (data !== "") {
+        data = data;
+      } else {
+        data = dataToday;
+      }
     }
 
     const newTask: Task = {

@@ -3,7 +3,7 @@ import { Circle, Star, Trash } from "lucide-react";
 import { useTask } from "../context/TaskContext";
 import Link from "next/link";
 
-import { useFilteredTasks } from "../hooks/useFilteredTasks";
+import { useData } from "../hooks/useData";
 import { useStatusBar } from "../context/StatusBarContext";
 type TaskItemProps = {
   id: string;
@@ -17,12 +17,7 @@ const TaskItem = ({ id, title, data, favorite, completed }: TaskItemProps) => {
   const { toggleCompleted, toggleFavorite, deleteTask } = useTask();
   const { showStatusBar } = useStatusBar();
 
-  const { dataToday } = useFilteredTasks();
-
-  const dataFormatada =
-    data && !isNaN(new Date(`${data}T00:00:00`).getTime())
-      ? new Date(`${data}T00:00:00`).toLocaleDateString("pt-BR")
-      : "";
+  const { dataToday, dataFormatada } = useData(data);
 
   return (
     <li className="bg-[var(--background)] text-[var(--primary-color)]  w-full flex py-4 px-4 gap-4 items-center   rounded-xl ">
