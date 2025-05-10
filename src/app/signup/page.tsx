@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ButtonInput from "../components/ButtonInput";
 import InputForm from "../components/InputForm";
 
@@ -19,7 +20,7 @@ const SignUp = () => {
         />
 
         <InputForm
-          type="text"
+          type="email"
           id="title"
           value=""
           placeholder="Email"
@@ -27,14 +28,17 @@ const SignUp = () => {
           label="Email"
         />
         <InputForm
-          type="text"
+          type="password"
           id="title"
           value=""
           placeholder="Senha"
           maxLength={50}
           label="Senha"
         />
-        <ButtonInput title="Criar conta" />
+        <ButtonInput variant="save" title="Criar conta" />
+        <Link href="/login" className="text-sm mx-auto">
+          Tenho uma conta
+        </Link>
       </form>
     </div>
   );

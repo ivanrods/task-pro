@@ -15,7 +15,11 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <ThemeProvider>
-        <body className={`${roboto.className} antialiased`}>{children}</body>
+        <body
+          className={`${roboto.className} antialiased bg-[var(--background)]`}
+        >
+          {children}
+        </body>
       </ThemeProvider>
     </html>
   );

@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 
 type InputFormProps = {
-  type: "text" | "date" | "textarea";
+  type: "text" | "date" | "textarea" | "password" | "email";
   id: string;
   value: string;
   placeholder: string;
@@ -42,8 +42,10 @@ const InputForm = ({
           maxLength={maxLength}
           className="bg-[var(--background)] px-4 py-4 rounded-lg text-[var(--text-color)] border border-[var(--border-color)] outline-none focus:border-[var(--primary-color)] w-full "
         />
+        
       )}
     </label>
+    
   );
 };
 

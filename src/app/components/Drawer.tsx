@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useTheme } from '../context/ThemeContext';
 import SidebarItem from "./SidebarItem";
 import Image from "next/image";
+import Link from "next/link";
 const Drawer = () => {
   const [handleDrawer, setHandleDrawer] = useState(false);
   const { toggleTheme } = useTheme();
@@ -44,12 +45,12 @@ const Drawer = () => {
               width={60}
               height={60}
               className="rounded-full"
-              src="https://avatars.githubusercontent.com/u/67488687?v=4"
+              src="/profile.jpg"
               alt="imagem do usuario"
             />
             <div>
-              <p className="text-lg font-semibold ">Ivan Rodrigues</p>
-              <p className="text-sm">contaivanrodrigues@gmail.com</p>
+              <p className="text-lg font-semibold ">Usuário</p>
+              <Link href='/login' className="text-sm">Entrar</Link >
             </div>
           </div>
 

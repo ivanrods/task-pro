@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import InputForm from "@/app/components/InputForm";
 import { useStatusBar } from "@/app/context/StatusBarContext";
+import ButtonInput from "@/app/components/ButtonInput";
 
 export default function TaskDetail() {
   const router = useRouter();
@@ -130,19 +131,18 @@ export default function TaskDetail() {
           </div>
         </fieldset>
         <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
-          <button
-            type="button"
+          <ButtonInput
+          variant="save"
+            title="Salvar"
             onClick={() => {
               if (taskDetail) {
                 handleSave(taskDetail.id);
               }
             }}
-            className="w-full bg-[var(--primary-color)] text-white py-2 rounded-md cursor-pointer"
-          >
-            Salvar
-          </button>
-          <button
-            type="button"
+          />
+          <ButtonInput
+          variant="delete"
+            title="Excluir"
             onClick={() => {
               if (taskDetail) {
                 deleteTask(taskDetail.id);
@@ -150,10 +150,7 @@ export default function TaskDetail() {
                 router.back();
               }
             }}
-            className="w-full text-[var(--primary-color)] hover:text-[var(--alert-color)] border py-2 rounded-md cursor-pointer"
-          >
-            Excluir
-          </button>
+          />
         </div>
       </form>
     </div>
