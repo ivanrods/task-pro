@@ -6,8 +6,8 @@ type InputFormProps = {
   value: string;
   placeholder: string;
   maxLength: number;
-  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  label: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  label?: string;
 };
 
 const InputForm = ({

@@ -1,0 +1,43 @@
+import ButtonInput from "../components/ButtonInput";
+import InputForm from "../components/InputForm";
+
+const SignUp = () => {
+  return (
+    <div className="text-[var(--text-color)] bg-[var(--background-secondary)] w-full h-screen flex justify-center items-center">
+      <form
+        className="w-full h-full sm:w-[500px] sm:h-auto max-w-7xl bg-[var(--background)] p-8 
+       rounded-lg flex flex-col justify-center gap-6 "
+      >
+        <h1 className="mx-auto font-bold text-2xl">Cadastrar</h1>
+        <InputForm
+          type="text"
+          id="title"
+          value=""
+          placeholder="Nome"
+          maxLength={50}
+          label="Nome"
+        />
+
+        <InputForm
+          type="text"
+          id="title"
+          value=""
+          placeholder="Email"
+          maxLength={50}
+          label="Email"
+        />
+        <InputForm
+          type="text"
+          id="title"
+          value=""
+          placeholder="Senha"
+          maxLength={50}
+          label="Senha"
+        />
+        <ButtonInput title="Criar conta" />
+      </form>
+    </div>
+  );
+};
+
+export default SignUp;
