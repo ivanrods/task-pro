@@ -12,8 +12,6 @@ const SignUp = () => {
         <h1 className="mx-auto font-bold text-2xl">Cadastrar</h1>
         <InputForm
           type="text"
-          id="title"
-          value=""
           placeholder="Nome"
           maxLength={50}
           label="Nome"
@@ -21,16 +19,12 @@ const SignUp = () => {
 
         <InputForm
           type="email"
-          id="title"
-          value=""
           placeholder="Email"
           maxLength={50}
           label="Email"
         />
         <InputForm
           type="password"
-          id="title"
-          value=""
           placeholder="Senha"
           maxLength={50}
           label="Senha"

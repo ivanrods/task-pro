@@ -13,16 +13,12 @@ const Login = () => {
 
         <InputForm
           type="text"
-          id="title"
-          value=""
           placeholder="Email"
           maxLength={50}
           label="Email"
         />
         <InputForm
           type="text"
-          id="title"
-          value=""
           placeholder="Senha"
           maxLength={50}
           label="Senha"

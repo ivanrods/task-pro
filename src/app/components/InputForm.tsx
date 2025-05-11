@@ -2,10 +2,10 @@ import { ChangeEvent } from "react";
 
 type InputFormProps = {
   type: "text" | "date" | "textarea" | "password" | "email";
-  id: string;
-  value: string;
-  placeholder: string;
-  maxLength: number;
+  id?: string;
+  value?: string;
+  placeholder?: string;
+  maxLength?: number;
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   label?: string;
 };

@@ -11,7 +11,7 @@ const Container = ({ children }: ContainerProps) => {
   return (
     <div className="flex flex-col gap-4">
       <AddTaskInput addTask={addTask} />
-      <div className="h-[600px] overflow-auto flex flex-col gap-4">{children}</div>
+      <div className="max-h-[600px] overflow-auto flex flex-col gap-4">{children}</div>
     </div>
   );
 };
