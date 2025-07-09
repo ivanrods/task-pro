@@ -23,12 +23,14 @@ model User {
 }
 
 model Task {
-  id        String   @id @default(cuid())
-  title     String
-  date      String
-  favorite  Boolean  @default(false)
-  completed Boolean  @default(false)
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  data        String
+  completed   Boolean  @default(false)
+  favorite    Boolean  @default(false)
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
 }
+
