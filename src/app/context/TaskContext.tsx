@@ -65,7 +65,6 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
   }, [tasks]);
 
   function addTask(title: string, description: string, data: string) {
-
     const isFavoritePage = pathname.includes("/tasks/favorites");
     const isTodayPage = pathname.includes("/tasks/today");
     const isPlannedPage = pathname.includes("/tasks/planned");
