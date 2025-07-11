@@ -21,6 +21,7 @@ export async function PUT(
       },
     });
     return NextResponse.json(updated);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json({ error: "Erro ao atualizar" }, { status: 500 });
   }
@@ -38,6 +39,7 @@ export async function DELETE(
     });
 
     return NextResponse.json({ success: true });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json({ error: "Erro ao deletar" }, { status: 500 });
   }

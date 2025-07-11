@@ -18,6 +18,7 @@ type Task = {
   data: string;
   completed: boolean;
   favorite: boolean;
+  userId: string;
 };
 
 type TaskContextType = {
@@ -46,7 +47,10 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
 
   const { dataToday } = useData();
 
-  useEffect(() => {
+  const userId = "user-id-aqui";
+  /*
+
+ useEffect(() => {
     const storedTasks = localStorage.getItem("tasks");
     if (storedTasks) {
       try {
@@ -63,8 +67,21 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem("tasks", JSON.stringify(tasks));
     }
   }, [tasks]);
+*/
+  useEffect(() => {
+    const fetchTask = async () => {
+      const res = await fetch(`/api/tasks`, {
+        headers: {
+          "user-id": userId,
+        },
+      });
+      const data = await res.json();
+      setTasks(data);
+    };
+    fetchTask();
+  }, [userId]);
 
-  function addTask(title: string, description: string, data: string) {
+  async function addTask(title: string, description: string, data: string) {
     const isFavoritePage = pathname.includes("/tasks/favorites");
     const isTodayPage = pathname.includes("/tasks/today");
     const isPlannedPage = pathname.includes("/tasks/planned");
@@ -80,19 +97,27 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
       }
     }
 
-    const newTask: Task = {
-      id: crypto.randomUUID(),
+    const newTask = {
       title,
       description,
       data: data,
       completed: false,
       favorite: isFavoritePage,
+      userId,
     };
+    const res = await fetch("/api/tasks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newTask),
+    });
 
-    setTasks((prev) => [newTask, ...prev]);
+    const created = await res.json();
+    setTasks((prev) => [created, ...prev]);
   }
 
-  function updateTask(
+  async function updateTask(
     id: string,
     title: string,
     description: string,
@@ -100,39 +125,56 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     completed: boolean,
     favorite: boolean
   ) {
+    await fetch(`/api/tasks/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, description, data, completed, favorite }),
+    });
+
     setTasks((prev) =>
       prev.map((task) =>
         task.id === id
-          ? {
-              ...task,
-              title,
-              description,
-              data,
-              completed,
-              favorite,
-            }
+          ? { ...task, title, description, data, completed, favorite }
           : task
       )
     );
   }
 
-  function toggleCompleted(id: string) {
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
+  async function toggleCompleted(id: string) {
+    const task = tasks.find((t) => t.id === id);
+    if (!task) return;
+
+    await updateTask(
+      id,
+      task.title,
+      task.description,
+      task.data,
+      !task.completed,
+      task.favorite
     );
   }
 
-  function toggleFavorite(id: string) {
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.id === id ? { ...task, favorite: !task.favorite } : task
-      )
+  async function toggleFavorite(id: string) {
+    const task = tasks.find((t) => t.id === id);
+    if (!task) return;
+
+    await updateTask(
+      id,
+      task.title,
+      task.description,
+      task.data,
+      task.completed,
+      !task.favorite
     );
   }
 
-  function deleteTask(id: string) {
+  async function deleteTask(id: string) {
+    await fetch(`/api/tasks/${id}`, {
+      method: "DELETE",
+    });
+
     setTasks((prev) => prev.filter((task) => task.id !== id));
   }
 
