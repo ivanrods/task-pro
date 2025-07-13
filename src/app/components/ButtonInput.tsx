@@ -6,7 +6,7 @@ type ButtonInputProps = {
 const ButtonInput = ({ onClick, title, variant }: ButtonInputProps) => {
   return (
     <button
-      type="button"
+      type="submit"
       onClick={onClick}
       data-variant={variant}
       className="py-2 rounded-md cursor-pointer w-full 
