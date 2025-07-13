@@ -1,4 +1,4 @@
-import prisma from "@/app/lib/prisma";
+import { prisma } from "@/app/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(
@@ -10,7 +10,7 @@ export async function PUT(
   const { title, description, data, completed, favorite } = body;
 
   try {
-    const updated = await prisma.updated({
+    const updated = await prisma.task.update({
       where: { id },
       data: {
         title,
@@ -20,10 +20,13 @@ export async function PUT(
         favorite,
       },
     });
+
     return NextResponse.json(updated);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    return NextResponse.json({ error: "Erro ao atualizar" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Erro ao atualizar tarefa" },
+      { status: 500 }
+    );
   }
 }
 
@@ -39,8 +42,10 @@ export async function DELETE(
     });
 
     return NextResponse.json({ success: true });
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    return NextResponse.json({ error: "Erro ao deletar" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Erro ao deletar tarefa" },
+      { status: 500 }
+    );
   }
 }

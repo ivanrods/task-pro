@@ -47,7 +47,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
 
   const { dataToday } = useData();
 
-  const userId = "user-id-aqui";
+  const userId = "1";
   /*
 
  useEffect(() => {
@@ -103,18 +103,22 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
       data: data,
       completed: false,
       favorite: isFavoritePage,
-      userId,
     };
-    const res = await fetch("/api/tasks", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newTask),
-    });
+    try {
+      const res = await fetch("/api/tasks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "user-id": userId,
+        },
+        body: JSON.stringify(newTask),
+      });
 
-    const created = await res.json();
-    setTasks((prev) => [created, ...prev]);
+      const created = await res.json();
+      setTasks((prev) => [created, ...prev]);
+    } catch (error) {
+      console.error("Erro ao adicionar tarefa:", error);
+    }
   }
 
   async function updateTask(
@@ -125,21 +129,26 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     completed: boolean,
     favorite: boolean
   ) {
-    await fetch(`/api/tasks/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title, description, data, completed, favorite }),
-    });
+    try {
+      await fetch(`/api/tasks/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "user-id": userId,
+        },
+        body: JSON.stringify({ title, description, data, completed, favorite }),
+      });
 
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.id === id
-          ? { ...task, title, description, data, completed, favorite }
-          : task
-      )
-    );
+      setTasks((prev) =>
+        prev.map((task) =>
+          task.id === id
+            ? { ...task, title, description, data, completed, favorite }
+            : task
+        )
+      );
+    } catch (error) {
+      console.error("Erro ao atualizar tarefa:", error);
+    }
   }
 
   async function toggleCompleted(id: string) {
@@ -171,11 +180,18 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
   }
 
   async function deleteTask(id: string) {
-    await fetch(`/api/tasks/${id}`, {
-      method: "DELETE",
-    });
+    try {
+      await fetch(`/api/tasks/${id}`, {
+        method: "DELETE",
+        headers: {
+          "user-id": userId,
+        },
+      });
 
-    setTasks((prev) => prev.filter((task) => task.id !== id));
+      setTasks((prev) => prev.filter((task) => task.id !== id));
+    } catch (error) {
+      console.error("Erro ao deletar tarefa:", error);
+    }
   }
 
   return (
