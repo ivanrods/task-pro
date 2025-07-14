@@ -1,5 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { getUserFromToken } from "@/app/hooks/useDecode";
 import {
   CalendarDays,
   House,
@@ -10,7 +11,7 @@ import {
   SunMoon,
 } from "lucide-react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 import SidebarItem from "./SidebarItem";
 import Image from "next/image";
@@ -28,6 +29,19 @@ const Drawer = () => {
   function toggleDrawer() {
     setHandleDrawer(!handleDrawer);
   }
+ 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    const user = getUserFromToken();
+    console.log(user)
+    if (user) {
+      setName(user.name);
+      setEmail(user.email);
+    }
+  }, []);
+
   return (
     <div className="relative z-50">
       <button
@@ -56,10 +70,15 @@ const Drawer = () => {
               alt="imagem do usuario"
             />
             <div>
-              <p className="text-lg font-semibold ">Usuário</p>
-              <Link href="/login" className="text-sm">
+              <p className="text-lg font-semibold line-clamp-1">{ !name ? 'User': name }</p>
+              {email &&( <p className="text-sm line-clamp-1">{email}</p>)}
+             
+              {!name &&(<Link href="/login" className="text-sm">
                 Entrar
-              </Link>
+              </Link>)
+                
+              }
+              
             </div>
           </div>
 
