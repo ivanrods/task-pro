@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import {
   CalendarDays,
   House,
@@ -10,13 +11,19 @@ import {
 } from "lucide-react";
 
 import { useState } from "react";
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from "../context/ThemeContext";
 import SidebarItem from "./SidebarItem";
 import Image from "next/image";
 import Link from "next/link";
 const Drawer = () => {
   const [handleDrawer, setHandleDrawer] = useState(false);
   const { toggleTheme } = useTheme();
+  const router = useRouter();
+
+  function logout() {
+    localStorage.removeItem("token");
+    router.push("/login");
+  }
 
   function toggleDrawer() {
     setHandleDrawer(!handleDrawer);
@@ -27,7 +34,7 @@ const Drawer = () => {
         className="absolute md:hidden top-8 left-8 "
         onClick={toggleDrawer}
       >
-        <Menu className="text-[var(--text-color)]"/>
+        <Menu className="text-[var(--text-color)]" />
       </button>
 
       <section
@@ -50,7 +57,9 @@ const Drawer = () => {
             />
             <div>
               <p className="text-lg font-semibold ">Usuário</p>
-              <Link href='/login' className="text-sm">Entrar</Link >
+              <Link href="/login" className="text-sm">
+                Entrar
+              </Link>
             </div>
           </div>
 
@@ -77,9 +86,9 @@ const Drawer = () => {
             className="flex gap-4 items-center px-3 py-3 w-full rounded-md text-[var(--text-color)] hover:bg-[var(--primary-color)] hover:text-white cursor-pointer mb-1"
           >
             <SunMoon /> Mudar tema
-          </button>
-          <button className="flex gap-4 items-center px-3 py-3 w-full rounded-md text-[var(--text-color)] hover:bg-[var(--primary-color)] hover:text-white cursor-pointer">
-            <LogOut /> Sair
+          </button >
+          <button onClick={logout} className="flex gap-4 items-center px-3 py-3 w-full rounded-md text-[var(--text-color)] hover:bg-[var(--primary-color)] hover:text-white cursor-pointer">
+            <LogOut  /> Sair
           </button>
         </div>
       </section>
