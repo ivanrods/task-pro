@@ -50,6 +50,38 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
 
   const [userId, setUserId] = useState<string | null>(null);
   const [loadingUser, setLoadingUser] = useState(true);
+
+  useEffect(() => {
+    if (!userId) {
+      // Buscar do localStorage
+      const storedTasks = localStorage.getItem("tasks");
+      if (storedTasks) {
+        try {
+          setTasks(JSON.parse(storedTasks));
+        } catch (error) {
+          console.error("Erro ao fazer parse:", error);
+          localStorage.removeItem("tasks");
+        }
+      }
+      return;
+    }
+
+    // Buscar do servidor se logado
+    const fetchTask = async () => {
+      try {
+        const res = await fetch(`/api/tasks`, {
+          headers: { "user-id": userId },
+        });
+        const data = await res.json();
+        setTasks(data);
+      } catch (error) {
+        console.error("Erro ao buscar tarefas:", error);
+      }
+    };
+
+    fetchTask();
+  }, [userId]);
+
   useEffect(() => {
     const user = getUserFromToken();
     if (user?.userId) {
@@ -80,10 +112,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
   if (loadingUser) return null;
 
   async function addTask(title: string, description: string, data: string) {
-    if (!userId) {
-      console.error("Usuário não autenticado.");
-      return;
-    }
+    
     const isFavoritePage = pathname.includes("/tasks/favorites");
     const isTodayPage = pathname.includes("/tasks/today");
     const isPlannedPage = pathname.includes("/tasks/planned");
@@ -97,6 +126,23 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
       } else {
         data = dataToday;
       }
+    }
+
+    if (!userId) {
+      const newLocalTask = {
+        id: crypto.randomUUID(), // gera id local
+        title,
+        description,
+        data,
+        completed: false,
+        favorite: isFavoritePage,
+        userId: "", // opcional
+      };
+
+      const updatedTasks = [newLocalTask, ...tasks];
+      setTasks(updatedTasks);
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+      return;
     }
 
     const newTask = {
@@ -131,6 +177,18 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     completed: boolean,
     favorite: boolean
   ) {
+    if (!userId) {
+      // Atualiza no localStorage
+      const updatedTasks = tasks.map((task) =>
+        task.id === id
+          ? { ...task, title, description, data, completed, favorite }
+          : task
+      );
+      setTasks(updatedTasks);
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+      return;
+    }
+
     try {
       await fetch(`/api/tasks/${id}`, {
         method: "PUT",
@@ -182,6 +240,13 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
   }
 
   async function deleteTask(id: string) {
+    if (!userId) {
+      const updatedTasks = tasks.filter((task) => task.id !== id);
+      setTasks(updatedTasks);
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+      return;
+    }
+
     try {
       await fetch(`/api/tasks/${id}`, {
         method: "DELETE",

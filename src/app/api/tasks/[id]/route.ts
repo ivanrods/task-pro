@@ -22,6 +22,7 @@ export async function PUT(
     });
 
     return NextResponse.json(updated);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json(
       { error: "Erro ao atualizar tarefa" },
@@ -42,6 +43,7 @@ export async function DELETE(
     });
 
     return NextResponse.json({ success: true });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json(
       { error: "Erro ao deletar tarefa" },

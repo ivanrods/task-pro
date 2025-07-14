@@ -18,6 +18,7 @@ export async function GET(req: NextRequest) {
     });
 
     return NextResponse.json(tasks);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json(
       { error: "Erro ao buscar tarefas" },
@@ -52,6 +53,7 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json(newTask, { status: 201 });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json(
       { error: "Erro ao criar tarefa" },
