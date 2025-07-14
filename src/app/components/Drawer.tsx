@@ -35,7 +35,6 @@ const Drawer = () => {
 
   useEffect(() => {
     const user = getUserFromToken();
-    console.log(user)
     if (user) {
       setName(user.name);
       setEmail(user.email);
@@ -66,8 +65,9 @@ const Drawer = () => {
               width={60}
               height={60}
               className="rounded-full"
-              src="/profile.jpg"
+              src={`https://i.pravatar.cc/150?u=${name}`}
               alt="imagem do usuario"
+              priority
             />
             <div>
               <p className="text-lg font-semibold line-clamp-1">{ !name ? 'User': name }</p>
@@ -106,9 +106,10 @@ const Drawer = () => {
           >
             <SunMoon /> Mudar tema
           </button >
-          <button onClick={logout} className="flex gap-4 items-center px-3 py-3 w-full rounded-md text-[var(--text-color)] hover:bg-[var(--primary-color)] hover:text-white cursor-pointer">
+          {name && (<button onClick={logout} className="flex gap-4 items-center px-3 py-3 w-full rounded-md text-[var(--text-color)] hover:bg-[var(--primary-color)] hover:text-white cursor-pointer">
             <LogOut  /> Sair
-          </button>
+          </button>)}
+          
         </div>
       </section>
     </div>
