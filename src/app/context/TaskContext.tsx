@@ -10,6 +10,7 @@ import {
 
 import { usePathname } from "next/navigation";
 import { useData } from "../hooks/useData";
+import { getUserFromToken } from "../hooks/useDecode";
 
 type Task = {
   id: string;
@@ -47,41 +48,42 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
 
   const { dataToday } = useData();
 
-  const userId = "1";
-  /*
-
- useEffect(() => {
-    const storedTasks = localStorage.getItem("tasks");
-    if (storedTasks) {
-      try {
-        setTasks(JSON.parse(storedTasks));
-      } catch (error) {
-        console.error("Erro ao fazer parse das tarefas:", error);
-        localStorage.removeItem("tasks");
-      }
+  const [userId, setUserId] = useState<string | null>(null);
+  const [loadingUser, setLoadingUser] = useState(true);
+  useEffect(() => {
+    const user = getUserFromToken();
+    if (user?.userId) {
+      setUserId(user.userId);
     }
+    setLoadingUser(false);
   }, []);
+  useEffect(() => {
+    if (!userId) return;
 
-  useEffect(() => {
-    if (tasks.length >= 0) {
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-    }
-  }, [tasks]);
-*/
-  useEffect(() => {
     const fetchTask = async () => {
-      const res = await fetch(`/api/tasks`, {
-        headers: {
-          "user-id": userId,
-        },
-      });
-      const data = await res.json();
-      setTasks(data);
+      try {
+        const res = await fetch(`/api/tasks`, {
+          headers: {
+            "user-id": userId,
+          },
+        });
+
+        const data = await res.json();
+        setTasks(data);
+      } catch (error) {
+        console.error("Erro ao buscar tarefas:", error);
+      }
     };
+
     fetchTask();
   }, [userId]);
+  if (loadingUser) return null;
 
   async function addTask(title: string, description: string, data: string) {
+    if (!userId) {
+      console.error("Usuário não autenticado.");
+      return;
+    }
     const isFavoritePage = pathname.includes("/tasks/favorites");
     const isTodayPage = pathname.includes("/tasks/today");
     const isPlannedPage = pathname.includes("/tasks/planned");
