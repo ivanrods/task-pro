@@ -1,64 +1,79 @@
 "use client";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import { useParams } from "next/navigation";
 import { useTask } from "../../context/TaskContext";
 import { ArrowLeft, Circle, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+
 import InputForm from "@/app/components/InputForm";
 import { useStatusBar } from "@/app/context/StatusBarContext";
 import ButtonInput from "@/app/components/ButtonInput";
 
+const taskSchema = z.object({
+  title: z
+    .string()
+    .min(1, "Título obrigatório")
+    .max(50, "Máximo 50 caracteres"),
+  description: z.string().max(300, "Máximo 300 caracteres").optional(),
+  data: z.string().optional(),
+  completed: z.boolean().optional(),
+  favorite: z.boolean().optional(),
+});
+
+type TaskFormData = z.infer<typeof taskSchema>;
+
 export default function TaskDetail() {
+
   const router = useRouter();
   const { task } = useParams<{ task: string }>();
   const { tasks, deleteTask, updateTask } = useTask();
   const { showStatusBar } = useStatusBar();
-
   const taskDetail = tasks.find((t) => t.id === task);
 
-  const [title, setTitle] = useState(taskDetail?.title || "");
-  const [description, setDescription] = useState(taskDetail?.description || "");
-  const [data, setData] = useState(taskDetail?.data || "");
-  const [completed, setCompleted] = useState(taskDetail?.completed ?? false);
-  const [favorite, setFavorite] = useState(taskDetail?.favorite ?? false);
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<TaskFormData>({
+    resolver: zodResolver(taskSchema),
+    defaultValues: {
+      title: taskDetail?.title || "",
+      description: taskDetail?.description || "",
+      data: taskDetail?.data || "",
+      completed: taskDetail?.completed || false,
+      favorite: taskDetail?.favorite || false,
+    },
+  });
 
-  useEffect(() => {
-    if (taskDetail) {
-      setTitle(taskDetail.title);
-      setDescription(taskDetail.description);
-      setData(taskDetail.data);
-      setCompleted(taskDetail.completed);
-      setFavorite(taskDetail.favorite);
-    }
-  }, [taskDetail]);
+  const completed = watch("completed");
+  const favorite = watch("favorite");
 
-  const handleSave = (id: string) => {
+  const onSubmit = (data: TaskFormData) => {
     const taskExists = tasks.some(
       (task) =>
-        task.id !== id &&
-        task.title.trim().toLowerCase() === title.trim().toLowerCase()
+        task.id !== taskDetail?.id &&
+        task.title.trim().toLowerCase() === data.title.trim().toLowerCase()
     );
 
     if (taskExists) {
       showStatusBar("Já existe uma tarefa com esse título.", "red");
       return;
     }
-    if (title.trim() === "") {
-      showStatusBar("Por favor, insira um título para a tarefa.", "red");
-      return;
-    }
-    if (title.length > 50) {
-      showStatusBar("O título deve ter no máximo 30 caracteres.", "red");
-      return;
-    }
-
-    if (description.length > 300) {
-      showStatusBar("A descrição deve ter no máximo 200 caracteres.", "red");
-      return;
-    }
 
     if (taskDetail) {
-      updateTask(taskDetail.id, title, description, data, completed, favorite);
+      updateTask(
+        taskDetail.id,
+        data.title,
+        data.description || "",
+        data.data || "",
+        data.completed || false,
+        data.favorite || false
+      );
       showStatusBar("Tarefa atualizada", "blue");
     }
   };
@@ -77,44 +92,43 @@ export default function TaskDetail() {
           >
             <ArrowLeft /> Voltar
           </button>
-          <h3 className="text-[var(--text-color)] break-words max-w-full text-2xl font-bold mb-4 whitespace-pre-wrap break-all">
-            {title}
-          </h3>
+          <h3 className="text-[var(--text-color)] break-words max-w-full text-2xl font-bold mb-4 whitespace-pre-wrap break-all">{watch("title")}</h3>
 
           <InputForm
             type="text"
             id="title"
-            value={title}
             placeholder="Digite o título"
             maxLength={50}
-            onChange={(e) => setTitle(e.target.value)}
+            {...register("title")}
             label="Titulo da tarefa"
           />
-
+          {errors.title && (
+            <p className="text-red-500">{errors.title.message}</p>
+          )}
           <InputForm
             type="textarea"
             id="description"
-            value={description}
             placeholder="Adicione uma descrição"
-            onChange={(e) => setDescription(e.target.value)}
+            {...register("description")}
             maxLength={300}
             label="Descrição da tarefa:"
           />
-
+          {errors.description && (
+            <p className="text-red-500">{errors.description.message}</p>
+          )}
           <InputForm
             type="date"
             id="date"
-            value={data}
             placeholder="Data da tarefa:"
             maxLength={300}
-            onChange={(e) => setData(e.target.value)}
+            {...register("data")}
             label="Data da tarefa"
           />
 
           <div className="w-full flex flex-col gap-4 text-[var(--primary-color)]">
             <button
               type="button"
-              onClick={() => setCompleted(!completed)}
+              onClick={() => setValue("completed", !completed)}
               className="flex gap-2 cursor-pointer"
             >
               <Circle fill={completed ? "var(--primary-color)" : "none"} />
@@ -122,7 +136,7 @@ export default function TaskDetail() {
             </button>
             <button
               type="button"
-              onClick={() => setFavorite(!favorite)}
+              onClick={() => setValue("favorite", !favorite)}
               className="flex gap-2 cursor-pointer"
             >
               <Star fill={favorite ? "var(--primary-color)" : "none"} />{" "}
@@ -132,16 +146,12 @@ export default function TaskDetail() {
         </fieldset>
         <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
           <ButtonInput
-          variant="save"
+            variant="save"
             title="Salvar"
-            onClick={() => {
-              if (taskDetail) {
-                handleSave(taskDetail.id);
-              }
-            }}
+            onClick={handleSubmit(onSubmit)}
           />
           <ButtonInput
-          variant="delete"
+            variant="delete"
             title="Excluir"
             onClick={() => {
               if (taskDetail) {
