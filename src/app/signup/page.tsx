@@ -1,39 +1,54 @@
 "use client";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ButtonInput from "../components/ButtonInput";
 import InputForm from "../components/InputForm";
 
+const signUpSchema = z.object({
+  name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
+  email: z.string().email("E-mail inválido"),
+  password: z.string().min(6, "Senha deve ter pelo menos 6 caracteres"),
+});
+type signUpFormData = z.infer<typeof signUpSchema>;
+
 const SignUp = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const router = useRouter();
 
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<signUpFormData>({ resolver: zodResolver(signUpSchema) });
 
-    const res = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password }),
-    });
+  const onSubmit = async (data: signUpFormData) => {
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-    const data = await res.json();
+      const result = await res.json();
 
-    if (res.ok) {
-      alert("Conta criada com sucesso!");
-      router.push("/login");
-    } else {
-      alert(data.error || "Erro ao criar conta.");
+      if (res.ok) {
+        alert("Conta criada com sucesso!");
+        router.push("/login");
+      } else {
+        alert(result.error || "Erro ao criar conta.");
+      }
+    } catch (err) {
+      console.error("Erro criar conta:", err);
+      alert("Erro ao conectar com o servidor");
     }
   };
 
   return (
     <div className="text-[var(--text-color)] bg-[var(--background-secondary)] w-full h-screen flex justify-center items-center">
       <form
-        onSubmit={handleRegister}
+        onSubmit={handleSubmit(onSubmit)}
         className="w-full h-full sm:w-[500px] sm:h-auto max-w-7xl bg-[var(--background)] p-8 
        rounded-lg flex flex-col justify-center gap-6 "
       >
@@ -43,26 +58,27 @@ const SignUp = () => {
           placeholder="Nome"
           maxLength={50}
           label="Nome"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          {...register("name")}
         />
-
+        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
         <InputForm
           type="email"
           placeholder="Email"
           maxLength={50}
           label="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          {...register("email")}
         />
+        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
         <InputForm
           type="password"
           placeholder="Senha"
           maxLength={50}
           label="Senha"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          {...register("password")}
         />
+        {errors.password && (
+          <p className="text-red-500">{errors.password.message}</p>
+        )}
         <ButtonInput variant="save" title="Criar conta" />
         <Link href="/login" className="text-sm mx-auto">
           Tenho uma conta
