@@ -127,7 +127,7 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
         </div>
 
         <button
-          className="border-1 border-b-neutral-600 px-2 py-1 cursor-pointer hover:border-[var(--primary-color)] hover:text-[var(--primary-color)]"
+          className="border-1 border-neutral-600 px-2 py-1 cursor-pointer hover:border-[var(--primary-color)] hover:text-[var(--primary-color)]"
           onClick={handleAddTask}
         >
           Adicionar
