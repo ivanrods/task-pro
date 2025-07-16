@@ -64,10 +64,11 @@ const Drawer = () => {
             <Image
               width={60}
               height={60}
-              className="rounded-full"
+              className="rounded-full cursor-pointer"
               src={`https://i.pravatar.cc/150?u=${name}`}
               alt="imagem do usuario"
               priority
+              onClick={() => router.push('/profile')}
             />
             <div>
               <p className="text-lg font-semibold line-clamp-1">{ !name ? 'User': name }</p>
