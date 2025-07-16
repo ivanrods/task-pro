@@ -29,7 +29,7 @@ const Drawer = () => {
   function toggleDrawer() {
     setHandleDrawer(!handleDrawer);
   }
- 
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
@@ -65,21 +65,22 @@ const Drawer = () => {
               width={60}
               height={60}
               className="rounded-full cursor-pointer"
-              src={`https://i.pravatar.cc/150?u=${name}`}
+              src="/profile.png"
               alt="imagem do usuario"
               priority
-              onClick={() => router.push('/profile')}
+              onClick={() => router.push("/profile")}
             />
             <div>
-              <p className="text-lg font-semibold line-clamp-1">{ !name ? 'User': name }</p>
-              {email &&( <p className="text-sm line-clamp-1">{email}</p>)}
-             
-              {!name &&(<Link href="/login" className="text-sm">
-                Entrar
-              </Link>)
-                
-              }
-              
+              <p className="text-lg font-semibold line-clamp-1">
+                {!name ? "User" : name}
+              </p>
+              {email && <p className="text-sm line-clamp-1">{email}</p>}
+
+              {!name && (
+                <Link href="/login" className="text-sm">
+                  Entrar
+                </Link>
+              )}
             </div>
           </div>
 
@@ -106,11 +107,15 @@ const Drawer = () => {
             className="flex gap-4 items-center px-3 py-3 w-full rounded-md text-[var(--text-color)] hover:bg-[var(--primary-color)] hover:text-white cursor-pointer mb-1"
           >
             <SunMoon /> Mudar tema
-          </button >
-          {name && (<button onClick={logout} className="flex gap-4 items-center px-3 py-3 w-full rounded-md text-[var(--text-color)] hover:bg-[var(--primary-color)] hover:text-white cursor-pointer">
-            <LogOut  /> Sair
-          </button>)}
-          
+          </button>
+          {name && (
+            <button
+              onClick={logout}
+              className="flex gap-4 items-center px-3 py-3 w-full rounded-md text-[var(--text-color)] hover:bg-[var(--primary-color)] hover:text-white cursor-pointer"
+            >
+              <LogOut /> Sair
+            </button>
+          )}
         </div>
       </section>
     </div>

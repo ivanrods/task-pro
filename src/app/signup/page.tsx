@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ButtonInput from "../components/ButtonInput";
 import InputForm from "../components/InputForm";
+import { useStatusBar } from "../context/StatusBarContext";
 
 const signUpSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
@@ -16,6 +17,7 @@ type signUpFormData = z.infer<typeof signUpSchema>;
 
 const SignUp = () => {
   const router = useRouter();
+  const { showStatusBar } = useStatusBar();
 
   const {
     register,
@@ -34,14 +36,14 @@ const SignUp = () => {
       const result = await res.json();
 
       if (res.ok) {
-        alert("Conta criada com sucesso!");
+        showStatusBar("Conta criada com sucesso!", "blue");
         router.push("/login");
       } else {
-        alert(result.error || "Erro ao criar conta.");
+        showStatusBar(result.error || "Erro ao criar conta.", "red");
       }
     } catch (err) {
       console.error("Erro criar conta:", err);
-      alert("Erro ao conectar com o servidor");
+      showStatusBar("Erro ao conectar com o servidor", "red");
     }
   };
 
@@ -79,7 +81,7 @@ const SignUp = () => {
         {errors.password && (
           <p className="text-red-500">{errors.password.message}</p>
         )}
-        <ButtonInput variant="save" title="Criar conta" />
+        <ButtonInput type="submit" variant="save" title="Criar conta" />
         <Link href="/login" className="text-sm mx-auto">
           Tenho uma conta
         </Link>

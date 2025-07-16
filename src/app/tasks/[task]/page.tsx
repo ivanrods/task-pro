@@ -2,12 +2,10 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import { useParams } from "next/navigation";
 import { useTask } from "../../context/TaskContext";
 import { ArrowLeft, Circle, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
-
 import InputForm from "@/app/components/InputForm";
 import { useStatusBar } from "@/app/context/StatusBarContext";
 import ButtonInput from "@/app/components/ButtonInput";
@@ -26,7 +24,6 @@ const taskSchema = z.object({
 type TaskFormData = z.infer<typeof taskSchema>;
 
 export default function TaskDetail() {
-
   const router = useRouter();
   const { task } = useParams<{ task: string }>();
   const { tasks, deleteTask, updateTask } = useTask();
@@ -92,7 +89,9 @@ export default function TaskDetail() {
           >
             <ArrowLeft /> Voltar
           </button>
-          <h3 className="text-[var(--text-color)] break-words max-w-full text-2xl font-bold mb-4 whitespace-pre-wrap break-all">{watch("title")}</h3>
+          <h3 className="text-[var(--text-color)] break-words max-w-full text-2xl font-bold mb-4 whitespace-pre-wrap break-all">
+            {watch("title")}
+          </h3>
 
           <InputForm
             type="text"
@@ -146,11 +145,13 @@ export default function TaskDetail() {
         </fieldset>
         <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
           <ButtonInput
+            type="button"
             variant="save"
             title="Salvar"
             onClick={handleSubmit(onSubmit)}
           />
           <ButtonInput
+            type="button"
             variant="delete"
             title="Excluir"
             onClick={() => {

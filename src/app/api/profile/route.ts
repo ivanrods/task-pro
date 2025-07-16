@@ -113,6 +113,25 @@ export async function DELETE(req: NextRequest) {
     const decoded = jwt.verify(token, secret) as DecodedToken;
 
 
+     const { password } = await req.json();
+    if (!password) {
+      return NextResponse.json({ error: "Senha é obrigatória" }, { status: 400 });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: decoded.userId },
+    });
+
+    if (!user) {
+      return NextResponse.json({ error: "Usuário não encontrado" }, { status: 404 });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return NextResponse.json({ error: "Senha incorreta" }, { status: 401 });
+    }
+
+
     await prisma.user.delete({
       where: { id: decoded.userId },
     });

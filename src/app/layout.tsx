@@ -1,6 +1,8 @@
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./context/ThemeContext";
+import { StatusBarProvider } from "./context/StatusBarContext";
+import StatusBar from "./components/StatusBar";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -15,11 +17,14 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <ThemeProvider>
-        <body
-          className={`${roboto.className} antialiased bg-[var(--background)]`}
-        >
-          {children}
-        </body>
+        <StatusBarProvider>
+          <body
+            className={`${roboto.className} antialiased bg-[var(--background)]`}
+          >
+            <StatusBar />
+            {children}
+          </body>{" "}
+        </StatusBarProvider>
       </ThemeProvider>
     </html>
   );

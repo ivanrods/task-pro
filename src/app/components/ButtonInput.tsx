@@ -2,11 +2,12 @@ type ButtonInputProps = {
   onClick?: () => void;
   title: string;
   variant: "save" | "delete";
+  type: 'submit' | 'button'
 };
-const ButtonInput = ({ onClick, title, variant }: ButtonInputProps) => {
+const ButtonInput = ({ onClick, title, variant, type }: ButtonInputProps) => {
   return (
     <button
-      type="submit"
+      type={type}
       onClick={onClick}
       data-variant={variant}
       className="py-2 rounded-md cursor-pointer w-full 

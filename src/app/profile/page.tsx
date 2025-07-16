@@ -4,7 +4,7 @@ import InputForm from "../components/InputForm";
 import ButtonInput from "../components/ButtonInput";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
-
+import { useStatusBar } from "../context/StatusBarContext";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,18 +19,23 @@ type updateFormData = z.infer<typeof updateUserSchema>;
 
 const Profile = () => {
   const router = useRouter();
-
+  const { showStatusBar } = useStatusBar();
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset, watch,
+    reset,
+    getValues,
   } = useForm<updateFormData>({ resolver: zodResolver(updateUserSchema) });
 
   useEffect(() => {
     const fetchUser = async () => {
       const token = localStorage.getItem("token");
-      if (!token) return;
+
+      if (!token) {
+        router.push("/login");
+        return;
+      }
 
       try {
         const res = await fetch("/api/profile", {
@@ -52,14 +57,17 @@ const Profile = () => {
     };
 
     fetchUser();
-  }, [reset]);
+  }, [reset, router]);
 
   const onSubmit = async (data: updateFormData) => {
     try {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        alert("Você precisa estar logado para atualizar o perfil.");
+        showStatusBar(
+          "Você precisa estar logado para atualizar o perfil.",
+          "red"
+        );
         return;
       }
 
@@ -75,13 +83,13 @@ const Profile = () => {
       const result = await res.json();
 
       if (res.ok) {
-        alert("Perfil atualizado com sucesso!");
+        showStatusBar("Perfil atualizado com sucesso!", "blue");
       } else {
-        alert(result.error || "Erro ao atualizar perfil.");
+        showStatusBar(result.error || "Erro ao atualizar perfil.", "red");
       }
     } catch (err) {
       console.error("Erro ao atualizar perfil:", err);
-      alert("Erro ao conectar com o servidor");
+      showStatusBar("Erro ao conectar com o servidor", "red");
     }
   };
 
@@ -91,7 +99,16 @@ const Profile = () => {
 
     const token = localStorage.getItem("token");
     if (!token) {
-      alert("Você precisa estar logado para excluir a conta.");
+      showStatusBar("Você precisa estar logado para excluir a conta.", "red");
+      return;
+    }
+    const password = getValues("password");
+
+    if (!password) {
+      showStatusBar(
+        "Por favor, preencha a senha atual para confirmar a exclusão da conta.",
+        "red"
+      );
       return;
     }
 
@@ -99,26 +116,26 @@ const Profile = () => {
       const res = await fetch("/api/profile", {
         method: "DELETE",
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
+        body: JSON.stringify({ password }),
       });
 
       const result = await res.json();
 
       if (res.ok) {
-        localStorage.removeItem("token"); 
-        alert("Conta excluída com sucesso!");
-        router.push("/login"); 
+        localStorage.removeItem("token");
+        showStatusBar("Conta excluída com sucesso!", "blue");
+        router.push("/login");
       } else {
-        alert(result.error || "Erro ao excluir conta.");
+        showStatusBar(result.error || "Erro ao excluir conta.", "red");
       }
     } catch (err) {
       console.error("Erro ao excluir conta:", err);
-      alert("Erro ao conectar com o servidor");
+      showStatusBar("Erro ao conectar com o servidor", "red");
     }
   };
-
-  const avatarUser = watch("name") || "default";
 
   return (
     <div className="h-screen flex flex-col gap-6 justify-center items-center mx-auto px-4 max-w-2xl">
@@ -130,7 +147,7 @@ const Profile = () => {
         <ArrowLeft /> Voltar
       </button>
       <Image
-        src={`https://i.pravatar.cc/150?u=${avatarUser}`}
+        src="/profile.png"
         alt="foto de perfil"
         width={150}
         height={150}
@@ -167,8 +184,9 @@ const Profile = () => {
           <p className="text-red-500">{errors.password.message}</p>
         )}
         <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
-          <ButtonInput variant="save" title="Salvar" />
+          <ButtonInput type="submit" variant="save" title="Salvar" />
           <ButtonInput
+            type="button"
             variant="delete"
             title="Excluir conta"
             onClick={handleDeleteAccount}

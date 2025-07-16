@@ -2,9 +2,8 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import { useRouter } from "next/navigation";
-
+import { useStatusBar } from "../context/StatusBarContext";
 import Link from "next/link";
 import ButtonInput from "../components/ButtonInput";
 import InputForm from "../components/InputForm";
@@ -16,6 +15,7 @@ const loginSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>;
 
 const Login = () => {
+  const { showStatusBar } = useStatusBar();
   const {
     register,
     handleSubmit,
@@ -37,11 +37,11 @@ const Login = () => {
         localStorage.setItem("token", result.token);
         router.push("/");
       } else {
-        alert(result.error || "Erro ao autenticar");
+        showStatusBar(result.error || "Erro ao autenticar", "red");
       }
     } catch (err) {
       console.error("Erro de login:", err);
-      alert("Erro ao conectar com o servidor");
+      showStatusBar("Erro ao conectar com o servidor", "red");
     }
   };
 
@@ -72,7 +72,7 @@ const Login = () => {
         {errors.password && (
           <p className="text-red-500">{errors.password.message}</p>
         )}
-        <ButtonInput variant="save" title="Entrar" />
+        <ButtonInput type="submit" variant="save" title="Entrar" />
         <Link href="/signup" className="text-sm mx-auto">
           Criar conta
         </Link>
