@@ -1,35 +1,52 @@
-# ✅ TaskPro - Lista de Tarefas com Favoritos
+# ✅ TaskPro - Lista de Tarefas com Autenticação
 
-**TaskPro** é uma aplicação **front-end** desenvolvida com **Next.js e TypeScript**, que permite gerenciar uma lista de tarefas com praticidade. É possível adicionar **título, descrição, data** e marcar tarefas como **favoritas**. Ideal para organizar sua rotina de forma eficiente e moderna.
+**TaskPro** é uma aplicação **Full Stack** desenvolvida com **Next.js, Node.js e TypeScript**, que permite gerenciar uma lista de tarefas com praticidade e segurança. O usuário pode **criar conta, fazer login**, adicionar tarefas, marcar como **favorita**, editar e excluir com uma interface moderna e responsiva.
 
 ## 🎨 Demonstração
 
 ![task-pro](https://github.com/user-attachments/assets/e7c01497-d514-43fc-bc4a-ab23e9d79927)
 
 
-<!-- Substitua pela imagem da sua aplicação -->
-
 ## 🚀 Funcionalidades
 
-✅ Adicionar novas tarefas com **título, descrição e data**  
-✅ Editar e excluir tarefas  
+
+✅ Cadastro e login de usuários  
+✅ Edição de perfil com imagem (avatar)  
+✅ Adicionar tarefas com **título, descrição e data**  
 ✅ Marcar/desmarcar tarefas como **favoritas**  
-✅ Interface moderna e responsiva com **Tailwind CSS**  
-✅ Ícones interativos com **Lucide React**  
+✅ Editar e excluir tarefas  
+✅ Logout com limpeza de dados  
+✅ Feedbacks visuais 
+✅ Integração com API REST segura via **Token JWT**  
+✅ Estilização moderna com **Tailwind CSS** 
 ✅ Dados persistidos com **localStorage**
 
 ## 🔗 Acesse o projeto
 
 [![Ver Demo](https://img.shields.io/badge/Demo-Ao%20vivo-blue?style=for-the-badge&logo=vercel)](#)
-<!-- Substitua o # pela URL do seu deploy no Vercel ou outra plataforma -->
+
+
 
 ## 🛠️ Tecnologias Utilizadas
 
-- ⚡ **Next.js** para estrutura e rotas
-- 🔷 **TypeScript** para tipagem segura
-- 💨 **Tailwind CSS** para estilização rápida e responsiva
-- 🧠 **Lucide React** para os ícones
-- 💾 **localStorage** para persistência dos dados
+### 🖥️ Front-end
+
+- ⚡ **Next.js 15** – Framework React com suporte a rotas, SSR e otimizações modernas  
+- ⚛️ **React 19** – Biblioteca JavaScript para construção de interfaces reativas  
+- 🔷 **TypeScript** – Tipagem estática para maior segurança e produtividade  
+- 🧩 **React Hook Form** – Gerenciamento de formulários leve e intuitivo  
+- ✅ **@hookform/resolvers** – Integração entre React Hook Form e validações  
+- 🧠 **Zod** – Validação de schemas moderna e eficiente  
+- 🔐 **jwt-decode** – Decodifica tokens JWT no lado do cliente  
+- 🎨 **lucide-react** – Ícones SVG acessíveis e estilizados com Tailwind CSS
+
+### 🌐 Back-end
+
+- 🚀 **Node.js** – Ambiente de execução JavaScript no servidor  
+- 🔧 **Prisma ORM** – ORM moderno para bancos de dados com foco em produtividade  
+- 🧪 **@prisma/client** – Cliente gerado pelo Prisma para acesso ao banco  
+- 🔒 **bcryptjs** – Criptografia de senhas com hash  
+- 🔐 **jsonwebtoken** – Geração e verificação de tokens JWT para autenticação
 
 ## 📂 Como rodar o projeto
 
