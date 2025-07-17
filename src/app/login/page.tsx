@@ -7,6 +7,7 @@ import { useStatusBar } from "../context/StatusBarContext";
 import Link from "next/link";
 import ButtonInput from "../components/ButtonInput";
 import InputForm from "../components/InputForm";
+import ButtonBack from "../components/ButtonBack";
 
 const loginSchema = z.object({
   email: z.string().email("E-mail inválido"),
@@ -47,6 +48,7 @@ const Login = () => {
 
   return (
     <div className="text-[var(--text-color)] bg-[var(--background-secondary)] w-full h-screen flex justify-center items-center">
+      <ButtonBack onClick={() => router.back()} />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full h-full sm:w-[500px] sm:h-auto max-w-7xl bg-[var(--background)] p-8 

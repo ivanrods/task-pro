@@ -76,8 +76,8 @@ export default function TaskDetail() {
   };
 
   return (
-    <div className="h-full ">
-      <form className="h-full flex flex-col gap-4 justify-around">
+    <div className="h-full flex flex-col ">
+      <form className="h-full flex flex-col gap-4  justify-between">
         <fieldset
           className="w-full flex flex-col  gap-4  
       "
@@ -85,7 +85,7 @@ export default function TaskDetail() {
           <button
             type="button"
             onClick={() => router.back()}
-            className="text-[var(--text-color)] flex items-center gap-2 mb-8  cursor-pointer hover:text-[var(--primary-color)]"
+            className="text-[var(--text-color)] flex items-center gap-2 my-8 cursor-pointer hover:text-[var(--primary-color)]"
           >
             <ArrowLeft /> Voltar
           </button>
@@ -99,7 +99,7 @@ export default function TaskDetail() {
             placeholder="Digite o título"
             maxLength={50}
             {...register("title")}
-            label="Titulo da tarefa"
+            label="Título da tarefa"
           />
           {errors.title && (
             <p className="text-red-500">{errors.title.message}</p>

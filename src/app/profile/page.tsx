@@ -2,13 +2,13 @@
 import Image from "next/image";
 import InputForm from "../components/InputForm";
 import ButtonInput from "../components/ButtonInput";
-import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useStatusBar } from "../context/StatusBarContext";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
+import ButtonBack from "../components/ButtonBack";
 
 const updateUserSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
@@ -139,13 +139,7 @@ const Profile = () => {
 
   return (
     <div className="h-screen flex flex-col gap-6 justify-center items-center mx-auto px-4 max-w-2xl">
-      <button
-        type="button"
-        onClick={() => router.back()}
-        className="fixed top-8 left-4 text-[var(--text-color)] flex items-center gap-2 mb-8  cursor-pointer hover:text-[var(--primary-color)]"
-      >
-        <ArrowLeft /> Voltar
-      </button>
+      <ButtonBack onClick={() => router.back()} />
       <Image
         src="/profile.png"
         alt="foto de perfil"
