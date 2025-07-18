@@ -23,7 +23,7 @@ export default function RootLayout({
           >
             <StatusBar />
             {children}
-          </body>{" "}
+          </body>
         </StatusBarProvider>
       </ThemeProvider>
     </html>

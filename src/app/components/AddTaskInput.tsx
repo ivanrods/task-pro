@@ -117,7 +117,7 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
             />
             {toggleData && (
               <input
-               
+                className="text-[var(--text-color)]"
                 type="date"
                 value={data}
                 onChange={handleData}
