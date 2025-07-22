@@ -47,38 +47,50 @@ const Login = () => {
   };
 
   return (
-    <div className="text-[var(--text-color)] bg-[var(--background-secondary)] w-full h-screen flex justify-center items-center">
-      <ButtonBack onClick={() => router.push('/tasks')} />
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="w-full h-full sm:w-[500px] sm:h-auto max-w-7xl bg-[var(--background)] p-8 
-       rounded-lg flex flex-col justify-center gap-6 "
-      >
-        <h1 className="mx-auto font-bold text-2xl">Entrar</h1>
+    <div className="bg-[var(--background-secondary)] grid w-full h-screen md:items-center">
+      <div className="grid grid-row-2 text-[var(--text-color)] md:w-[80%] xl:w-[60%] md:h-[70%] md:grid-cols-2 md:mx-auto">
+        <ButtonBack onClick={() => router.push("/tasks")} />
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col items-center justify-center gap-4 p-14 bg-[var(--background)]"
+        >
+          <h1 className="mx-auto font-bold text-4xl">Entrar</h1>
+          <p>use sua conta
+</p>
 
-        <InputForm
-          placeholder="Email"
-          maxLength={50}
-          label="Email"
-          type="email"
-          {...register("email")}
-        />
-        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
-        <InputForm
-          placeholder="Senha"
-          maxLength={50}
-          label="Senha"
-          type="password"
-          {...register("password")}
-        />
-        {errors.password && (
-          <p className="text-red-500">{errors.password.message}</p>
-        )}
-        <ButtonInput type="submit" variant="save" title="Entrar" />
-        <Link href="/signup" className="text-sm mx-auto">
-          Criar conta
-        </Link>
-      </form>
+          <InputForm
+            placeholder="Email"
+            maxLength={50}
+            label="Email"
+            type="email"
+            {...register("email")}
+          />
+          {errors.email && (
+            <p className="text-red-500">{errors.email.message}</p>
+          )}
+          <InputForm
+            placeholder="Senha"
+            maxLength={50}
+            label="Senha"
+            type="password"
+            {...register("password")}
+          />
+          {errors.password && (
+            <p className="text-red-500">{errors.password.message}</p>
+          )}
+          <ButtonInput type="submit" variant="save" title="Entrar" />
+        </form>
+        <aside className="flex text-white flex-col items-center justify-center gap-4 bg-[var(--primary-color)] p-8 w-full ">
+          <h2 className="text-4xl font-bold">Bem vindo de volta!</h2>
+          <p>
+            Para continuar conectado, faça login com suas informações pessoais
+          </p>
+
+          <Link className="py-2 px-3 border font-semibold" href="/signup">
+            Criar conta
+          </Link>
+        </aside>
+      </div>
     </div>
   );
 };
