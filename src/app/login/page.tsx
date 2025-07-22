@@ -48,7 +48,7 @@ const Login = () => {
 
   return (
     <div className="text-[var(--text-color)] bg-[var(--background-secondary)] w-full h-screen flex justify-center items-center">
-      <ButtonBack onClick={() => router.back()} />
+      <ButtonBack onClick={() => router.push('/tasks')} />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full h-full sm:w-[500px] sm:h-auto max-w-7xl bg-[var(--background)] p-8 

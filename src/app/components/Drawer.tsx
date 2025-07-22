@@ -57,7 +57,7 @@ const Drawer = () => {
       >
         <div>
           <button>
-            <Menu className="md:hidden ml-8 mt-8" onClick={toggleDrawer} />
+            <Menu className="md:hidden ml-6 mt-8" onClick={toggleDrawer} />
           </button>
 
           <div className="w-full px-3 py-4 flex gap-2 flex-col border-b-1 border-b-neutral-400">

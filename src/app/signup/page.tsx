@@ -49,45 +49,57 @@ const SignUp = () => {
   };
 
   return (
-    <div className="text-[var(--text-color)] bg-[var(--background-secondary)] w-full h-screen flex justify-center items-center">
-      <ButtonBack onClick={() => router.back()} />
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="w-full h-full sm:w-[500px] sm:h-auto max-w-7xl bg-[var(--background)] p-8 
-       rounded-lg flex flex-col justify-center gap-6 "
-      >
-        <h1 className="mx-auto font-bold text-2xl">Cadastrar</h1>
-        <InputForm
-          type="text"
-          placeholder="Nome"
-          maxLength={50}
-          label="Nome"
-          {...register("name")}
-        />
-        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-        <InputForm
-          type="email"
-          placeholder="Email"
-          maxLength={50}
-          label="Email"
-          {...register("email")}
-        />
-        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
-        <InputForm
-          type="password"
-          placeholder="Senha"
-          maxLength={50}
-          label="Senha"
-          {...register("password")}
-        />
-        {errors.password && (
-          <p className="text-red-500">{errors.password.message}</p>
-        )}
-        <ButtonInput type="submit" variant="save" title="Criar conta" />
-        <Link href="/login" className="text-sm mx-auto">
-          Tenho uma conta
-        </Link>
-      </form>
+    <div className="bg-[var(--background-secondary)] grid w-full h-screen md:items-center">
+      <div className="grid grid-row-2 text-[var(--text-color)] md:w-[80%] xl:w-[70%] md:h-[70%]  md:grid-cols-2 md:mx-auto">
+        <ButtonBack onClick={() => router.back()} />
+
+        <aside className="flex text-white flex-col items-center justify-center gap-4 bg-[var(--primary-color)] p-8 w-full ">
+          <h2 className="text-4xl font-bold">Olá amigo!</h2>
+          <p>Cadastre-se com dados pessoais para conectar</p>
+
+          <Link className="py-2 px-3 border font-semibold" href="/login">
+            Fazer login
+          </Link>
+        </aside>
+
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col items-center justify-center gap-4 p-14 bg-[var(--background)]"
+        >
+          <h1 className="mx-auto font-bold text-4xl">Cadastrar</h1>
+          <p>insira seus dados para registro</p>
+          <InputForm
+            type="text"
+            placeholder="Nome"
+            maxLength={50}
+            label="Nome"
+            {...register("name")}
+          />
+          {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+          <InputForm
+            type="email"
+            placeholder="Email"
+            maxLength={50}
+            label="Email"
+            {...register("email")}
+          />
+          {errors.email && (
+            <p className="text-red-500">{errors.email.message}</p>
+          )}
+          <InputForm
+            type="password"
+            placeholder="Senha"
+            maxLength={50}
+            label="Senha"
+            {...register("password")}
+          />
+          {errors.password && (
+            <p className="text-red-500">{errors.password.message}</p>
+          )}
+          <ButtonInput type="submit" variant="save" title="Criar conta" />
+  
+        </form>
+      </div>
     </div>
   );
 };
