@@ -13,7 +13,7 @@ const InputForm = forwardRef<
   InputFormProps
 >(({ type, id, label, ...rest }, ref) => {
   return (
-    <fieldset className="group text-[var(--text-color)] px-4 py-2 pb-4 w-full border border-[var(--border-color)] focus-within:border-[var(--primary-color)] ">
+    <fieldset className="group text-[var(--text-color)] px-4 py-1 pb-4 w-full border border-[var(--border-color)] focus-within:border-[var(--primary-color)] focus-within:border-2 rounded-md">
       <legend className=" px-2 group-focus-within:text-[var(--primary-color)]">
         <label htmlFor={id}>{label}</label>
       </legend>

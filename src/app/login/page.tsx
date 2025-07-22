@@ -36,7 +36,7 @@ const Login = () => {
 
       if (result.token) {
         localStorage.setItem("token", result.token);
-        router.push("/");
+        router.push("/tasks");
       } else {
         showStatusBar(result.error || "Erro ao autenticar", "red");
       }
@@ -49,7 +49,7 @@ const Login = () => {
   return (
     <div className="bg-[var(--background-secondary)] grid w-full h-screen md:items-center">
       <div className="grid grid-row-2 text-[var(--text-color)] md:w-[80%] xl:w-[60%] md:h-[70%] md:grid-cols-2 md:mx-auto">
-        <ButtonBack onClick={() => router.push("/tasks")} />
+       
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-center justify-center gap-4 p-14 bg-[var(--background)]"
@@ -79,8 +79,9 @@ const Login = () => {
             <p className="text-red-500">{errors.password.message}</p>
           )}
           <ButtonInput type="submit" variant="save" title="Entrar" />
+           <ButtonBack onClick={() => router.push("/tasks")} />
         </form>
-        <aside className="flex text-white flex-col items-center justify-center gap-4 bg-[var(--primary-color)] p-8 w-full ">
+        <aside className="flex text-white flex-col items-center justify-center gap-6   bg-[var(--primary-color)] p-8 w-full ">
           <h2 className="text-4xl font-bold">Bem vindo de volta!</h2>
           <p>
             Para continuar conectado, faça login com suas informações pessoais

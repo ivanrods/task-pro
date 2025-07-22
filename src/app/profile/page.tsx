@@ -139,7 +139,7 @@ const Profile = () => {
 
   return (
     <div className="h-screen flex flex-col gap-6 justify-center items-center mx-auto px-4 max-w-2xl">
-      <ButtonBack onClick={() => router.back()} />
+     
       <Image
         src="/profile.png"
         alt="foto de perfil"
@@ -185,7 +185,9 @@ const Profile = () => {
             title="Excluir conta"
             onClick={handleDeleteAccount}
           />
+          <ButtonBack onClick={() => router.back()} />
         </div>
+         
       </form>
     </div>
   );
