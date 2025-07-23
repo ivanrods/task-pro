@@ -50,10 +50,10 @@ const SignUp = () => {
 
   return (
     <div className="bg-[var(--background-secondary)] grid w-full h-screen md:items-center">
-      <div className="grid grid-row-2 text-[var(--text-color)] md:w-[80%] xl:w-[60%] md:h-[70%]  md:grid-cols-2 md:mx-auto">
-        <aside className="flex text-white flex-col items-center justify-center gap-6 bg-[var(--primary-color)] p-8 w-full ">
+      <div className="grid grid-row-2 text-[var(--text-color)] md:w-[90%] lg:w-[80%] xl:w-[60%] md:h-[70%]  md:grid-cols-2 md:mx-auto rounded-md overflow-hidden">
+        <aside className="flex text-white flex-col items-center justify-center gap-6 bg-[var(--primary-color)] p-8 w-full">
           <h2 className="text-4xl font-bold">Olá amigo!</h2>
-          <p>Cadastre-se com dados pessoais para conectar</p>
+          <p>Cadastre-se para mantenha suas tarefas seguras e acessíveis.</p>
 
           <Link className="py-2 px-3 border font-semibold" href="/login">
             Fazer login
@@ -68,7 +68,7 @@ const SignUp = () => {
           <p>insira seus dados para registro</p>
           <InputForm
             type="text"
-            placeholder="Nome"
+            placeholder="Seu nome"
             maxLength={50}
             label="Nome"
             {...register("name")}
@@ -77,16 +77,16 @@ const SignUp = () => {
 
           <InputForm
             type="email"
-            placeholder="Email"
+            placeholder="Seu e-mail"
             maxLength={50}
-            label="Email"
+            label="E-mail"
             {...register("email")}
             error={errors.email?.message}
           />
 
           <InputForm
             type="password"
-            placeholder="Senha"
+            placeholder="Deve ter no mínimo 6 caracteres"
             maxLength={50}
             label="Senha"
             {...register("password")}

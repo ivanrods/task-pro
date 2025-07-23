@@ -4,11 +4,12 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
 import { useTask } from "../../context/TaskContext";
-import { ArrowLeft, Circle, Star } from "lucide-react";
+import { Circle, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import InputForm from "@/app/components/InputForm";
 import { useStatusBar } from "@/app/context/StatusBarContext";
 import ButtonInput from "@/app/components/ButtonInput";
+import ButtonBack from "@/app/components/ButtonBack";
 
 const taskSchema = z.object({
   title: z
@@ -79,16 +80,10 @@ export default function TaskDetail() {
     <div className="h-full flex flex-col ">
       <form className="h-full flex flex-col gap-4  justify-between">
         <fieldset
-          className="w-full flex flex-col  gap-4  
+          className="w-full flex flex-col gap-4 pt-4
       "
         >
-          <button
-            type="button"
-            onClick={() => router.back()}
-            className="text-[var(--text-color)] flex items-center gap-2 my-8 cursor-pointer hover:text-[var(--primary-color)]"
-          >
-            <ArrowLeft /> Voltar
-          </button>
+          <ButtonBack onClick={() => router.back()} />
           <h3 className="text-[var(--text-color)] break-words max-w-full text-2xl font-bold mb-4 whitespace-pre-wrap break-all">
             {watch("title")}
           </h3>
