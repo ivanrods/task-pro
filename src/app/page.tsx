@@ -39,11 +39,14 @@ export default function Home() {
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
                 href="/tasks"
-                className="rounded-md bg-[var(--primary-color)] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-[var(--primary-color)]focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="rounded-md bg-[var(--primary-color)] px-3.5 py-2 text-sm font-semibold text-white shadow-xs hover:bg-[var(--primary-color-dark)] cursor-pointer"
               >
                 Começar
               </Link>
-              <Link href="/signup" className="text-sm/6 font-semibold text-[var(--text-color)]">
+              <Link
+                href="/signup"
+                className="text-sm/6 font-semibold text-[var(--text-color)]"
+              >
                 Registrar <span aria-hidden="true">→</span>
               </Link>
             </div>

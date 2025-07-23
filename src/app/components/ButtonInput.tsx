@@ -12,6 +12,7 @@ const ButtonInput = ({ onClick, title, variant, type }: ButtonInputProps) => {
       data-variant={variant}
       className="py-2 rounded-md cursor-pointer w-full 
       data-[variant=save]:bg-[var(--primary-color)] 
+      data-[variant=save]:hover:bg-[var(--primary-color-dark)] 
       data-[variant=save]:text-white 
       data-[variant=delete]:border 
       data-[variant=delete]:hover:text-[var(--alert-color)] 
