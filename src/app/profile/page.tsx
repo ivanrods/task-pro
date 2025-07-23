@@ -139,7 +139,6 @@ const Profile = () => {
 
   return (
     <div className="h-screen flex flex-col gap-6 justify-center items-center mx-auto px-4 max-w-2xl">
-     
       <Image
         src="/profile.png"
         alt="foto de perfil"
@@ -157,26 +156,27 @@ const Profile = () => {
           maxLength={50}
           label="Nome"
           {...register("name")}
+          error={errors.name?.message}
         />
-        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+
         <InputForm
           type="email"
           placeholder="Email"
           maxLength={50}
           label="Email"
           {...register("email")}
+          error={errors.email?.message}
         />
-        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+
         <InputForm
           type="password"
           placeholder="Senha"
           maxLength={50}
           label="Senha"
           {...register("password")}
+          error={errors.password?.message}
         />
-        {errors.password && (
-          <p className="text-red-500">{errors.password.message}</p>
-        )}
+
         <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
           <ButtonInput type="submit" variant="save" title="Salvar" />
           <ButtonInput
@@ -185,9 +185,10 @@ const Profile = () => {
             title="Excluir conta"
             onClick={handleDeleteAccount}
           />
+        </div>
+        <div className="w-full mx-auto flex justify-center">
           <ButtonBack onClick={() => router.back()} />
         </div>
-         
       </form>
     </div>
   );

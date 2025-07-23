@@ -100,21 +100,18 @@ export default function TaskDetail() {
             maxLength={50}
             {...register("title")}
             label="Título da tarefa"
+            error={errors.title?.message}
           />
-          {errors.title && (
-            <p className="text-red-500">{errors.title.message}</p>
-          )}
+
           <InputForm
             type="textarea"
             id="description"
             placeholder="Adicione uma descrição"
             {...register("description")}
-            maxLength={300}
+            maxLength={299}
             label="Descrição da tarefa:"
+            error={errors.description?.message}
           />
-          {errors.description && (
-            <p className="text-red-500">{errors.description.message}</p>
-          )}
           <InputForm
             type="date"
             id="date"

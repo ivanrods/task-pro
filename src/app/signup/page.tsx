@@ -51,8 +51,6 @@ const SignUp = () => {
   return (
     <div className="bg-[var(--background-secondary)] grid w-full h-screen md:items-center">
       <div className="grid grid-row-2 text-[var(--text-color)] md:w-[80%] xl:w-[60%] md:h-[70%]  md:grid-cols-2 md:mx-auto">
-      
-
         <aside className="flex text-white flex-col items-center justify-center gap-6 bg-[var(--primary-color)] p-8 w-full ">
           <h2 className="text-4xl font-bold">Olá amigo!</h2>
           <p>Cadastre-se com dados pessoais para conectar</p>
@@ -74,31 +72,28 @@ const SignUp = () => {
             maxLength={50}
             label="Nome"
             {...register("name")}
+            error={errors.name?.message}
           />
-          {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+
           <InputForm
             type="email"
             placeholder="Email"
             maxLength={50}
             label="Email"
             {...register("email")}
+            error={errors.email?.message}
           />
-          {errors.email && (
-            <p className="text-red-500">{errors.email.message}</p>
-          )}
+
           <InputForm
             type="password"
             placeholder="Senha"
             maxLength={50}
             label="Senha"
             {...register("password")}
+            error={errors.password?.message}
           />
-          {errors.password && (
-            <p className="text-red-500">{errors.password.message}</p>
-          )}
           <ButtonInput type="submit" variant="save" title="Criar conta" />
-            <ButtonBack onClick={() => router.back()} />
-  
+          <ButtonBack onClick={() => router.back()} />
         </form>
       </div>
     </div>

@@ -49,14 +49,12 @@ const Login = () => {
   return (
     <div className="bg-[var(--background-secondary)] grid w-full h-screen md:items-center">
       <div className="grid grid-row-2 text-[var(--text-color)] md:w-[80%] xl:w-[60%] md:h-[70%] md:grid-cols-2 md:mx-auto">
-       
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-center justify-center gap-4 p-14 bg-[var(--background)]"
         >
           <h1 className="mx-auto font-bold text-4xl">Entrar</h1>
-          <p>use sua conta
-</p>
+          <p>use sua conta</p>
 
           <InputForm
             placeholder="Email"
@@ -64,22 +62,19 @@ const Login = () => {
             label="Email"
             type="email"
             {...register("email")}
+            error={errors.email?.message}
           />
-          {errors.email && (
-            <p className="text-red-500">{errors.email.message}</p>
-          )}
+
           <InputForm
             placeholder="Senha"
             maxLength={50}
             label="Senha"
             type="password"
             {...register("password")}
+            error={errors.password?.message}
           />
-          {errors.password && (
-            <p className="text-red-500">{errors.password.message}</p>
-          )}
           <ButtonInput type="submit" variant="save" title="Entrar" />
-           <ButtonBack onClick={() => router.push("/tasks")} />
+          <ButtonBack onClick={() => router.push("/tasks")} />
         </form>
         <aside className="flex text-white flex-col items-center justify-center gap-6   bg-[var(--primary-color)] p-8 w-full ">
           <h2 className="text-4xl font-bold">Bem vindo de volta!</h2>
