@@ -154,7 +154,7 @@ export default function TaskDetail() {
             onClick={() => {
               if (taskDetail) {
                 deleteTask(taskDetail.id);
-                showStatusBar("Tarefa excluida", "red");
+                showStatusBar("Tarefa excluida", "blue");
                 router.back();
               }
             }}

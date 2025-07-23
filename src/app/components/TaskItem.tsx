@@ -54,7 +54,7 @@ const TaskItem = ({ id, title, data, favorite, completed }: TaskItemProps) => {
           type="button"
           onClick={() => {
             deleteTask(id);
-            showStatusBar("Tarefa excluída", "red");
+            showStatusBar("Tarefa excluída", "blue");
           }}
           className="hover:text-[var(--alert-color)] cursor-pointer"
         >

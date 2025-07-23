@@ -9,6 +9,7 @@ import {
   Star,
   Sun,
   SunMoon,
+  X,
 } from "lucide-react";
 
 import { useEffect, useState } from "react";
@@ -57,14 +58,14 @@ const Drawer = () => {
       >
         <div>
           <button>
-            <Menu className="md:hidden ml-6 mt-8" onClick={toggleDrawer} />
+            <X className="md:hidden ml-6 mt-8" onClick={toggleDrawer} />
           </button>
 
-          <div className="w-full px-3 py-4 flex gap-2 flex-col border-b-1 border-b-neutral-400">
+          <div className="w-full px-3 py-4 flex gap-4 flex-col border-b-1 border-b-neutral-400">
             <Image
-              width={60}
-              height={60}
-              className="rounded-full cursor-pointer"
+              width={80}
+              height={80}
+              className="rounded-full cursor-pointer mx-auto"
               src="/profile.png"
               alt="imagem do usuario"
               priority

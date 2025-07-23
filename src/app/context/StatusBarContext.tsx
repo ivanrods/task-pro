@@ -20,7 +20,7 @@ export const StatusBarProvider = ({
 
   const showStatusBar = (title: string, color: string) => {
     setStatusBar({ title, color });
-    setTimeout(() => setStatusBar(null), 2000);
+    setTimeout(() => setStatusBar(null), 2500);
   };
 
   return (
