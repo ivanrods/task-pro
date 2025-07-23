@@ -9,7 +9,7 @@ export default function TasksLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex  bg-[var(--backgroud)]">
+    <div className="flex bg-[var(--background-secondary)]">
       <TaskProvider>
         <Drawer />
         <div className="w-full relative "> 

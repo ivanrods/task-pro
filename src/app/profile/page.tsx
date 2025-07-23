@@ -138,58 +138,60 @@ const Profile = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col gap-6 justify-center items-center mx-auto px-4 max-w-2xl">
-      <Image
-        src="/profile.png"
-        alt="foto de perfil"
-        width={150}
-        height={150}
-        className="rounded-full"
-      />
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="w-full flex flex-col gap-6"
-      >
-        <InputForm
-          type="text"
-          placeholder="Nome"
-          maxLength={50}
-          label="Nome"
-          {...register("name")}
-          error={errors.name?.message}
+    <div className="h-screen bg-[var(--background-secondary)] flex justify-center items-center">
+      <div className="w-full h-screen rounded-md p-8 bg-[var(--background)] flex flex-col gap-6 justify-center items-center md:w-[90%] lg:w-[80%] xl:w-[60%] md:h-[70%]">
+        <Image
+          src="/profile.png"
+          alt="foto de perfil"
+          width={150}
+          height={150}
+          className="rounded-full"
         />
-
-        <InputForm
-          type="email"
-          placeholder="Email"
-          maxLength={50}
-          label="Email"
-          {...register("email")}
-          error={errors.email?.message}
-        />
-
-        <InputForm
-          type="password"
-          placeholder="Senha"
-          maxLength={50}
-          label="Senha"
-          {...register("password")}
-          error={errors.password?.message}
-        />
-
-        <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
-          <ButtonInput type="submit" variant="save" title="Salvar" />
-          <ButtonInput
-            type="button"
-            variant="delete"
-            title="Excluir conta"
-            onClick={handleDeleteAccount}
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full flex flex-col gap-6"
+        >
+          <InputForm
+            type="text"
+            placeholder="Nome"
+            maxLength={50}
+            label="Nome"
+            {...register("name")}
+            error={errors.name?.message}
           />
-        </div>
-        <div className="w-full mx-auto flex justify-center">
-          <ButtonBack onClick={() => router.back()} />
-        </div>
-      </form>
+
+          <InputForm
+            type="email"
+            placeholder="Email"
+            maxLength={50}
+            label="Email"
+            {...register("email")}
+            error={errors.email?.message}
+          />
+
+          <InputForm
+            type="password"
+            placeholder="Senha"
+            maxLength={50}
+            label="Senha"
+            {...register("password")}
+            error={errors.password?.message}
+          />
+
+          <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
+            <ButtonInput type="submit" variant="save" title="Salvar" />
+            <ButtonInput
+              type="button"
+              variant="delete"
+              title="Excluir conta"
+              onClick={handleDeleteAccount}
+            />
+          </div>
+          <div className="w-full mx-auto flex justify-center">
+            <ButtonBack onClick={() => router.back()} />
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
