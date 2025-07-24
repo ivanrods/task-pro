@@ -23,7 +23,7 @@ const Profile = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
     getValues,
   } = useForm<updateFormData>({ resolver: zodResolver(updateUserSchema) });
@@ -179,12 +179,18 @@ const Profile = () => {
           />
 
           <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
-            <ButtonInput type="submit" variant="save" title="Salvar" />
+            <ButtonInput
+              type="submit"
+              variant="save"
+              title="Salvar"
+              load={isSubmitting}
+            />
             <ButtonInput
               type="button"
               variant="delete"
               title="Excluir conta"
               onClick={handleDeleteAccount}
+              load={isSubmitting}
             />
           </div>
           <div className="w-full mx-auto flex justify-center">

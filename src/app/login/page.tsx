@@ -20,7 +20,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<LoginFormData>({ resolver: zodResolver(loginSchema) });
   const router = useRouter();
 
@@ -73,7 +73,7 @@ const Login = () => {
             {...register("password")}
             error={errors.password?.message}
           />
-          <ButtonInput type="submit" variant="save" title="Entrar" />
+          <ButtonInput type="submit" variant="save" title="Entrar" load={isSubmitting}/>
           <ButtonBack onClick={() => router.push("/tasks")} />
         </form>
         <aside className="flex text-white flex-col items-center justify-center gap-6   bg-[var(--primary-color)] p-8 w-full">

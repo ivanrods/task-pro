@@ -23,7 +23,7 @@ const SignUp = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<signUpFormData>({ resolver: zodResolver(signUpSchema) });
 
   const onSubmit = async (data: signUpFormData) => {
@@ -92,7 +92,7 @@ const SignUp = () => {
             {...register("password")}
             error={errors.password?.message}
           />
-          <ButtonInput type="submit" variant="save" title="Criar conta" />
+          <ButtonInput type="submit" variant="save" title="Criar conta" load={isSubmitting}/>
           <ButtonBack onClick={() => router.back()} />
         </form>
       </div>

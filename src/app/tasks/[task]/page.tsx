@@ -36,7 +36,7 @@ export default function TaskDetail() {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<TaskFormData>({
     resolver: zodResolver(taskSchema),
     defaultValues: {
@@ -141,6 +141,7 @@ export default function TaskDetail() {
             variant="save"
             title="Salvar"
             onClick={handleSubmit(onSubmit)}
+            load={isSubmitting}
           />
           <ButtonInput
             type="button"
@@ -153,6 +154,7 @@ export default function TaskDetail() {
                 router.back();
               }
             }}
+            load={isSubmitting}
           />
         </div>
       </form>
