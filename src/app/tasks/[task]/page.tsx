@@ -3,13 +3,13 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
-import { useTask } from "../../context/TaskContext";
 import { Circle, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import InputForm from "@/app/components/InputForm";
 import { useStatusBar } from "@/app/context/StatusBarContext";
 import ButtonInput from "@/app/components/ButtonInput";
 import ButtonBack from "@/app/components/ButtonBack";
+import { useTaskStore } from "@/app/store/taskStore";
 
 const taskSchema = z.object({
   title: z
@@ -27,7 +27,7 @@ type TaskFormData = z.infer<typeof taskSchema>;
 export default function TaskDetail() {
   const router = useRouter();
   const { task } = useParams<{ task: string }>();
-  const { tasks, deleteTask, updateTask } = useTask();
+  const { tasks, deleteTask, updateTask } = useTaskStore();
   const { showStatusBar } = useStatusBar();
   const taskDetail = tasks.find((t) => t.id === task);
 
@@ -51,7 +51,7 @@ export default function TaskDetail() {
   const completed = watch("completed");
   const favorite = watch("favorite");
 
-  const onSubmit = (data: TaskFormData) => {
+  const onSubmit = async (data: TaskFormData) => {
     const taskExists = tasks.some(
       (task) =>
         task.id !== taskDetail?.id &&
@@ -63,15 +63,15 @@ export default function TaskDetail() {
       return;
     }
 
-    if (taskDetail) {
-      updateTask(
-        taskDetail.id,
-        data.title,
-        data.description || "",
-        data.data || "",
-        data.completed || false,
-        data.favorite || false
-      );
+   if (taskDetail) {
+      await updateTask({
+        ...taskDetail,
+        title: data.title,
+        description: data.description || "",
+        data: data.data || "",
+        completed: data.completed || false,
+        favorite: data.favorite || false,
+      });
       showStatusBar("Tarefa atualizada", "blue");
     }
   };

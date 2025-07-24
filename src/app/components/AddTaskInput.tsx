@@ -1,15 +1,15 @@
 "use client";
 import { CalendarDays, Circle, FileText } from "lucide-react";
 import { useState } from "react";
-import { useTask } from "../context/TaskContext";
 import { useStatusBar } from "../context/StatusBarContext";
+import { useTaskStore } from "../store/taskStore";
 
 type AddTaskInputProps = {
   addTask: (title: string, description: string, data: string) => void;
 };
 
 const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
-  const { tasks } = useTask();
+  const { tasks } = useTaskStore();
   const { showStatusBar } = useStatusBar();
 
   const [title, setTitle] = useState("");

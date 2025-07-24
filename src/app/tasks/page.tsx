@@ -1,8 +1,6 @@
 "use client";
-
 import Container from "../components/Container";
 import TaskItem from "../components/TaskItem";
-
 import { useFilteredTasks } from "../hooks/useFilteredTasks";
 import ButtonToggleCompletedTask from "../components/ToggleCompletedButton";
 

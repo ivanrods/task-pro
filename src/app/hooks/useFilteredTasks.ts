@@ -1,9 +1,10 @@
-import { useTask } from "../context/TaskContext";
+
 import { useState } from "react";
 import { useData } from "./useData";
+import { useTaskStore } from "../store/taskStore";
 
 export const useFilteredTasks = () => {
-  const { addTask, tasks } = useTask();
+  const { addTask, tasks } = useTaskStore();
   const [toggleCompleted, setToggleCompleted] = useState(true);
 
   const { dataToday } = useData();
