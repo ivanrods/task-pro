@@ -8,7 +8,12 @@ import { useStatusBar } from "../context/StatusBarContext";
 import { useTaskStore } from "../store/taskStore";
 
 type AddTaskInputProps = {
-  addTask: (title: string, description: string, data: string) => void;
+  addTask: (
+    title: string,
+    description: string,
+    data: string,
+    favorite: boolean
+  ) => Promise<void>;
 };
 
 const taskSchema = z.object({
@@ -52,7 +57,7 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
       showStatusBar("Já existe uma tarefa com esse título.", "red");
       return;
     }
-    await addTask(title, description || "", data || "");
+    await addTask(title, description || "", data || "", false);
     reset();
   };
 
