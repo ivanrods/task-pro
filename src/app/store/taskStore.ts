@@ -18,7 +18,7 @@ type TaskStore = {
   fetchTasks: () => Promise<void>;
   setUserId: (id: string) => void;
   loadUserAndTasks: () => Promise<void>;
-  
+
   addTask: (
     title: string,
     desc: string,

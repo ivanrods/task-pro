@@ -14,6 +14,7 @@ export default function TasksLayout({
 
   useEffect(() => {
     loadUserAndTasks();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loadingUser) return null;

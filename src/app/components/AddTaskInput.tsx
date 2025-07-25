@@ -1,5 +1,8 @@
 "use client";
 import { CalendarDays, Circle, FileText } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useStatusBar } from "../context/StatusBarContext";
 import { useTaskStore } from "../store/taskStore";
@@ -8,30 +11,39 @@ type AddTaskInputProps = {
   addTask: (title: string, description: string, data: string) => void;
 };
 
+const taskSchema = z.object({
+  title: z
+    .string()
+    .min(1, "Título obrigatório")
+    .max(10, "Máximo 50 caracteres"),
+  description: z.string().max(300, "Máximo 300 caracteres").optional(),
+  data: z.string().optional(),
+});
+
+type TaskFormData = z.infer<typeof taskSchema>;
+
 const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
   const { tasks } = useTaskStore();
   const { showStatusBar } = useStatusBar();
-
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [data, setData] = useState("");
-
   const [toggleDescription, setToggleDescription] = useState(false);
   const [toggleData, setToggleData] = useState(false);
 
-  const handleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
-  };
+  const {
+    register,
+    handleSubmit,
 
-  const handleDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDescription(event.target.value);
-  };
+    formState: { errors },
+    reset,
+  } = useForm<TaskFormData>({
+    resolver: zodResolver(taskSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+      data: "",
+    },
+  });
 
-  const handleData = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setData(event.target.value);
-  };
-
-  function handleAddTask() {
+  const onSubmit = async ({ title, description, data }: TaskFormData) => {
     const taskExists = tasks.some(
       (task) => task.title.trim().toLowerCase() === title.trim().toLowerCase()
     );
@@ -40,59 +52,40 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
       showStatusBar("Já existe uma tarefa com esse título.", "red");
       return;
     }
-
-    if (title.trim() === "") {
-      showStatusBar("Por favor, insira um título para a tarefa.", "red");
-      return;
-    }
-    if (title.length > 50) {
-      showStatusBar("O título deve ter no máximo 30 caracteres.", "red");
-      return;
-    }
-
-    if (description.length > 300) {
-      showStatusBar("A descrição deve ter no máximo 200 caracteres.", "red");
-
-      return;
-    }
-
-    addTask(title, description, data);
-    setTitle("");
-    setDescription("");
-    setToggleDescription(false);
-    setData("");
-    setToggleData(false);
-    showStatusBar("Tarefa criada", "blue");
-  }
+    await addTask(title, description || "", data || "");
+    reset();
+  };
 
   return (
-    <div className=" bg-[var(--background)] text-[var(--text-color)] rounded-xl shadow-lg  overflow-hidden my-4">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className=" bg-[var(--background)] text-[var(--text-color)] rounded-xl shadow-lg  overflow-hidden my-4"
+    >
       <section className="flex gap-4 w-full  px-4 py-4  ">
-        <Circle className="text-[var(--primary-color)]"/>
+        <Circle className={`text-[var(--primary-color)]`} />
         <input
-          placeholder="Adicioner uma tarefa"
-          className="w-full border-none outline-none"
+          placeholder={errors.title?.message || "Adicioner uma tarefa"}
+          className={`w-full border-none outline-none placeholder-[var(--border-color)] ${
+            errors.title ? "placeholder-red-400" : ""
+          }`}
           type="text"
-          value={title}
-          onChange={handleTitle}
           maxLength={50}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              handleAddTask();
-            }
-          }}
+          {...register("title")}
         />
       </section>
       {toggleDescription && (
-        <section className="border-t border-[var(--border-color)] flex gap-4 mx-4 py-2 ">
-          <FileText className="text-[var(--primary-color)]"/>
+        <section
+          className={`border-t border-[var(--border-color)] flex gap-4 mx-4 py-2 `}
+        >
+          <FileText className="text-[var(--primary-color)]" />
           <textarea
-            className="w-full border-none outline-none h-20 resize-none"
-            name=""
-            id=""
-            placeholder="Adicione uma descrição"
-            value={description}
-            onChange={handleDescription}
+            className={`w-full border-none outline-none h-20 resize-none placeholder-[var(--border-color)] ${
+              errors.description ? "placeholder-red-400" : ""
+            }`}
+            placeholder={
+              errors.description?.message || "Adicione uma descrição"
+            }
+            {...register("description")}
             maxLength={300}
           />
         </section>
@@ -100,10 +93,15 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
 
       <section className="dark:bg-neutral-950 bg-neutral-100 w-full py-2 px-4  flex justify-between items-center  text-[var(--text-color)]">
         <div className="flex items-center gap-4">
-          <button onClick={() => setToggleDescription(!toggleDescription)}>
+          <button
+            type="button"
+            onClick={() => setToggleDescription(!toggleDescription)}
+          >
             <FileText
               className={`hover:text-[var(--primary-color)] cursor-pointer ${
-                toggleDescription ? "text-[var(--primary-color)]" : "text-[var(--text-color)]"
+                toggleDescription
+                  ? "text-[var(--primary-color)]"
+                  : "text-[var(--text-color)]"
               } `}
             />
           </button>
@@ -112,28 +110,26 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
             <CalendarDays
               onClick={() => setToggleData(!toggleData)}
               className={`hover:text-[var(--primary-color)] cursor-pointer ${
-                toggleData ? "text-[var(--primary-color)]" : "text-[var(--text-color)]"
+                toggleData
+                  ? "text-[var(--primary-color)]"
+                  : "text-[var(--text-color)]"
               } `}
             />
             {toggleData && (
               <input
-                className="text-[var(--text-color)]"
                 type="date"
-                value={data}
-                onChange={handleData}
+                className="text-[var(--text-color)]"
+                {...register("data")}
               />
             )}
           </div>
         </div>
 
-        <button
-          className="rounded-md bg-[var(--primary-color)] px-3.5 py-2 text-sm font-semibold text-white shadow-xs hover:bg-[var(--primary-color-dark)] cursor-pointer"
-          onClick={handleAddTask}
-        >
+        <button className="rounded-md bg-[var(--primary-color)] px-3.5 py-2 text-sm font-semibold text-white shadow-xs hover:bg-[var(--primary-color-dark)] cursor-pointer">
           Adicionar
         </button>
       </section>
-    </div>
+    </form>
   );
 };
 
