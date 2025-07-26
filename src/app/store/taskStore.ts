@@ -21,10 +21,11 @@ type TaskStore = {
 
   addTask: (
     title: string,
-    desc: string,
+    description: string,
     data: string,
-    fav: boolean
+    favorite?: boolean
   ) => Promise<void>;
+
   updateTask: (task: Task) => Promise<void>;
   toggleCompleted: (id: string) => void;
   toggleFavorite: (id: string) => void;
@@ -97,8 +98,9 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
     }
   },
 
-  addTask: async (title, description, data, favorite) => {
+  addTask: async (title, description, data, favorite = false) => {
     const { userId, tasks } = get();
+
     const newTask = {
       title,
       description,
@@ -111,7 +113,7 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
       const localTask = {
         ...newTask,
         id: crypto.randomUUID(),
-        userId: "", // pode deixar vazio ou null
+        userId: "",
       };
 
       const updatedTasks = [localTask, ...tasks];

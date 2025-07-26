@@ -1,11 +1,10 @@
 "use client";
 import { Circle, Star, Trash } from "lucide-react";
-
 import Link from "next/link";
-
-import { useData } from "../hooks/useData";
 import { useStatusBar } from "../context/StatusBarContext";
 import { useTaskStore } from "../store/taskStore";
+import { getDataToday, formatData } from "../utils/date";
+
 type TaskItemProps = {
   id: string;
   title: string;
@@ -16,9 +15,11 @@ type TaskItemProps = {
 
 const TaskItem = ({ id, title, data, favorite, completed }: TaskItemProps) => {
   const { toggleCompleted, toggleFavorite, deleteTask } = useTaskStore();
+
   const { showStatusBar } = useStatusBar();
 
-  const { dataToday, dataFormatada } = useData(data);
+  const dataToday = getDataToday();
+  const dataFormatada = formatData(data);
 
   return (
     <li className="bg-[var(--background)] text-[var(--primary-color)]  w-full flex py-4 px-4 gap-4 items-center   rounded-xl ">

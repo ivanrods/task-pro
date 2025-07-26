@@ -1,13 +1,12 @@
-
 import { useState } from "react";
-import { useData } from "./useData";
 import { useTaskStore } from "../store/taskStore";
+import { getDataToday } from "../utils/date";
 
 export const useFilteredTasks = () => {
   const { addTask, tasks } = useTaskStore();
   const [toggleCompleted, setToggleCompleted] = useState(true);
 
-  const { dataToday } = useData();
+  const dataToday = getDataToday();
 
   const incompleteTasks = tasks.filter((task) => !task.completed);
   const completedTasks = tasks.filter((task) => task.completed);

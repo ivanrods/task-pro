@@ -6,6 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useStatusBar } from "../context/StatusBarContext";
 import { useTaskStore } from "../store/taskStore";
+import { usePathname } from "next/navigation";
+import { getDataToday } from "../utils/date";
 
 type AddTaskInputProps = {
   addTask: (
@@ -29,6 +31,7 @@ type TaskFormData = z.infer<typeof taskSchema>;
 
 const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
   const { tasks } = useTaskStore();
+  const pathname = usePathname();
   const { showStatusBar } = useStatusBar();
   const [toggleDescription, setToggleDescription] = useState(false);
   const [toggleData, setToggleData] = useState(false);
@@ -57,7 +60,25 @@ const AddTaskInput = ({ addTask }: AddTaskInputProps) => {
       showStatusBar("Já existe uma tarefa com esse título.", "red");
       return;
     }
-    await addTask(title, description || "", data || "", false);
+
+    // Lógica de rota e data
+    const isFavoritePage = pathname.includes("/tasks/favorites");
+    const isTodayPage = pathname.includes("/tasks/today");
+    const isPlannedPage = pathname.includes("/tasks/planned");
+
+    if (isTodayPage) {
+      data = getDataToday();
+    }
+    if (isPlannedPage) {
+      if (data !== "") {
+        data = data;
+      } else {
+        data = getDataToday();
+      }
+    }
+
+    await addTask(title, description || "", data || "", isFavoritePage);
+
     reset();
   };
 

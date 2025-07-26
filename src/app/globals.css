@@ -6,8 +6,8 @@
   --background: #ffffff;
   --background-secondary: #f3f4f6;
   --text-color: #171717;
-  --primary-color: #3b82f6;
-  --primary-color-dark: #1d4ed8;
+  --primary-color: #2b7fff;
+  --primary-color-dark: #1447e6;
   --alert-color: #fb2c36;
   --border-color: #a3a3a3;
 }
@@ -16,8 +16,8 @@
   --background: #171717;
   --background-secondary: #262626;
   --text-color: #f5f5f5;
-  --primary-color: #1c398e;
-  --primary-color-dark: #072452;
+  --primary-color: #1447e6;
+  --primary-color-dark: #2b7fff;
   --alert-color: #c10007;
   --border-color: #525252;
 }
