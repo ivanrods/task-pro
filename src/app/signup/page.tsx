@@ -52,7 +52,7 @@ const SignUp = () => {
     <div className="bg-[var(--background-secondary)] grid w-full h-screen md:items-center">
       <div className="grid grid-row-2 text-[var(--text-color)] md:w-[90%] lg:w-[80%] xl:w-[60%] md:h-[70%]  md:grid-cols-2 md:mx-auto rounded-md overflow-hidden">
         <aside className="flex text-white flex-col items-center justify-center gap-6 bg-[var(--primary-color)] p-8 w-full">
-          <h2 className="text-4xl font-bold">Olá amigo!</h2>
+          <h2 className="text-3xl font-bold lg:text-4xl">Olá amigo!</h2>
           <p>Cadastre-se para mantenha suas tarefas seguras e acessíveis.</p>
 
           <Link className="py-2 px-3 border font-semibold" href="/login">
@@ -64,7 +64,7 @@ const SignUp = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-center justify-center gap-4 p-14 bg-[var(--background)]"
         >
-          <h1 className="mx-auto font-bold text-4xl">Cadastrar</h1>
+          <h1 className="mx-auto font-bold text-3xl lg:text-4xl">Cadastrar</h1>
           <p>insira seus dados para registro</p>
           <InputForm
             type="text"
@@ -92,7 +92,12 @@ const SignUp = () => {
             {...register("password")}
             error={errors.password?.message}
           />
-          <ButtonInput type="submit" variant="save" title="Criar conta" load={isSubmitting}/>
+          <ButtonInput
+            type="submit"
+            variant="save"
+            title="Criar conta"
+            load={isSubmitting}
+          />
           <ButtonBack onClick={() => router.back()} />
         </form>
       </div>

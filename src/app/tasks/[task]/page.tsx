@@ -63,7 +63,7 @@ export default function TaskDetail() {
       return;
     }
 
-   if (taskDetail) {
+    if (taskDetail) {
       await updateTask({
         ...taskDetail,
         title: data.title,
@@ -77,17 +77,17 @@ export default function TaskDetail() {
   };
 
   return (
-    <div className="h-full flex flex-col ">
-      <form className="h-full flex flex-col gap-4  justify-between">
-        <fieldset
+    <div className="h-full flex flex-col gap-4 pt-8">
+      <ButtonBack onClick={() => router.back()} />
+      <h3 className="text-[var(--text-color)] break-words max-w-full text-2xl font-bold mb-4 whitespace-pre-wrap break-all">
+        {watch("title")}
+      </h3>
+
+      <form className="h-full flex flex-col gap-4 justify-between">
+        <div
           className="w-full flex flex-col gap-4 pt-4
       "
         >
-          <ButtonBack onClick={() => router.back()} />
-          <h3 className="text-[var(--text-color)] break-words max-w-full text-2xl font-bold mb-4 whitespace-pre-wrap break-all">
-            {watch("title")}
-          </h3>
-
           <InputForm
             type="text"
             id="title"
@@ -134,7 +134,7 @@ export default function TaskDetail() {
               Favoritar
             </button>
           </div>
-        </fieldset>
+        </div>
         <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
           <ButtonInput
             type="button"
@@ -154,7 +154,7 @@ export default function TaskDetail() {
                 router.back();
               }
             }}
-            load={isSubmitting}
+            load={false}
           />
         </div>
       </form>

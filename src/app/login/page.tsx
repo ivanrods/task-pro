@@ -53,7 +53,7 @@ const Login = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-center justify-center gap-4 p-14 bg-[var(--background)] "
         >
-          <h1 className="mx-auto font-bold text-4xl">Entrar</h1>
+          <h1 className="mx-auto font-bold text-3xl lg:text-4xl">Entrar</h1>
           <p>use sua conta</p>
 
           <InputForm
@@ -73,13 +73,20 @@ const Login = () => {
             {...register("password")}
             error={errors.password?.message}
           />
-          <ButtonInput type="submit" variant="save" title="Entrar" load={isSubmitting}/>
+          <ButtonInput
+            type="submit"
+            variant="save"
+            title="Entrar"
+            load={isSubmitting}
+          />
           <ButtonBack onClick={() => router.push("/tasks")} />
         </form>
         <aside className="flex text-white flex-col items-center justify-center gap-6   bg-[var(--primary-color)] p-8 w-full">
-          <h2 className="text-4xl font-bold">Bem vindo de volta!</h2>
+          <h2 className="text-3xl font-bold lg:text-4xl">
+            Bem vindo de volta!
+          </h2>
           <p>
-           Mantenha suas tarefas seguras e acessíveis. Entre com sua conta.
+            Mantenha suas tarefas seguras e acessíveis. Entre com sua conta.
           </p>
 
           <Link className="py-2 px-3 border font-semibold " href="/signup">
