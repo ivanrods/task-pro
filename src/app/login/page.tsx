@@ -51,7 +51,7 @@ const Login = () => {
       <div className="grid grid-row-2 text-[var(--text-color)] md:w-[90%] lg:w-[80%] xl:w-[60%] md:h-[70%] md:grid-cols-2 md:mx-auto rounded-md overflow-hidden">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col items-center justify-center gap-4 p-14 bg-[var(--background)] "
+          className="flex flex-col items-center justify-center gap-4 p-4 sm:p-14 bg-[var(--background)] "
         >
           <h1 className="mx-auto font-bold text-3xl lg:text-4xl">Entrar</h1>
           <p>use sua conta</p>
