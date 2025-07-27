@@ -150,6 +150,16 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
 
   updateTask: async (updatedTask) => {
     const { userId, tasks } = get();
+    const updated = tasks.map((t) =>
+      t.id === updatedTask.id ? updatedTask : t
+    );
+
+    if (!userId) {
+      // Atualiza localStorage e Zustand apenas
+      localStorage.setItem("tasks", JSON.stringify(updated));
+      set({ tasks: updated });
+      return;
+    }
     await fetch(`/api/tasks/${updatedTask.id}`, {
       method: "PUT",
       headers: {
@@ -159,22 +169,66 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
       body: JSON.stringify(updatedTask),
     });
 
-    const updated = tasks.map((t) =>
-      t.id === updatedTask.id ? updatedTask : t
-    );
     set({ tasks: updated });
   },
 
-  toggleCompleted: (id) => {
-    const task = get().tasks.find((t) => t.id === id);
+  toggleCompleted: async (id) => {
+    const { userId, tasks } = get();
+
+    const task = tasks.find((t) => t.id === id);
     if (!task) return;
-    get().updateTask({ ...task, completed: !task.completed });
+
+    const updatedTask = { ...task, completed: !task.completed };
+
+    if (!userId) {
+      // Atualiza localStorage
+      const updatedTasks = tasks.map((t) => (t.id === id ? updatedTask : t));
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+      set({ tasks: updatedTasks });
+      return;
+    }
+
+    // Atualiza via API
+    await fetch(`/api/tasks/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "user-id": userId,
+      },
+      body: JSON.stringify(updatedTask),
+    });
+
+    // Atualiza Zustand
+    const updatedTasks = tasks.map((t) => (t.id === id ? updatedTask : t));
+    set({ tasks: updatedTasks });
   },
 
-  toggleFavorite: (id) => {
-    const task = get().tasks.find((t) => t.id === id);
+  toggleFavorite: async (id) => {
+    const { userId, tasks } = get();
+
+    const task = tasks.find((t) => t.id === id);
     if (!task) return;
-    get().updateTask({ ...task, favorite: !task.favorite });
+    const updatedTask = { ...task, favorite: !task.favorite };
+
+    if (!userId) {
+      // Atualiza localStorage
+      const updatedTasks = tasks.map((t) => (t.id === id ? updatedTask : t));
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+      set({ tasks: updatedTasks });
+      return;
+    }
+    await fetch(`/api/tasks/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "user-id": userId,
+      },
+      body: JSON.stringify(updatedTask),
+    });
+
+    // Atualiza Zustand
+    const updatedTasks = tasks.map((t) => (t.id === id ? updatedTask : t));
+    set({ tasks: updatedTasks });
   },
 
   deleteTask: async (id) => {
