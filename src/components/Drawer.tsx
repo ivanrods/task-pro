@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { getUserFromToken } from "@/hooks/useDecode";
+
 import {
   CalendarDays,
   House,
@@ -22,6 +22,31 @@ const Drawer = () => {
   const { toggleTheme } = useTheme();
   const router = useRouter();
 
+  const [name, setName] = useState(null);
+  const [email, setEmail] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = localStorage.getItem("token");
+
+      try {
+        const res = await fetch("/api/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const user = await res.json();
+        setName(user.name);
+        setEmail(user.email);
+      } catch (err) {
+        console.error("Erro ao buscar usuário:", err);
+      }
+    };
+
+    fetchUser();
+  }, [router]);
+
   function logout() {
     localStorage.removeItem("token");
     router.push("/login");
@@ -30,17 +55,6 @@ const Drawer = () => {
   function toggleDrawer() {
     setHandleDrawer(!handleDrawer);
   }
-
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-
-  useEffect(() => {
-    const user = getUserFromToken();
-    if (user) {
-      setName(user.name);
-      setEmail(user.email);
-    }
-  }, []);
 
   return (
     <div className="relative z-50">
