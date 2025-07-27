@@ -1,4 +1,4 @@
-import { prisma } from "@/app/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
     });
 
     return NextResponse.json(tasks);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json(
       { error: "Erro ao buscar tarefas" },
@@ -38,7 +38,13 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json();
-  const { title, description, data, completed = false, favorite = false } = body;
+  const {
+    title,
+    description,
+    data,
+    completed = false,
+    favorite = false,
+  } = body;
 
   try {
     const newTask = await prisma.task.create({
@@ -53,7 +59,7 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json(newTask, { status: 201 });
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json(
       { error: "Erro ao criar tarefa" },

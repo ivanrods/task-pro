@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { getUserFromToken } from "@/app/hooks/useDecode";
+import { getUserFromToken } from "@/hooks/useDecode";
 import {
   CalendarDays,
   House,

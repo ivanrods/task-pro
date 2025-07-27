@@ -8,7 +8,7 @@ const StatusBar = () => {
 
   const colorStatus = {
     blue: "bg-[var(--primary-color)]",
-  red: "bg-[var(--alert-color)]",
+    red: "bg-[var(--alert-color)]",
   }[statusBar.color];
 
   return (

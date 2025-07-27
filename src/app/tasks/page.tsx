@@ -1,8 +1,8 @@
 "use client";
-import Container from "../components/Container";
-import TaskItem from "../components/TaskItem";
-import { useFilteredTasks } from "../hooks/useFilteredTasks";
-import ButtonToggleCompletedTask from "../components/ToggleCompletedButton";
+import TaskItem from "@/components/TaskItem";
+import { useFilteredTasks } from "@/hooks/useFilteredTasks";
+import ButtonToggleCompletedTask from "@/components/ToggleCompletedButton";
+import Container from "@/components/Container";
 
 const Tarefas = () => {
   const { completedTasks, incompleteTasks, toggle, toggleCompleted } =

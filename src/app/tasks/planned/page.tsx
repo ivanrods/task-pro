@@ -1,10 +1,9 @@
 "use client";
+import ToggleCompletedButton from "@/components/ToggleCompletedButton";
+import Container from "@/components/Container";
+import TaskItem from "@/components/TaskItem";
 
-import ToggleCompletedButton from "@/app/components/ToggleCompletedButton";
-import Container from "../../components/Container";
-import TaskItem from "../../components/TaskItem";
-
-import { useFilteredTasks } from "../../hooks/useFilteredTasks";
+import { useFilteredTasks } from "@/hooks/useFilteredTasks";
 
 const Planned = () => {
   const {

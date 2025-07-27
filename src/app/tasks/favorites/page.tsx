@@ -1,9 +1,8 @@
 "use client";
-
-import ToggleCompletedButton from "@/app/components/ToggleCompletedButton";
-import Container from "../../components/Container";
-import TaskItem from "../../components/TaskItem";
-import { useFilteredTasks } from "../../hooks/useFilteredTasks";
+import ToggleCompletedButton from "@/components/ToggleCompletedButton";
+import Container from "@/components/Container";
+import TaskItem from "@/components/TaskItem";
+import { useFilteredTasks } from "@/hooks/useFilteredTasks";
 const Favorites = () => {
   const {
     completedTasksFavorites,
@@ -14,7 +13,9 @@ const Favorites = () => {
   return (
     <Container>
       {incompleteTasksFavotites.length == 0 && (
-        <p className="text-[var(--text-color)]  mx-auto">Sem tarefa favorita pendente</p>
+        <p className="text-[var(--text-color)]  mx-auto">
+          Sem tarefa favorita pendente
+        </p>
       )}
 
       {incompleteTasksFavotites.map((task) => (

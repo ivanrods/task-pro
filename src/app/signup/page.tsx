@@ -4,10 +4,10 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import ButtonInput from "../components/ButtonInput";
-import InputForm from "../components/InputForm";
-import { useStatusBar } from "../context/StatusBarContext";
-import ButtonBack from "../components/ButtonBack";
+import ButtonInput from "@/components/ButtonInput";
+import InputForm from "@/components/InputForm";
+import { useStatusBar } from "../../context/StatusBarContext";
+import ButtonBack from "@/components/ButtonBack";
 
 const signUpSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),

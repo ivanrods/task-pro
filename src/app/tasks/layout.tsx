@@ -1,9 +1,9 @@
 "use client";
 import { useEffect } from "react";
-import Drawer from "../components/Drawer";
+import Drawer from "@/components/Drawer";
 
-import Title from "../components/Title";
-import { useTaskStore } from "../store/taskStore";
+import Title from "@/components/Title";
+import { useTaskStore } from "@/store/taskStore";
 
 export default function TasksLayout({
   children,
@@ -14,7 +14,7 @@ export default function TasksLayout({
 
   useEffect(() => {
     loadUserAndTasks();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loadingUser) return null;

@@ -5,11 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
 import { Circle, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
-import InputForm from "@/app/components/InputForm";
-import { useStatusBar } from "@/app/context/StatusBarContext";
-import ButtonInput from "@/app/components/ButtonInput";
-import ButtonBack from "@/app/components/ButtonBack";
-import { useTaskStore } from "@/app/store/taskStore";
+import InputForm from "@/components/InputForm";
+import { useStatusBar } from "@/context/StatusBarContext";
+import ButtonInput from "@/components/ButtonInput";
+import ButtonBack from "@/components/ButtonBack";
+import { useTaskStore } from "@/store/taskStore";
 
 const taskSchema = z.object({
   title: z

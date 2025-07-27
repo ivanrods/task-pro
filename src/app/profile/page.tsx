@@ -1,14 +1,14 @@
 "use client";
 import Image from "next/image";
-import InputForm from "../components/InputForm";
-import ButtonInput from "../components/ButtonInput";
+import InputForm from "@/components/InputForm";
+import ButtonInput from "@/components/ButtonInput";
 import { useRouter } from "next/navigation";
-import { useStatusBar } from "../context/StatusBarContext";
+import { useStatusBar } from "../../context/StatusBarContext";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import ButtonBack from "../components/ButtonBack";
+import ButtonBack from "@/components/ButtonBack";
 
 const updateUserSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),

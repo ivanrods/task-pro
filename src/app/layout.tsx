@@ -1,8 +1,8 @@
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "./context/ThemeContext";
-import { StatusBarProvider } from "./context/StatusBarContext";
-import StatusBar from "./components/StatusBar";
+import { ThemeProvider } from "../context/ThemeContext";
+import { StatusBarProvider } from "../context/StatusBarContext";
+import StatusBar from "../components/StatusBar";
 
 const roboto = Roboto({
   subsets: ["latin"],

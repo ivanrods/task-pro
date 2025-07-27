@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useStatusBar } from "../context/StatusBarContext";
+import { useStatusBar } from "../../context/StatusBarContext";
 import Link from "next/link";
-import ButtonInput from "../components/ButtonInput";
-import InputForm from "../components/InputForm";
-import ButtonBack from "../components/ButtonBack";
+import ButtonInput from "@/components/ButtonInput";
+import InputForm from "@/components/InputForm";
+import ButtonBack from "@/components/ButtonBack";
 
 const loginSchema = z.object({
   email: z.string().email("E-mail inválido"),

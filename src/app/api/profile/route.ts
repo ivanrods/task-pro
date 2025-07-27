@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/app/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 type DecodedToken = {
@@ -99,7 +99,6 @@ export async function PUT(req: NextRequest) {
   }
 }
 
-
 export async function DELETE(req: NextRequest) {
   try {
     const authHeader = req.headers.get("authorization");
@@ -112,10 +111,12 @@ export async function DELETE(req: NextRequest) {
     const secret = process.env.JWT_SECRET!;
     const decoded = jwt.verify(token, secret) as DecodedToken;
 
-
-     const { password } = await req.json();
+    const { password } = await req.json();
     if (!password) {
-      return NextResponse.json({ error: "Senha é obrigatória" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Senha é obrigatória" },
+        { status: 400 }
+      );
     }
 
     const user = await prisma.user.findUnique({
@@ -123,7 +124,10 @@ export async function DELETE(req: NextRequest) {
     });
 
     if (!user) {
-      return NextResponse.json({ error: "Usuário não encontrado" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Usuário não encontrado" },
+        { status: 404 }
+      );
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -131,13 +135,13 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ error: "Senha incorreta" }, { status: 401 });
     }
 
-
     await prisma.user.delete({
       where: { id: decoded.userId },
     });
 
-  
-    const response = NextResponse.json({ message: "Conta excluída com sucesso" });
+    const response = NextResponse.json({
+      message: "Conta excluída com sucesso",
+    });
     response.cookies.set("token", "", { maxAge: 0 });
 
     return response;

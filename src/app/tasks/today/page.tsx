@@ -1,9 +1,8 @@
 "use client";
-
-import ToggleCompletedButton from "@/app/components/ToggleCompletedButton";
-import Container from "../../components/Container";
-import TaskItem from "../../components/TaskItem";
-import { useFilteredTasks } from "../../hooks/useFilteredTasks";
+import ToggleCompletedButton from "@/components/ToggleCompletedButton";
+import Container from "@/components/Container";
+import TaskItem from "@/components/TaskItem";
+import { useFilteredTasks } from "@/hooks/useFilteredTasks";
 
 const Today = () => {
   const { completedTasksToday, incompleteTasksToday, toggle, toggleCompleted } =
