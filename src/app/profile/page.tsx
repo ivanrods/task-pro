@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import InputForm from "@/components/InputForm";
 import ButtonInput from "@/components/ButtonInput";
 import { useRouter } from "next/navigation";
@@ -9,6 +8,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import ButtonBack from "@/components/ButtonBack";
+import Avatar from "@/components/Avatar";
 
 const updateUserSchema = z.object({
   name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
@@ -140,13 +140,7 @@ const Profile = () => {
   return (
     <div className="h-screen bg-[var(--background-secondary)] flex justify-center items-center">
       <div className="w-full h-screen rounded-md p-8 bg-[var(--background)] flex flex-col gap-6 justify-center items-center md:w-[90%] lg:w-[80%] xl:w-[60%] md:h-[70%]">
-        <Image
-          src="/profile.png"
-          alt="foto de perfil"
-          width={150}
-          height={150}
-          className="rounded-full"
-        />
+        <Avatar src="/profile.png" size={150} />
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="w-full flex flex-col gap-6"
