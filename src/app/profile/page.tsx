@@ -140,7 +140,7 @@ const Profile = () => {
   return (
     <div className="h-screen bg-[var(--background-secondary)] flex justify-center items-center">
       <div className="w-full h-screen rounded-md p-8 bg-[var(--background)] flex flex-col gap-6 justify-center items-center md:w-[90%] lg:w-[80%] xl:w-[60%] md:h-[70%]">
-        <Avatar src="/profile.png" size={150} />
+        <Avatar size={150} />
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="w-full flex flex-col gap-6"
