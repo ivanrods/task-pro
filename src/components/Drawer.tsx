@@ -24,6 +24,7 @@ const Drawer = () => {
 
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
+  const [avatar, setAvatar] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -39,6 +40,7 @@ const Drawer = () => {
         const user = await res.json();
         setName(user.name);
         setEmail(user.email);
+        setAvatar(user.avatar);
       } catch (err) {
         console.error("Erro ao buscar usuário:", err);
       }
@@ -80,7 +82,7 @@ const Drawer = () => {
               width={80}
               height={80}
               className="rounded-full cursor-pointer mx-auto"
-              src="/profile.png"
+              src={avatar || "/profile.png"}
               alt="imagem do usuario"
               priority
               onClick={() => router.push("/profile")}

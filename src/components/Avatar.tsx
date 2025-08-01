@@ -1,7 +1,7 @@
 "use client";
 import { Camera } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 type AvatarProps = {
   alt?: string;
   size?: number;
@@ -16,6 +16,10 @@ const Avatar = ({
   onUpload,
 }: AvatarProps) => {
   const [preview, setPreview] = useState(currentImage || null);
+
+  useEffect(() => {
+    setPreview(currentImage || null);
+  }, [currentImage]);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
