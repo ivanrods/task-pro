@@ -21,13 +21,26 @@ const Avatar = ({
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = reader.result as string;
-      setPreview(base64);
-      onUpload?.(base64);
-    };
-    reader.readAsDataURL(file);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        const imageUrl = data.url;
+        setPreview(imageUrl);
+        onUpload?.(imageUrl);
+      } else {
+        console.error("Erro no upload", data.error);
+      }
+    } catch (error) {
+      console.error("Erro ao enviar imagem:", error);
+    }
   };
   return (
     <div className="relative" style={{ width: size, height: size }}>

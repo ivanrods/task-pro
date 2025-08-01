@@ -12,7 +12,9 @@
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
     "@prisma/client": "^6.11.1",
+    "@types/formidable": "^3.4.5",
     "bcryptjs": "^3.0.2",
+    "formidable": "^3.5.4",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.486.0",

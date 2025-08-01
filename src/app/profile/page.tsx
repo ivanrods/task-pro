@@ -6,7 +6,7 @@ import { useStatusBar } from "../../context/StatusBarContext";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ButtonBack from "@/components/ButtonBack";
 import Avatar from "@/components/Avatar";
 
@@ -20,6 +20,7 @@ type updateFormData = z.infer<typeof updateUserSchema>;
 const Profile = () => {
   const router = useRouter();
   const { showStatusBar } = useStatusBar();
+  const [currentAvatar, setcurrentAvatar] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -51,6 +52,7 @@ const Profile = () => {
           email: user.email,
           password: "",
         });
+        setcurrentAvatar(user.avatar);
       } catch (err) {
         console.error("Erro ao buscar usuário:", err);
       }
@@ -58,6 +60,24 @@ const Profile = () => {
 
     fetchUser();
   }, [reset, router]);
+
+  const saveImageToDatabase = async (imageUrl: string) => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    try {
+      await fetch("/api/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ imageUrl }),
+      });
+    } catch (error) {
+      console.error("Erro ao salvar imagem no banco:", error);
+    }
+  };
 
   const onSubmit = async (data: updateFormData) => {
     try {
@@ -140,7 +160,11 @@ const Profile = () => {
   return (
     <div className="h-screen bg-[var(--background-secondary)] flex justify-center items-center">
       <div className="w-full h-screen rounded-md p-8 bg-[var(--background)] flex flex-col gap-6 justify-center items-center md:w-[90%] lg:w-[80%] xl:w-[60%] md:h-[70%]">
-        <Avatar size={150} />
+        <Avatar
+          size={150}
+          currentImage={currentAvatar}
+          onUpload={saveImageToDatabase}
+        />
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="w-full flex flex-col gap-6"

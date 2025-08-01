@@ -6,6 +6,7 @@ type DecodedToken = {
   userId: string;
   name: string;
   email: string;
+  avatar?: string;
   iat: number;
   exp: number;
 };
@@ -27,6 +28,7 @@ export async function GET(req: NextRequest) {
         id: true,
         name: true,
         email: true,
+        avatar: true,
       },
     });
 
@@ -57,7 +59,7 @@ export async function PUT(req: NextRequest) {
     const decoded = jwt.verify(token, secret) as DecodedToken;
 
     const body = await req.json();
-    const { name, email, password } = body;
+    const { name, email, password, imageUrl } = body;
 
     const user = await prisma.user.findUnique({
       where: { id: decoded.userId },
@@ -84,11 +86,13 @@ export async function PUT(req: NextRequest) {
       data: {
         name,
         email,
+        avatar: imageUrl || user.avatar,
       },
       select: {
         id: true,
         name: true,
         email: true,
+        avatar: true,
       },
     });
 
