@@ -38,7 +38,7 @@ const Avatar = ({
       if (res.ok) {
         const imageUrl = data.url;
         setPreview(imageUrl);
-        onUpload?.(imageUrl);
+        onUpload?.(imageUrl); // aqui você salva a URL no seu banco
       } else {
         console.error("Erro no upload", data.error);
       }
@@ -46,6 +46,7 @@ const Avatar = ({
       console.error("Erro ao enviar imagem:", error);
     }
   };
+
   return (
     <div className="relative" style={{ width: size, height: size }}>
       <div className="rounded-full overflow-hidden w-full h-full ">

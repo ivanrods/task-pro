@@ -86,7 +86,7 @@ export async function PUT(req: NextRequest) {
       data: {
         name,
         email,
-        avatar: imageUrl || user.avatar,
+        avatar: imageUrl ?? user.avatar,
       },
       select: {
         id: true,
