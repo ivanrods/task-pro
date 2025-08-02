@@ -61,6 +61,13 @@ export async function PUT(req: NextRequest) {
     const body = await req.json();
     const { name, email, password, imageUrl } = body;
 
+    if (!password) {
+      return NextResponse.json(
+        { error: "Senha atual é obrigatória para atualizar o perfil" },
+        { status: 400 }
+      );
+    }
+
     const user = await prisma.user.findUnique({
       where: { id: decoded.userId },
     });

@@ -38,7 +38,7 @@ const Avatar = ({
       if (res.ok) {
         const imageUrl = data.url;
         setPreview(imageUrl);
-        onUpload?.(imageUrl); // aqui você salva a URL no seu banco
+        onUpload?.(imageUrl);
       } else {
         console.error("Erro no upload", data.error);
       }
