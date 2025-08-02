@@ -20,7 +20,7 @@ type updateFormData = z.infer<typeof updateUserSchema>;
 const Profile = () => {
   const router = useRouter();
   const { showStatusBar } = useStatusBar();
-  const [currentAvatar, setcurrentAvatar] = useState<string | null>(null);
+  const [currentAvatar, setcurrentAvatar] = useState("/profile.png");
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
 
   const {
@@ -87,7 +87,7 @@ const Profile = () => {
         },
         body: JSON.stringify({
           ...data,
-          imageUrl: uploadedImageUrl, // ← inclui aqui
+          imageUrl: uploadedImageUrl,
         }),
       });
 
@@ -153,7 +153,7 @@ const Profile = () => {
       <div className="w-full h-screen rounded-md p-8 bg-[var(--background)] flex flex-col gap-6 justify-center items-center md:w-[90%] lg:w-[80%] xl:w-[60%] md:h-[70%]">
         <Avatar
           size={150}
-          currentImage={currentAvatar || "/profile.png"}
+          currentImage={currentAvatar}
           onUpload={saveImageToDatabase}
         />
         <form
@@ -199,7 +199,7 @@ const Profile = () => {
               variant="delete"
               title="Excluir conta"
               onClick={handleDeleteAccount}
-              load={isSubmitting}
+              load={false}
             />
           </div>
           <div className="w-full mx-auto flex justify-center">
