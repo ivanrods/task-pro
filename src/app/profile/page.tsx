@@ -21,6 +21,8 @@ const Profile = () => {
   const router = useRouter();
   const { showStatusBar } = useStatusBar();
   const [currentAvatar, setcurrentAvatar] = useState<string | null>(null);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -62,21 +64,7 @@ const Profile = () => {
   }, [reset, router, currentAvatar]);
 
   const saveImageToDatabase = async (imageUrl: string) => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
-
-    try {
-      await fetch("/api/profile", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ imageUrl }),
-      });
-    } catch (error) {
-      console.error("Erro ao salvar imagem no banco:", error);
-    }
+    setUploadedImageUrl(imageUrl);
   };
 
   const onSubmit = async (data: updateFormData) => {
@@ -97,7 +85,10 @@ const Profile = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          imageUrl: uploadedImageUrl, // ← inclui aqui
+        }),
       });
 
       const result = await res.json();
