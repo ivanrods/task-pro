@@ -62,7 +62,7 @@ const SignUp = () => {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col items-center justify-center gap-4 p-4 sm:p-14 bg-[var(--background)]"
+          className="flex flex-col items-center justify-center gap-4 p-4 sm:p-14 bg-[var(--background-secondary)] md:bg-[var(--background)] "
         >
           <h1 className="mx-auto font-bold text-3xl lg:text-4xl">Cadastrar</h1>
           <p>insira seus dados para registro</p>

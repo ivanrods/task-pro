@@ -19,7 +19,7 @@ export default function RootLayout({
       <ThemeProvider>
         <StatusBarProvider>
           <body
-            className={`${roboto.className} antialiased bg-[var(--background)]`}
+            className={`${roboto.className} antialiased bg-[var(--background-secondary)]`}
           >
             <StatusBar />
             {children}

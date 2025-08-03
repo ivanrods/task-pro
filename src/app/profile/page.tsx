@@ -150,7 +150,7 @@ const Profile = () => {
 
   return (
     <div className="h-screen bg-[var(--background-secondary)] flex justify-center items-center">
-      <div className="w-full h-screen rounded-md p-8 bg-[var(--background)] flex flex-col gap-6 justify-center items-center md:w-[90%] lg:w-[80%] xl:w-[60%] md:h-[70%]">
+      <div className="w-full h-screen rounded-md p-8 bg-[var(--background-secondary)] md:bg-[var(--background)] flex flex-col gap-6 justify-center items-center md:w-[90%] lg:w-[80%] xl:w-[60%] md:h-[70%]">
         <Avatar
           size={150}
           currentImage={currentAvatar}
