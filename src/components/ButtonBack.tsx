@@ -9,7 +9,7 @@ const ButtonBack = ({ onClick }: buttonBackProps) => {
     <button
       type="button"
       onClick={onClick}
-      className=" text-[var(--text-color)] flex items-center gap-2  cursor-pointer hover:text-[var(--primary-color)]"
+      className=" text-[var(--text-color)] flex items-center gap-2 max-w-min cursor-pointer hover:text-[var(--primary-color)]"
     >
       <ArrowLeft /> Voltar
     </button>

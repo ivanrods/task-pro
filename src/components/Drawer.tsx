@@ -9,10 +9,9 @@ import {
   Star,
   Sun,
   SunMoon,
-  X,
 } from "lucide-react";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 import SidebarItem from "./SidebarItem";
 import Image from "next/image";
@@ -25,6 +24,8 @@ const Drawer = () => {
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
   const [avatar, setAvatar] = useState(null);
+
+  const drawerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -58,6 +59,24 @@ const Drawer = () => {
     setHandleDrawer(!handleDrawer);
   }
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        handleDrawer &&
+        drawerRef.current &&
+        !drawerRef.current.contains(event.target as Node)
+      ) {
+        setHandleDrawer(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [handleDrawer]);
+
   return (
     <div className="relative z-50">
       <button
@@ -68,20 +87,17 @@ const Drawer = () => {
       </button>
 
       <section
+        ref={drawerRef}
         className={`bg-[var(--background)] text-[var(--text-color)] flex flex-col justify-between gap-4 z-10 h-full w-72 xl:w-80  fixed top-0 left-0 px-2 pb-2 max-h-screen overflow-auto transition-transform duration-300 ease-in-out transform shadow-lg ${
           handleDrawer ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 md:static`}
       >
         <div>
-          <button>
-            <X className="md:hidden ml-6 mt-8" onClick={toggleDrawer} />
-          </button>
-
           <div className="w-full px-3 py-4 flex gap-4 flex-col border-b-1 border-b-neutral-400">
             <Image
-              width={80}
-              height={80}
-              className="rounded-full cursor-pointer mx-auto"
+              width={100}
+              height={100}
+              className="rounded-full cursor-pointer mx-auto mt-4"
               src={avatar || "/profile.png"}
               alt="imagem do usuario"
               priority
