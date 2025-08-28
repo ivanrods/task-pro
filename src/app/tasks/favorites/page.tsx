@@ -30,7 +30,11 @@ const Favorites = () => {
       ))}
 
       {completedTasksFavorites.length > 0 && (
-        <ToggleCompletedButton onClick={toggle} toggleCompleted />
+        <ToggleCompletedButton
+          onClick={toggle}
+          number={completedTasksFavorites.length}
+          toggleCompleted
+        />
       )}
 
       {toggleCompleted &&

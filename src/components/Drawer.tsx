@@ -53,6 +53,7 @@ const Drawer = () => {
   function logout() {
     localStorage.removeItem("token");
     router.push("/login");
+    window.location.reload();
   }
 
   function toggleDrawer() {

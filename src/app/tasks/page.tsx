@@ -27,6 +27,7 @@ const Tarefas = () => {
       {completedTasks.length > 0 && (
         <ButtonToggleCompletedTask
           toggleCompleted={toggleCompleted}
+          number={completedTasks.length}
           onClick={toggle}
         />
       )}

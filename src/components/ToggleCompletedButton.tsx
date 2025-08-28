@@ -2,11 +2,13 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 
 type ToggleCompletedButtonProps = {
   toggleCompleted: boolean;
+  number: number;
   onClick: () => void;
 };
 
 const ToggleCompletedButton = ({
   toggleCompleted,
+  number,
   onClick,
 }: ToggleCompletedButtonProps) => {
   return (
@@ -17,7 +19,7 @@ const ToggleCompletedButton = ({
     >
       <ChevronRight className={toggleCompleted ? "hidden" : "block"} />
       <ChevronDown className={toggleCompleted ? "block" : "hidden"} />
-      Concluídos
+      <p className="font-semibold">Concluídas</p> <span>{number}</span>
     </button>
   );
 };

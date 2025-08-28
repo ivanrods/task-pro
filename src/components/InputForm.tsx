@@ -22,7 +22,7 @@ const InputForm = forwardRef<
         <textarea
           id={id}
           ref={ref as React.Ref<HTMLTextAreaElement>}
-          className="border-0 outline-0 text-[var(--text-color)]  w-full h-40 resize-none"
+          className="placeholder:text-md border-0 outline-0 text-[var(--text-color)] py-2  w-full h-40 resize-none"
           {...(rest as TextareaHTMLAttributes<HTMLTextAreaElement>)}
         />
       ) : (
@@ -30,7 +30,7 @@ const InputForm = forwardRef<
           id={id}
           type={type}
           ref={ref as React.Ref<HTMLInputElement>}
-          className={`placeholder:text-sm w-full outline-0 border-0 py-2 text-[var(--text-color)] ${
+          className={`placeholder:text-md w-full outline-0 border-0 py-2 text-[var(--text-color)] ${
             error ? "placeholder-[var(--alert-color)]" : ""
           }`}
           {...(rest as InputHTMLAttributes<HTMLInputElement>)}

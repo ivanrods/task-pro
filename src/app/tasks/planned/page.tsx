@@ -31,7 +31,11 @@ const Planned = () => {
       ))}
 
       {completedTasksPlanned.length > 0 && (
-        <ToggleCompletedButton onClick={toggle} toggleCompleted />
+        <ToggleCompletedButton
+          onClick={toggle}
+          number={completedTasksPlanned.length}
+          toggleCompleted
+        />
       )}
 
       {toggleCompleted &&

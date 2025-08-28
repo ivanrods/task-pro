@@ -27,7 +27,7 @@ const ButtonInput = ({
       data-[variant=delete]:hover:text-[var(--alert-color)] 
       data-[variant=delete]:text-[var(--primary-color)]"
     >
-      {title}
+      {!load && title}
       {load && <Loader size={20} className="animate-spin" />}
     </button>
   );

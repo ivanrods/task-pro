@@ -27,7 +27,11 @@ const Today = () => {
       ))}
 
       {completedTasksToday.length > 0 && (
-        <ToggleCompletedButton onClick={toggle} toggleCompleted />
+        <ToggleCompletedButton
+          onClick={toggle}
+          number={completedTasksToday.length}
+          toggleCompleted
+        />
       )}
 
       {toggleCompleted &&
